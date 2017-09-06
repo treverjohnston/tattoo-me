@@ -100,11 +100,11 @@ var store = new vuex.Store({
     },
 
     mutations: {
-        zoomIn(state, card){
+        zoomIn(state, card) {
             state.mobileView = card
         },
 
-        setResults(state, res){
+        setResults(state, res) {
             state.results = res
         },
 
@@ -115,15 +115,74 @@ var store = new vuex.Store({
     },
     actions: {
 
-        zoomIn({commit, dispatch}, card){
+        zoomIn({ commit, dispatch }, card) {
             commit('zoomIn', card)
         },
 
-        search({commit, dispatch}, query){
+        search({ commit, dispatch }, query) {
             query = query.toLowerCase()
             api('query')
-                .then(res=>{
+                .then(res => {
                     commit('setResults', res)
+                })
+        },
+
+        login({ commit, dispatch }, obj) {
+            auth.post("login", obj)
+                .then((res) => {
+                    // console.log(res)
+                    // res = JSON.parse(res);
+                    if (res.data.message == "Invalid Email or Password") {
+                        return console.log(res.data.message)
+                    } else {
+                        // dispatch('changeLog')
+                        router.push('home')
+                        return console.log(res.data.message)
+                    }
+
+                })
+                .catch(() => console.log('error'))
+        },
+        register({ commit, dispatch }, obj) {
+            auth.post("register", obj)
+                .then((res) => {
+                    // console.log(res)
+                    // res = JSON.parse(res);
+                    if (res.data.message) {
+                        console.log('account created')
+                        dispatch('changeLog')
+                        router.push('home')
+                    } else if (res.error) {
+                        alert("Invalid Email or password");
+                    }
+                })
+                .catch(() => console.log('error'))
+        },
+        logout({ commit, dispatch }) {
+            auth.delete('logout')
+                .then((res) => {
+                    console.log(res.data.message)
+                    // dispatch('changeLog')
+                    dispatch('getAuth')
+
+                })
+                .catch(() => console.log('error'))
+        },
+        getAuth({ commit, dispatch }) {
+            auth('authenticate')
+                .then(res => {
+                    if (!res.data.data) {
+                        return router.push('/')
+                    }
+                    commit('getAuth', res.data.data)
+                    // stateuser = res.data.data
+                    router.push('userboards')
+                    // router.replace('userboards')
+
+                })
+                .catch(err => {
+                    console.log(err)
+                    router.push('/')
                 })
         },
         //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
