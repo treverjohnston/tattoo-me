@@ -7,11 +7,11 @@ module.exports = {
     path: '/tattoos/search/tags',
     reqType: 'get',
     method(req, res, next) {
-      let action = 'Find board by BoardID'
+      let action = 'Find tattoo by tag'
       console.log(req.query)
-      Tags.find({ name: req.query.tag })
+      Tags.findOne({ name: req.query.tag })
         .then(tag => {
-          Tattoos.find({ tags: tag._id }).then(tattoos => {
+          Tattoos.find({ tags: tag.id }).then(tattoos => {
             res.send(handleResponse(action, tattoos))
           })
         }).catch(error => {
