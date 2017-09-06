@@ -1,7 +1,6 @@
 let Tattoos = require('../models/tattoo')
 let Tags = require('../models/tag')
 
-
 module.exports = {
   specificBoard: {
     path: '/tattoos/search/tags',
