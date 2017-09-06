@@ -52,13 +52,60 @@ var store = new vuex.Store({
                 tags: ['cool', 'knot'],
                 price: .99
             },
+            {
+                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
+                description: 'celtic knot tattoo',
+                likes: 7,
+                tags: ['cool', 'knot'],
+                price: .99
+            },
+            {
+                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
+                description: 'celtic knot tattoo',
+                likes: 7,
+                tags: ['cool', 'knot'],
+                price: .99
+            },
+            {
+                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
+                description: 'celtic knot tattoo',
+                likes: 7,
+                tags: ['cool', 'knot'],
+                price: .99
+            },
+            {
+                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
+                description: 'celtic knot tattoo',
+                likes: 7,
+                tags: ['cool', 'knot'],
+                price: .99
+            },
+            {
+                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
+                description: 'celtic knot tattoo',
+                likes: 7,
+                tags: ['cool', 'knot'],
+                price: .99
+            },
+            {
+                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
+                description: 'celtic knot tattoo',
+                likes: 7,
+                tags: ['cool', 'knot'],
+                price: .99
+            },
         ],
-        mobileView: []
+        mobileView: [],
+        results: []
     },
 
     mutations: {
         zoomIn(state, card){
             state.mobileView = card
+        },
+
+        setResults(state, res){
+            state.results = res
         },
 
         handleError(state, err) {
@@ -70,6 +117,14 @@ var store = new vuex.Store({
 
         zoomIn({commit, dispatch}, card){
             commit('zoomIn', card)
+        },
+
+        search({commit, dispatch}, query){
+            query = query.toLowerCase()
+            api('query')
+                .then(res=>{
+                    commit('setResults', res)
+                })
         },
         //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
 

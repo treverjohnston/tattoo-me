@@ -1,19 +1,20 @@
 <template>
   <div class="home">
     <div class="container-fluid">
+        <hr>
       <div class="row">
         <div v-for="card in activeCards">
-          <div class="col-xs-4">
             <card :cardProp="card"></card>
-          </div>
         </div>
       </div>
     </div>
+    <!-- <navbar></navbar> -->
   </div>
 </template>
 
 <script>
   import Card from './Card'
+  // import Navbar from './Navbar'
   export default {
     name: 'home',
     data() {
@@ -28,6 +29,7 @@
     },
     components: {
       Card
+      // Navbar
     }
   }
 
@@ -40,5 +42,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    padding-bottom: 100vh;
   }
 </style>
