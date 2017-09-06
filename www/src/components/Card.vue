@@ -50,6 +50,7 @@
         mounted() {
             // return this.$store.dispatch('getFavs')
         },
+       
         methods: {
             zoomIn(card) {
                 this.$store.dispatch('zoomIn', card)

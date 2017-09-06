@@ -122,9 +122,8 @@ var store = new vuex.Store({
         },
 
         setInfo(state, obj){
-            console.log('pre', obj)
             state.userInfo = obj
-            console.log('post',state.userInfo)
+            console.log(state.userInfo)
         },
 
 
@@ -194,7 +193,7 @@ var store = new vuex.Store({
                     if (!res.data.data) {
                         return router.push('/')
                     }
-                    // commit('getAuth', res.data.data)
+                    commit('setInfo', res.data.data)
                     router.push('home')
                 })
                 .catch(err => {
