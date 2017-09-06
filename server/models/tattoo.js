@@ -1,0 +1,19 @@
+var models = require('../config/constants').models
+let mongoose = require('mongoose')
+let ObjectId = mongoose.Schema.ObjectId
+
+var schema = new mongoose.Schema({
+    // name: { type: String, required: true },
+    // description: { type: String },
+    created: { type: Number, default: Date.now() },
+    artistName: { type: String, required: true },
+    url: { type: String, required: true },
+    hdUrl: { type: String, required: true },
+    tags: [{ type: ObjectId, ref: models.tag }],
+    price: { type: Number, required: true },
+    likes: { type: Number, required: true, default: 0 },
+    // Relations
+    creatorId: { type: ObjectId, ref: models.user, required: true },
+});
+
+module.exports = mongoose.model(models.tattoo.name, schema);
