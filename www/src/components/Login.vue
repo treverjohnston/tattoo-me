@@ -67,7 +67,7 @@
                         name: this.name,
                         email: this.email,
                         password: this.password,
-                        picked: this.picked
+                        accountType: this.picked
                     }
                     this.$store.dispatch('register', obj)
                     name = '';

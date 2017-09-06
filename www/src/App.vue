@@ -14,6 +14,9 @@
     components: {
       Navbar,
       Logo
+    },
+    mounted() {
+      this.$store.dispatch('getAuth')
     }
   }
 

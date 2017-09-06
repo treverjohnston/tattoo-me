@@ -96,7 +96,9 @@ var store = new vuex.Store({
             },
         ],
         mobileView: [],
-        results: []
+        results: [],
+        favorites: [],
+        userInfo: {}
     },
 
     mutations: {
@@ -105,8 +107,26 @@ var store = new vuex.Store({
         },
 
         setResults(state, res) {
-            state.results = res
+            state.activeCards = res
         },
+
+        setFavs(state, res){
+            var favorites = res.data.data
+
+            for (var i = 0; i < favorites.length; i++) {
+                var favorite = favorites[i];
+                favorite.favorite = true
+            }
+
+            state.favorites = favorites
+        },
+
+        setInfo(state, obj){
+            console.log('pre', obj)
+            state.userInfo = obj
+            console.log('post',state.userInfo)
+        },
+
 
         handleError(state, err) {
             state.error = err
@@ -135,6 +155,8 @@ var store = new vuex.Store({
                     if (res.data.message == "Invalid Email or Password") {
                         return console.log(res.data.message)
                     } else {
+                        commit('setInfo', res.data.data)
+                        // console.log(res)
                         // dispatch('changeLog')
                         router.push('home')
                         return console.log(res.data.message)
@@ -146,11 +168,9 @@ var store = new vuex.Store({
         register({ commit, dispatch }, obj) {
             auth.post("register", obj)
                 .then((res) => {
-                    // console.log(res)
-                    // res = JSON.parse(res);
                     if (res.data.message) {
+                        commit('setInfo', res.data.data)
                         console.log('account created')
-                        dispatch('changeLog')
                         router.push('home')
                     } else if (res.error) {
                         alert("Invalid Email or password");
@@ -174,11 +194,8 @@ var store = new vuex.Store({
                     if (!res.data.data) {
                         return router.push('/')
                     }
-                    commit('getAuth', res.data.data)
-                    // stateuser = res.data.data
-                    router.push('userboards')
-                    // router.replace('userboards')
-
+                    // commit('getAuth', res.data.data)
+                    router.push('home')
                 })
                 .catch(err => {
                     console.log(err)
@@ -187,16 +204,62 @@ var store = new vuex.Store({
         },
         //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
 
-        // getBoards({ commit, dispatch }) {
-        //     api('userboards')
-        //         .then(res => {
-        //             //console.log(res)
-        //             commit('setBoards', res.data.data)
-        //         })
-        //         .catch(err => {
-        //             commit('handleError', err)
-        //         })
-        // },
+        upvote({commit, dispatch}, tattoo){
+            tattoo.likes++
+            api.put(`tattoos/${tattoo._id}`, tattoo)
+            .then(res =>{
+                dispatch('getTattoos')
+            })
+            .catch(err => {
+                commit('handleError', err)
+            })
+        },
+
+        getTattoos({ commit, dispatch }) {
+            api('tattoos')
+                .then(res => {
+                    //console.log(res)
+                    commit('setResults', res.data.data)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+        getFavs({commit, dispatch}){
+            api('favorites')
+            .then(res =>{
+                // console.log('setting favorites')
+                commit('setFavs', res)
+            })
+        },
+        addFav({commit, dispatch}, tattoo){
+            var obj ={
+                favorite: tattoo._id
+            }
+            api.put('favorites', obj)
+            .then(res=>{
+                dispatch('getFavs')
+                dispatch('getTattoos')
+            })
+            .catch(err=>{
+                commit('handleError', err)
+            })
+        },
+
+        deleteFav({commit, dispatch}, tattoo){
+            var obj ={
+                favorite: tattoo._id
+            }
+            api.put(`favorites/${obj.favorite}`)
+            .then(res=>{
+                dispatch('getFavs')
+                dispatch('getTattoos')
+                return router.push('/favorites')                
+            })
+            .catch(err=>{
+                commit('handleError', err)
+            })
+        },
 
         // getSharedBoards({ commit, dispatch }) {
         //   api('sharedBoards')

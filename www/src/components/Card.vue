@@ -9,13 +9,27 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-offset-7 col-xs-2">
-                            <button class="btn btn-default glyphicon glyphicon-ok-circle"></button>
+                        <!--  -->
+                        <div v-if="!cardProp.favorite">
+                            <div class="col-xs-2">
+                                <button @click="addFav(cardProp)" class="btn btn-default glyphicon glyphicon-ok-circle"></button>
+                            </div>
                         </div>
+                        <!--  -->
+                        <div v-else>
+                            <div class="col-xs-2">
+                                <button @click="deleteFav(cardProp)" class="btn btn-default glyphicon glyphicon-remove"></button>
+                            </div>
+                        </div>
+                        <!--  -->
                         <div class="col-xs-2">
                             <router-link :to="'/mobile'">
                                 <button @click="zoomIn(cardProp)" class="btn btn-default glyphicon glyphicon-zoom-in"></button>
                             </router-link>
+                        </div>
+                        <div class="col-xs-4"><button class="btn btn-default">Buy {{cardProp.price}}</button></div>
+                        <div class="col-xs-4">
+                            <button @click="upvote(cardProp)" class="vote btn btn-default glyphicon glyphicon-thumbs-up"> {{cardProp.likes}}</button>
                         </div>
                     </div>
                 </div>
@@ -33,10 +47,23 @@
 
             }
         },
+        mounted() {
+            // return this.$store.dispatch('getFavs')
+        },
         methods: {
             zoomIn(card) {
                 this.$store.dispatch('zoomIn', card)
+            },
+            addFav(card) {
+                this.$store.dispatch('addFav', card)
+            },
+            deleteFav(card) {
+                this.$store.dispatch('deleteFav', card)
+            },
+            upvote(card){
+                this.$store.dispatch('upvote', card)
             }
+
         }
     }
 
@@ -44,6 +71,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .vote {
+        color: black;
+    }
+
     img {
         max-height: 15rem;
     }
