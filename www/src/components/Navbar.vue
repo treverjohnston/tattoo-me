@@ -18,10 +18,14 @@
                     <li><a href="#" class="glyphicon glyphicon-plus-sign"></a></li>
                 </div>
                 <div class="col-xs-2">
-                    <li><a href="#" class="glyphicon glyphicon-heart"></a></li>
+                    <router-link :to="'/favorites'">
+                        <li><a href="#" class="glyphicon glyphicon-heart"></a></li>
+                    </router-link>
                 </div>
                 <div class="col-xs-2">
+                        <router-link :to="'/profile'">                            
                     <li><a href="#" class="glyphicon glyphicon-user"></a></li>
+                        </router-link>
                 </div>
             </ul>
         </nav>

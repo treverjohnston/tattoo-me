@@ -22,10 +22,15 @@
 
       }
     },
+    methods:{
+    },
     computed: {
       activeCards() {
         return this.$store.state.activeCards
       }
+    },
+    mounted(){
+      this.$store.dispatch('getTattoos')
     },
     components: {
       Card
