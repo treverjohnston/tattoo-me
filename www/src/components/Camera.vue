@@ -5,10 +5,10 @@
             <div class="row">
                 <a-scene embedded arjs>
                     <a-assets>
-                        <img id="test-image" src="http://res.cloudinary.com/dvh7zccln/image/upload/v1504733715/14-tattoo-png-image_qd9leq.png" rotation="90 180 0">
+                        <img id="test-image" src="../assets/logo.png" rotation="90 180 0">
                     </a-assets>
                     <a-image src="#test-image" rotation="90 180 0"></a-image>
-                    <a-camera id="cam" preset='hiro'></a-camera>
+                    <a-camera visible="true" id="cam" preset='hiro'></a-camera>
                 </a-scene>
                 <!-- <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"> -->
                 <button @click.stop="turnOff()" class="btn btn-default">Off</button>
@@ -28,11 +28,11 @@
         },
         methods: {
             turnOff() {
-                console.log('attempting to turn off')
+                // console.log('attempting to turn off')
                 var camera = document.querySelector('#cam')
                 console.log('cam', cam)
-                cam.setAttribute('cam', 'active', false)
-                console.log('cam2', cam)
+                camera.setAttribute('visible', false)
+                // console.log('cam2', cam)
             }
         },
         computed: {

@@ -111,7 +111,7 @@ var store = new vuex.Store({
         },
         setSearchResults(state, res) {
             state.results = res
-            // console.log(state.results)
+            // console.log('search res',state.results)
         },
 
         setFavs(state, res){

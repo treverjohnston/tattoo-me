@@ -18,7 +18,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div v-if="results[0] = -1">
+                    <div v-if="!results.length > 0">
                         <h2>No Results</h2>
                     </div>
                 </div>
