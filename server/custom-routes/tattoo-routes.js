@@ -57,7 +57,7 @@ module.exports = {
 					req.body.creatorId = req.session.uid;
 					Tattoos.create(req.body)
 						.then(tattoo => {
-							// TODO: remove hdurl
+							tattoo.hdUrl = '';
 							res.send(handleResponse(action, tattoo))
 						})
 						.catch(error => {

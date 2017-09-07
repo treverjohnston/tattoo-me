@@ -8,10 +8,10 @@ var schema = new mongoose.Schema({
 	created: { type: Number, default: Date.now() },
 	artistName: { type: String, required: true },
 	url: { type: String, required: true },
-	hdUrl: { type: String, required: true },
+	hdUrl: { type: String, required: true, select: false },
 	tags: [{ type: ObjectId, ref: models.tag }],
 	price: { type: Number, required: true },
-	likes: [{ type: ObjectId }],
+	likes: [{ type: ObjectId, ref: models.user, select: false }],
 	numLikes: { type: Number, default: 0 },
     // Relations
     creatorId: { type: ObjectId, ref: models.user, required: true },
