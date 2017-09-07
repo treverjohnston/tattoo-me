@@ -55,7 +55,7 @@ module.exports = {
 		method(req, res, next) {
 			console.log(req)
 			let action = 'Upload tattoo';
-			let tattoo = req.body.payload[0]
+			let tattoo = req.body
 
 			// upload another degraded version
 			var url = 'http://res.cloudinary.com/tattoo-me/image/upload/e_pixelate:25/e_blur:300/' + tattoo.public_id + '.png';
@@ -63,6 +63,7 @@ module.exports = {
 				req.body.url = lowRes.secure_url;
 				req.body.hdUrl = tattoo.secure_url;
 				req.body.creatorId = req.session.uid;
+				req.body.artistName = "P-Diddy"
 				Tattoos.create(req.body)
 					.then(tattoo => {
 						tattoo.hdUrl = '';
@@ -72,6 +73,28 @@ module.exports = {
 						return next(handleResponse(action, null, error))
 					})
 			})
+		}
+	},
+	updateTag: {
+		path: '/tattoos/:tattooId/update',
+		reqType: 'put',
+		method(req, res, next) {
+			let action = 'Build array of tag ids and update tattoo';
+
+			Tattoos.findById(req.params.tattooId)
+				.then(tattoo => {
+					tattoo.tags.push(req.body.tag)
+					tattoo.save()
+						.then(() => {
+							res.send(handleResponse(action, tattoo))
+						})
+						.catch(error => {
+							return next(handleResponse(action, null, error))
+						})
+				})
+				.catch(error => {
+					next(handleResponse(action, null, error))
+				})
 		}
 	}
 }
