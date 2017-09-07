@@ -3,17 +3,18 @@
         <div class="container-fluid">
             <hr>
             <div class="row">
-                <!-- <a-scene embedded arjs> -->
-                    <!-- define the content to be displayed on top of the marker -->
-                    <!-- <a-assets>
-                        <img id="test-image" src="http://res.cloudinary.com/dvh7zccln/image/upload/v1504733715/14-tattoo-png-image_qd9leq.png" rotation="90 180 0">
-                    </a-assets>
-                    <a-image src="#test-image" rotation="90 180 0"></a-image> -->
-                    <!-- define a simple camera -->
-                    <!-- <a-camera id="cam" preset='hiro'></a-camera>
-                </a-scene> -->
-                <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
-                <button @click.stop="turnOff()" class="btn btn-default">Off</button>
+                <div class="col-xs-12">
+                    <div class="screen">
+                        <a-scene embedded arjs='trackingMethod: best;'>
+                            <a-anchor hit-testing-enabled='true'>
+                                <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
+                            </a-anchor>
+                            <a-camera-static/>
+                        </a-scene>
+                        <!-- <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"> -->
+                        <button @click="turnOff()" class="btn btn-default">Off</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -63,5 +64,9 @@
         padding-bottom: 100vh;
         overflow-x: hidden;
         overflow-y: hidden;
+    }
+
+    .screen {
+        overflow: hidden;
     }
 </style>
