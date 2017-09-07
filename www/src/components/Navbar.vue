@@ -15,7 +15,9 @@
                     </router-link>
                 </div>
                 <div class="col-xs-2">
+                        <router-link :to="'/options'">                            
                     <li><a href="#" class="glyphicon glyphicon-plus-sign"></a></li>
+                        </router-link>
                 </div>
                 <div class="col-xs-2">
                     <router-link :to="'/favorites'">

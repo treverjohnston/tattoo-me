@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
-                    <img class="logo" src="../assets/ourLogo.jpeg">
+                    <img class="logo" src="../assets/Tattoo-me.png">
                 </div>
                 <hr>
             </div>
@@ -29,5 +29,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .logo{
+        width: 30vw;
+        margin: 0 auto;
+    }
 
 </style>

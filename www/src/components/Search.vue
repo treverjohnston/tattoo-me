@@ -16,6 +16,13 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div v-if="results[0] = -1">
+                        <h2>No Results</h2>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -32,7 +39,7 @@
         },
         methods: {
             search() {
-                this.$store.dispatch('search', query)
+                this.$store.dispatch('search', this.query)
             }
         },
         computed: {

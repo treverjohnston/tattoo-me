@@ -1,4 +1,6 @@
 <template>
+    <!-- TODO -->
+    <!-- Change card padding eventually -->
     <div class="card">
         <div class="col-xs-4">
             <div class="card main">

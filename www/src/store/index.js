@@ -109,6 +109,10 @@ var store = new vuex.Store({
         setResults(state, res) {
             state.activeCards = res
         },
+        setSearchResults(state, res) {
+            state.results = res
+            // console.log(state.results)
+        },
 
         setFavs(state, res){
             var favorites = res.data.data
@@ -139,10 +143,12 @@ var store = new vuex.Store({
         },
 
         search({ commit, dispatch }, query) {
-            query = query.toLowerCase()
-            api('query')
-                .then(res => {
-                    commit('setResults', res)
+            // console.log(query)
+            var search = query.toLowerCase()
+            api(`tattoos/search/tags/?tag=${search}`)
+            .then(res => {
+                // console.log(res)
+                    commit('setSearchResults', res.data.data)
                 })
         },
 
