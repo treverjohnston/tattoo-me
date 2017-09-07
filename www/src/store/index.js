@@ -23,78 +23,7 @@ vue.use(vuex)
 var store = new vuex.Store({
     //{ name: 'This is total rubbish' }
     state: {
-        activeCards: [
-            {
-                url: '//truetattoos.files.wordpress.com/2016/08/black-ink-new-release-tribal-owl-tattoo-design.png?w=350&h=200&crop=1',
-                description: 'bats tattoo',
-                likes: 5,
-                tags: ['cool', 'bats'],
-                price: .99
-            },
-            {
-                url: '//www.freepngimg.com/download/celtic_tattoos/2-2-celtic-tattoos-transparent.png',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-            {
-                url: '//i.pinimg.com/originals/9d/9d/89/9d9d895529299800c77895daf8e8817b.jpg',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-            {
-                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-            {
-                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-            {
-                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-            {
-                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-            {
-                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-            {
-                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-            {
-                url: '//i.pinimg.com/originals/7e/11/66/7e11667c7cd25aa63a2c8a109de9f6db.png',
-                description: 'celtic knot tattoo',
-                likes: 7,
-                tags: ['cool', 'knot'],
-                price: .99
-            },
-        ],
+        activeCards: [],
         mobileView: [],
         results: [],
         favorites: [],

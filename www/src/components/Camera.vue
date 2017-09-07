@@ -3,15 +3,18 @@
         <div class="container-fluid">
             <hr>
             <div class="row">
-                <a-scene embedded arjs>
-                    <a-assets>
-                        <img id="test-image" src="../assets/logo.png" rotation="90 180 0">
-                    </a-assets>
-                    <a-image src="#test-image" rotation="90 180 0"></a-image>
-                    <a-camera visible="true" id="cam" preset='hiro'></a-camera>
-                </a-scene>
-                <!-- <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"> -->
-                <button @click.stop="turnOff()" class="btn btn-default">Off</button>
+                <div class="col-xs-12">
+                    <div class="screen">
+                        <a-scene embedded arjs='trackingMethod: best;'>
+                            <a-anchor hit-testing-enabled='true'>
+                                <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
+                            </a-anchor>
+                            <a-camera-static/>
+                        </a-scene>
+                        <!-- <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"> -->
+                        <button @click="turnOff()" class="btn btn-default">Off</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -29,9 +32,16 @@
         methods: {
             turnOff() {
                 // console.log('attempting to turn off')
-                var camera = document.querySelector('#cam')
-                console.log('cam', cam)
+                var camera = document.getElementById('cam')
+                console.log('cam', camera)
                 camera.setAttribute('visible', false)
+                console.log(
+                    camera.getAttribute('visible')
+                )
+                camera.pause()
+                // console.log(scene)
+                // scene.visible = false
+                // scene.setAttribute('visible', false)
                 // console.log('cam2', cam)
             }
         },
@@ -61,5 +71,9 @@
         padding-bottom: 100vh;
         overflow-x: hidden;
         overflow-y: hidden;
+    }
+
+    .screen {
+        overflow: hidden;
     }
 </style>
