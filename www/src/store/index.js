@@ -145,7 +145,7 @@ var store = new vuex.Store({
         search({ commit, dispatch }, query) {
             // console.log(query)
             var search = query.toLowerCase()
-            api(`tattoos/search/tags/?tag=${search}`)
+            api(`tattoos/search/tags/?tags=${search}`)
             .then(res => {
                 // console.log(res)
                     commit('setSearchResults', res.data.data)
@@ -217,9 +217,9 @@ var store = new vuex.Store({
             })
         },
 
-        upvote({commit, dispatch}, tattoo){
-            tattoo.likes++
-            api.put(`tattoos/${tattoo._id}`, tattoo)
+        upvote({commit, dispatch}, id){
+            console.log('tattoo',id)
+            api.put(`tattoos/${id}/like`)
             .then(res =>{
                 dispatch('getTattoos')
             })

@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-xs-4"><button class="btn btn-default">Buy {{cardProp.price}}</button></div>
                         <div class="col-xs-4">
-                            <button @click="upvote(cardProp)" class="vote btn btn-default glyphicon glyphicon-thumbs-up"> {{cardProp.likes}}</button>
+                            <button @click="upvote(cardProp._id)" class="vote btn btn-default glyphicon glyphicon-thumbs-up"> {{cardProp.likes}}</button>
                         </div>
                     </div>
                 </div>
@@ -63,8 +63,8 @@
             deleteFav(card) {
                 this.$store.dispatch('deleteFav', card)
             },
-            upvote(card){
-                this.$store.dispatch('upvote', card)
+            upvote(id){
+                this.$store.dispatch('upvote', id)
             }
 
         }
