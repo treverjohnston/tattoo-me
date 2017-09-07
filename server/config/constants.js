@@ -15,7 +15,8 @@ const models = {
   },
   tattoo: {
     name: 'Tattoo',
-    endpoint: 'tattoos',
+	endpoint: 'tattoos',
+	// preventDefaultApi: true,
     useCustomRoutes: true
   },
   tag: {
