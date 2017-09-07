@@ -26,11 +26,12 @@ module.exports = {
 		reqType: 'put',
 		method(req, res, next) {
 			let action = 'Like tattoo';
-			Tattoos.findById(req.params.tattooId)
+			Tattoos.findById(req.params.tattooId).select('likes').exec()
 				.then(tattoo => {
 					updateTattooLikes(tattoo, req.session.uid);
 					tattoo.save()
 						.then(() => {
+							tattoo.likes = []
 							res.send(handleResponse(action, tattoo))
 						})
 						.catch(error => {
