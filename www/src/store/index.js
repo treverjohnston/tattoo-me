@@ -7,7 +7,7 @@ var production = !window.location.host.includes('localhost');
 var baseUrl = production ? '//zdkanban.herokuapp.com/' : '//localhost:3000/';
 
 let api = axios.create({
-    baseURL: baseUrl + 'api',
+    baseURL: baseUrl + 'api/',
     timeout: 4000,
     withCredentials: true
 })
@@ -210,8 +210,9 @@ var store = new vuex.Store({
         //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
 
         sendDesign({commit, dispatch}, payload){
+            debugger
             console.log('payload', payload)
-            api.post('tattoos/upload', payload)
+            api.post('tattoo/upload', payload)
             .then(res=>{
                 console.log('uploaded i think', res)
             })
