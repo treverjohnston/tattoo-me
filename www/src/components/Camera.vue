@@ -3,14 +3,16 @@
         <div class="container-fluid">
             <hr>
             <div class="row">
-                <a-scene embedded arjs>
-                    <a-assets>
-                        <img id="test-image" src="../assets/logo.png" rotation="90 180 0">
+                <!-- <a-scene embedded arjs> -->
+                    <!-- define the content to be displayed on top of the marker -->
+                    <!-- <a-assets>
+                        <img id="test-image" src="http://res.cloudinary.com/dvh7zccln/image/upload/v1504733715/14-tattoo-png-image_qd9leq.png" rotation="90 180 0">
                     </a-assets>
-                    <a-image src="#test-image" rotation="90 180 0"></a-image>
-                    <a-camera visible="true" id="cam" preset='hiro'></a-camera>
-                </a-scene>
-                <!-- <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"> -->
+                    <a-image src="#test-image" rotation="90 180 0"></a-image> -->
+                    <!-- define a simple camera -->
+                    <!-- <a-camera id="cam" preset='hiro'></a-camera>
+                </a-scene> -->
+                <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
                 <button @click.stop="turnOff()" class="btn btn-default">Off</button>
             </div>
         </div>
@@ -28,11 +30,11 @@
         },
         methods: {
             turnOff() {
-                // console.log('attempting to turn off')
+                console.log('attempting to turn off')
                 var camera = document.querySelector('#cam')
                 console.log('cam', cam)
-                camera.setAttribute('visible', false)
-                // console.log('cam2', cam)
+                cam.setAttribute('cam', 'active', false)
+                console.log('cam2', cam)
             }
         },
         computed: {
