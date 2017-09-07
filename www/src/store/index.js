@@ -209,6 +209,14 @@ var store = new vuex.Store({
         },
         //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
 
+        sendDesign({commit, dispatch}, payload){
+            console.log('payload', payload)
+            api.post('tattoos/upload', payload)
+            .then(res=>{
+                console.log('uploaded i think', res)
+            })
+        },
+
         upvote({commit, dispatch}, tattoo){
             tattoo.likes++
             api.put(`tattoos/${tattoo._id}`, tattoo)

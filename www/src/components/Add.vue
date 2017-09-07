@@ -4,9 +4,12 @@
       <hr>
       <div class="row">
         <div class="col-xs-12">
-          <form type="submit">
-            <button  @click="openCloud" id="upload_widget_opener">Upload Image</button>
-            <input type="text" v-model="comment" placeholder="Tattoo Name">
+          <form @submit.prevent="openCloud">
+            <div class="form-group">
+              <button id="upload_widget_opener">Upload Image</button>
+              <input type="text" v-model="tags" placeholder="tags">
+              <input type="decimal" v-model="price" placeholder="$">
+            </div>
           </form>
         </div>
       </div>
@@ -20,15 +23,22 @@
     data() {
       return {
         file: '',
-        comment: ''
+        tags: 'money',
+        price: 0.99
       }
     },
     methods: {
       openCloud() {
         cloudinary.openUploadWidget({ cloud_name: 'tattoo-me', upload_preset: 'tattoopng' },
-          function (error, result) { console.log(error, result) });
-        
-        },
+          (error, result) => { 
+            console.log(error, result)
+            result[0].tags = this.tags
+            result[0].price = this.price
+            
+          this.$store.dispatch('sendDesign', result)
+          });
+
+      },
       addFile() {
         return this.$store.dispatch('addFile', this.file)
       }
@@ -51,5 +61,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     padding-bottom: 100vh;
+  }
+  .form-group{
+    font-size: 2rem;
   }
 </style>
