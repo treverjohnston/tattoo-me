@@ -13,7 +13,6 @@ let schema = new Schema({
 	accountType: { type: String, enum: ['regular', 'artist'], required: true },
 	favorites: [{ type: ObjectId, ref: models.tattoo }],
 	purchased: [{ type: ObjectId, ref: models.tattoo }],
-	
 })
 
 

@@ -63,6 +63,8 @@ function API(model, schema) {
 
 		if (!id) {
 			return next(handleResponse(action, null, { error: { message: 'Invalid request no id provided' } }))
+		} else if (id.toString() != req.session.uid.toString()) {
+			return next(handleResponse(action, null, { error: { message: 'Not authorized' } }))
 		}
 
 		schema.findOneAndUpdate({ _id: id }, req.body)
@@ -80,6 +82,8 @@ function API(model, schema) {
 
 		if (!id) {
 			return next(handleResponse(action, null, { error: { message: 'Invalid request no id provided' } }))
+		} else if (id.toString() != req.session.uid.toString()) {
+			return next(handleResponse(action, null, { error: { message: 'Not authorized' } }))
 		}
 
 		schema.findOneAndRemove({ _id: id }).then(function (data) {
