@@ -24,53 +24,53 @@ module.exports = {
 				.catch(error => {
 					return next(handleResponse(action, null, error))
 				})
-		},
-		like: {
-			path: '/tattoos/:tattooId/like',
-			reqType: 'put',
-			method(req, res, next) {
-				let action = 'Like tattoo';
-				Tattoos.findById(req.params.tattooId).select('likes').exec()
-					.then(tattoo => {
-						updateTattooLikes(tattoo, req.session.uid);
-						tattoo.save()
-							.then(() => {
-								tattoo.likes = []
-								res.send(handleResponse(action, tattoo))
-							})
-							.catch(error => {
-								return next(handleResponse(action, null, error))
-							})
+		}
+	},
+	like: {
+		path: '/tattoos/:tattooId/like',
+		reqType: 'put',
+		method(req, res, next) {
+			let action = 'Like tattoo';
+			Tattoos.findById(req.params.tattooId).select('likes').exec()
+				.then(tattoo => {
+					updateTattooLikes(tattoo, req.session.uid);
+					tattoo.save()
+						.then(() => {
+							tattoo.likes = []
+							res.send(handleResponse(action, tattoo))
+						})
+						.catch(error => {
+							return next(handleResponse(action, null, error))
+						})
 
-					})
-					.catch(error => {
-						return next(handleResponse(action, null, error))
-					})
-			}
-		},
-		upload: {
-			path: '/tattoo/upload',
-			reqType: 'post',
-			method(req, res, next) {
-				let action = 'Upload tattoo';
-
-				Cloudinary.uploader.upload(req.body.url, highRes => {
-					var url = 'http://res.cloudinary.com/tattoo-me/image/upload/e_pixelate:25/e_blur:300/' + highRes.public_id + '.png';
-					Cloudinary.uploader.upload(url, lowRes => {
-						req.body.url = lowRes.secure_url;
-						req.body.hdUrl = highRes.secure_url;
-						req.body.creatorId = req.session.uid;
-						Tattoos.create(req.body)
-							.then(tattoo => {
-								tattoo.hdUrl = '';
-								res.send(handleResponse(action, tattoo))
-							})
-							.catch(error => {
-								return next(handleResponse(action, null, error))
-							})
-					})
 				})
-			}
+				.catch(error => {
+					return next(handleResponse(action, null, error))
+				})
+		}
+	},
+	upload: {
+		path: '/tattoo/upload',
+		reqType: 'post',
+		method(req, res, next) {
+			let action = 'Upload tattoo';
+
+			Cloudinary.uploader.upload(req.body.url, highRes => {
+				var url = 'http://res.cloudinary.com/tattoo-me/image/upload/e_pixelate:25/e_blur:300/' + highRes.public_id + '.png';
+				Cloudinary.uploader.upload(url, lowRes => {
+					req.body.url = lowRes.secure_url;
+					req.body.hdUrl = highRes.secure_url;
+					req.body.creatorId = req.session.uid;
+					Tattoos.create(req.body)
+						.then(tattoo => {
+							tattoo.hdUrl = '';
+							res.send(handleResponse(action, tattoo))
+						})
+						.catch(error => {
+							return next(handleResponse(action, null, error))
+						})
+				})
+			})
 		}
 	}
 }

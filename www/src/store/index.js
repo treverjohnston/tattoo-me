@@ -213,7 +213,7 @@ var store = new vuex.Store({
 
         sendDesign({commit, dispatch}, payload){
             console.log('payload', payload)
-            api.post('tattoos/upload', payload)
+            api.post('tattoo/upload', payload)
             .then(res=>{
                 console.log('uploaded i think', res)
             })
