@@ -6,6 +6,9 @@ import Search from '@/components/Search'
 import Login from '@/components/Login'
 import Favorites from '@/components/Favorites'
 import Profile from '@/components/Profile'
+import Options from '@/components/MyOptions'
+import Camera from '@/components/Camera'
+import Add from '@/components/Add'
 
 Vue.use(Router)
 
@@ -15,6 +18,21 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/add',
+      name: 'Add',
+      component: Add
+    },
+    {
+      path: '/camera',
+      name: 'Camera',
+      component: Camera
+    },
+    {
+      path: '/options',
+      name: 'Options',
+      component: Options
     },
     {
       path: '/profile',
