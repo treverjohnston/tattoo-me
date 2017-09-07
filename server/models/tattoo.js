@@ -13,8 +13,8 @@ var schema = new mongoose.Schema({
 	price: { type: Number, required: true },
 	likes: { type: [ObjectId], ref: models.user, select: false },
 	numLikes: { type: Number, default: 0 },
-    // Relations
-    creatorId: { type: ObjectId, ref: models.user, required: true, select: false },
+	// Relations
+	creatorId: { type: ObjectId, ref: models.user, required: true, select: false },
 });
 
 module.exports = mongoose.model(models.tattoo.name, schema);

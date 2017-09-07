@@ -1,29 +1,39 @@
-// let Tags = require('../models/tag')
+let Tags = require('../models/tag')
 
-// module.exports = {
-// 	upsertTag: {
-// 		path: '/upsert/tags',
-// 		reqType: 'put',
-// 		method(req, res, next) {
-// 			let action = 'Upsert tag'
-// 			Tags.findOne({ name: req.body.name }, {}, { upsert: true, new: true, runValidators: true })
-// 				.then(tag => {
-// 					res.send(handleResponse(action, tag))
-// 				}).catch(error => {
-// 					return next(handleResponse(action, null, error))
-// 				})
-// 		}
-// 	}
-// }
+module.exports = {
+	upsertTag: {
+		path: '/tags',
+		reqType: 'post',
+		method(req, res, next) {
+			let action = 'Get tag or create if nonexistent'
+			Tags.findOne({ name: req.body.name })
+				.then(tag => {
+					if (tag) {
+						res.send(handleResponse(action, tag))
+					} else {
+						Tags.create(req.body)
+							.then(newTag => {
+								res.send(handleResponse(action, newTag))
+							})
+							.catch(error => {
+								return next(handleResponse(action, null, error))
+							})
+					}
+				}).catch(error => {
+					return next(handleResponse(action, null, error))
+				})
+		}
+	}
+}
 
 
-// function handleResponse(action, data, error) {
-// 	var response = {
-// 		action: action,
-// 		data: data
-// 	}
-// 	if (error) {
-// 		response.error = error
-// 	}
-// 	return response
-// }
+function handleResponse(action, data, error) {
+	var response = {
+		action: action,
+		data: data
+	}
+	if (error) {
+		response.error = error
+	}
+	return response
+}

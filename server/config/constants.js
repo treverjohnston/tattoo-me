@@ -21,8 +21,9 @@ const models = {
   },
   tag: {
     name: 'Tag',
-    endpoint: 'tags',
-    // useCustomRoutes: true
+	endpoint: 'tags',
+	preventDefaultApi: true,
+    useCustomRoutes: true
   }
 }
 
