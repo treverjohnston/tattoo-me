@@ -15,13 +15,15 @@ const models = {
   },
   tattoo: {
     name: 'Tattoo',
-    endpoint: 'tattoos',
+	endpoint: 'tattoos',
+	// preventDefaultApi: true,
     useCustomRoutes: true
   },
   tag: {
     name: 'Tag',
-    endpoint: 'tags',
-    // useCustomRoutes: true
+	endpoint: 'tags',
+	// preventDefaultApi: true,
+    useCustomRoutes: true
   }
 }
 
