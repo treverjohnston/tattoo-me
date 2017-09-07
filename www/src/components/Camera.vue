@@ -31,18 +31,11 @@
         },
         methods: {
             turnOff() {
-                // console.log('attempting to turn off')
-                var camera = document.getElementById('cam')
-                console.log('cam', camera)
-                camera.setAttribute('visible', false)
-                console.log(
-                    camera.getAttribute('visible')
-                )
-                camera.pause()
-                // console.log(scene)
-                // scene.visible = false
-                // scene.setAttribute('visible', false)
-                // console.log('cam2', cam)
+                console.log('attempting to turn off')
+                var camera = document.querySelector('#cam')
+                console.log('cam', cam)
+                cam.setAttribute('cam', 'active', false)
+                console.log('cam2', cam)
             }
         },
         computed: {

@@ -7,7 +7,7 @@ var production = !window.location.host.includes('localhost');
 var baseUrl = production ? '//zdkanban.herokuapp.com/' : '//localhost:3000/';
 
 let api = axios.create({
-    baseURL: baseUrl + 'api',
+    baseURL: baseUrl + 'api/',
     timeout: 4000,
     withCredentials: true
 })
@@ -40,7 +40,7 @@ var store = new vuex.Store({
         },
         setSearchResults(state, res) {
             state.results = res
-            // console.log('search res',state.results)
+
         },
 
         setFavs(state, res){
@@ -74,7 +74,9 @@ var store = new vuex.Store({
         search({ commit, dispatch }, query) {
             // console.log(query)
             var search = query.toLowerCase()
+
             api(`tattoos/search/tags/?tags=${search}`)
+
             .then(res => {
                 // console.log(res)
                     commit('setSearchResults', res.data.data)
@@ -139,16 +141,19 @@ var store = new vuex.Store({
         //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
 
         sendDesign({commit, dispatch}, payload){
+            debugger
             console.log('payload', payload)
-            api.post('tattoos/upload', payload)
+            api.post('tattoo/upload', payload)
             .then(res=>{
                 console.log('uploaded i think', res)
             })
         },
 
+
         upvote({commit, dispatch}, id){
             console.log('tattoo',id)
             api.put(`tattoos/${id}/like`)
+
             .then(res =>{
                 dispatch('getTattoos')
             })
