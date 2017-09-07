@@ -7,6 +7,13 @@ var corsOptions = require('./handlers').corsOptions
 var api = require('../models')
 var session = require('../authentication/sessions')
 var Auth = require('../authentication/auth')
+var Cloudinary = require('cloudinary');
+
+Cloudinary.config({
+	cloud_name: 'tattoo-me',
+	api_key: '721159567314847',
+	api_secret: '0Pwe5bkv0figlWHZGPW8Nw07xTI',
+})
 
 // ENABLE ROUTES IF USING app SIDE ROUTING
 // import routes from './routes'
