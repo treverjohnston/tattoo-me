@@ -52,23 +52,24 @@ module.exports = {
 			path: '/tattoo/upload',
 			reqType: 'post',
 			method(req, res, next) {
+				console.log(req)
 				let action = 'Upload tattoo';
+				let tattoo = req.body.payload[0]
 
-				Cloudinary.uploader.upload(req.body.url, highRes => {
-					var url = 'http://res.cloudinary.com/tattoo-me/image/upload/e_pixelate:25/e_blur:300/' + highRes.public_id + '.png';
-					Cloudinary.uploader.upload(url, lowRes => {
-						req.body.url = lowRes.secure_url;
-						req.body.hdUrl = highRes.secure_url;
-						req.body.creatorId = req.session.uid;
-						Tattoos.create(req.body)
-							.then(tattoo => {
-								tattoo.hdUrl = '';
-								res.send(handleResponse(action, tattoo))
-							})
-							.catch(error => {
-								return next(handleResponse(action, null, error))
-							})
-					})
+				// upload another degraded version
+				var url = 'http://res.cloudinary.com/tattoo-me/image/upload/e_pixelate:25/e_blur:300/' + tattoo.public_id + '.png';
+				Cloudinary.uploader.upload(url, lowRes => {
+					req.body.url = lowRes.secure_url;
+					req.body.hdUrl = tattoo.secure_url;
+					req.body.creatorId = req.session.uid;
+					Tattoos.create(req.body)
+						.then(tattoo => {
+							tattoo.hdUrl = '';
+							res.send(handleResponse(action, tattoo))
+						})
+						.catch(error => {
+							return next(handleResponse(action, null, error))
+						})
 				})
 			}
 		}

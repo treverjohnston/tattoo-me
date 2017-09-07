@@ -34,7 +34,7 @@
             console.log(error, result)
             result[0].tags = this.tags
             result[0].price = this.price
-            
+            console.log(result)
           this.$store.dispatch('sendDesign', result)
           });
 
