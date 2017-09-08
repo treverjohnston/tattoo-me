@@ -58,8 +58,22 @@ module.exports = {
 			let action = 'Upload tattoo';
 			let tattoo = req.body
 
+			// decide how much to degrade
+			let pixelateValue = Math.floor(.00001003 * (req.body.width * req.body.height)) 
+			let blurValue = Math.floor(.0001203 * (req.body.width * req.body.height))
+
+			if(pixelateValue < 3) {
+				pixelateValue = 3
+			}
+			if(blurValue < 50) {
+				blurValue = 50
+			}
+
+			console.log('pixelate: ' + pixelateValue + '\nblur: ' + blurValue)
+			
 			// upload another degraded version
-			var url = 'http://res.cloudinary.com/tattoo-me/image/upload/e_pixelate:25/e_blur:300/' + tattoo.public_id + '.png';
+			var url = 'http://res.cloudinary.com/tattoo-me/image/upload/e_pixelate:' + pixelateValue + '/e_blur:' + blurValue + '/' + tattoo.public_id + '.png';
+			
 			Cloudinary.uploader.upload(url, lowRes => {
 				req.body.url = lowRes.secure_url;
 				req.body.hdUrl = tattoo.secure_url;
