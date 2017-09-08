@@ -82,7 +82,12 @@
         },
         components: {
             Artistgallery
+        },
+        mounted(){
+            return this.$store.dispatch('getArtistGallery')
+
         }
+
     }
 
 </script>

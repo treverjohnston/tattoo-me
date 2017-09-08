@@ -14,7 +14,7 @@
                         <!--  -->
                         <div v-if="!cardProp.favorite">
                             <div class="col-xs-2">
-                                <button @click="addFav(cardProp)" class="btn btn-default glyphicon glyphicon-ok-circle"></button>
+                                <button @click="addFav(cardProp)" class="btn btn-default glyphicon glyphicon-heart"></button>
                             </div>
                         </div>
                         <!--  -->
