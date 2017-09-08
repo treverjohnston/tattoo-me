@@ -30,15 +30,18 @@
                     <div class="col-xs-4">
                         <img :src="info.url" alt="profile picture">
                     </div>
-                    <div class="col-xs-8">
+                    <div class="col-xs-6">
                         <div class="row">
                             <div class="col-xs-12">
                                 {{info.name}}
                             </div>
-                            <div class="col-xs-12"> 
+                            <div class="col-xs-12">
                                 {{info.email}}
                             </div>
                         </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <button @click="logout()" class="btn btn-default">Logout</button>
                     </div>
                 </div>
                 <hr>
@@ -77,7 +80,7 @@
                 return this.$store.state.gallery
             }
         },
-        components:{
+        components: {
             Artistgallery
         }
     }
