@@ -1,5 +1,6 @@
 let Tattoos = require('../models/tattoo')
 let User = require('../models/user')
+let mongoose = require('mongoose')
 
 module.exports = {
 	favorites: {
@@ -51,6 +52,40 @@ module.exports = {
 				})
 				.catch(error => {
 					console.log("something went wrong")
+					return next(handleResponse(action, null, error))
+				})
+		}
+	},
+	getHdUrl: {
+		//This route is to get the HdUrl for a purchased image 
+		path: '/tattoos/:tattooId/fullres',
+		reqType: 'get',
+		method(req, res, next) {
+			let action = "get the HdUrl for a purchased image"
+			let tattooId = req.params.tattooId
+			// find the user
+			User.findById(req.session.uid)
+				.then(user => {
+					let purchased = false
+					user.purchased.forEach(id => {
+						if(!purchased) {
+							if (id.toString() == tattooId) {
+								purchased = true
+								Tattoos.find({ _id: tattooId }).select('hdUrl').exec()
+									.then(tattoo => {
+										res.send(handleResponse(action, tattoo))
+									})
+									.catch(error => {
+										return next(handleResponse(action, null, error))
+									})
+							}
+						}
+					})
+					if (!purchased) {
+						res.send(handleResponse(action, { message: "User has not purchased this item" }))
+					}
+				})
+				.catch(error => {
 					return next(handleResponse(action, null, error))
 				})
 		}

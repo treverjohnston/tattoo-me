@@ -125,7 +125,6 @@ module.exports = {
 		}
 
 	},
-
 }
 
 function updateTattooLikes(tattoo, userId) {
