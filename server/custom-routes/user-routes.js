@@ -25,12 +25,37 @@ module.exports = {
 			// query the tattoos collection to find all tattoos with a creatorId that matches the uid on the session
 			Tattoos.find({ creatorId: req.session.uid }).then(tattoos => {
 				res.send(handleResponse(action, tattoos))
-				})
+			})
 				.catch(error => {
 					return next(handleResponse(action, null, error))
 				})
 		}
 	},
+	getUserPurchases: {
+		path: '/purchased',
+		reqType: 'get',
+		method(req, res, next) {
+			let action = 'Get designs/tattoos that the user has purchased'
+			// find the user object by the id on the request session
+			User.findById(req.session.uid)
+				.then(user => {  // then look in the purchased array on that user
+					// for each id in the array, look up the tattoo
+					Tattoos.find({ _id: { $in: user.purchased } })
+						.then(tattoos => {
+							res.send(handleResponse(action, tattoos))
+						})
+						.catch(error => {
+							return next(handleResponse(action, null, error))
+						})
+					// send the purchasedTats array to the user
+				})
+				.catch(error => {
+					console.log("something went wrong")
+					return next(handleResponse(action, null, error))
+				})
+		}
+	},
+
 	addFavorite: {
 		path: '/favorites',
 		reqType: 'put',

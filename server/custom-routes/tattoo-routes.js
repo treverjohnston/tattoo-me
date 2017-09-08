@@ -1,6 +1,7 @@
 let Tattoos = require('../models/tattoo')
 let Tags = require('../models/tag')
 let Cloudinary = require('cloudinary');
+let User = require('../models/user')
 
 module.exports = {
 	searchByTag: {
@@ -96,7 +97,35 @@ module.exports = {
 					next(handleResponse(action, null, error))
 				})
 		}
-	}
+	},
+	purchaseTattoo: {
+		/* 
+		front end will submit the id to purchase over the URL. Then it will wait for the server response. If the
+ 		server responds with object that has a 'success' key, charge the user. if server responds with
+ 		an object with an 'alert' key, don't charge the user.
+		*/
+		path: '/tattoos/:tattooId/purchase',
+		reqType: 'put',
+		method(req, res, next) {
+			let action = 'Add tattoo to the user purchased array'
+			let tattooId = req.params.tattooId
+			User.findById(req.session.uid)
+				.then(user => {
+					if (!user.purchased.includes(tattooId)) {
+						user.purchased.push(tattooId)
+						user.save().then(() => {
+							res.send(handleResponse(action, { success: 'successfully purchased tattoo' }))
+						})
+					} else {
+						res.send(handleResponse(action, { alert: 'user already owns this item' }))
+					}
+				}).catch(error => {
+					return next(handleResponse(action, null, error))
+				})
+		}
+
+	},
+
 }
 
 function updateTattooLikes(tattoo, userId) {
