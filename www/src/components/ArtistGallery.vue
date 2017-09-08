@@ -9,8 +9,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            
-    
                             <div class="col-xs-2">
                                 <router-link :to="'/profile'">
                                     <button @click="zoomIn(cardProp)" class="btn btn-default glyphicon glyphicon-zoom-in"></button>
@@ -36,7 +34,6 @@
                 }
             },
             mounted() {
-                // return this.$store.dispatch('getFavs')
             },
            
             methods: {
