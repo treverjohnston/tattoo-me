@@ -97,4 +97,7 @@
     button {
         margin-top: 2rem;
     }
+    .profile{
+        padding-bottom: 10rem;
+    }
 </style>

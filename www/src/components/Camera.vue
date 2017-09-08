@@ -1,6 +1,6 @@
 <template>
     <div id="vue-frame" class="camera">
-        <vue-frame text="VueJS" url="../static/camera.html" frame="myframe" type="button" class="form-control"></vue-frame>
+        <vue-frame ref="vFrame" text="VueJS" url="../static/camera.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
         <br/>
         <iframe id="myframe"></iframe>
     </div>
@@ -22,11 +22,16 @@
                 console.log('cam', cam)
                 cam.setAttribute('visible', false)
                 console.log('cam2', cam)
+            },
+            test() {
+                debugger
+                console.log('testing the interception')
             }
         },
         computed: {
         },
         mounted() {
+            this.$refs.vFrame.loadIframe()
         },
         components: {
             VueFrame
@@ -44,5 +49,8 @@
     iframe{
         height: 90vh;
         width: 100vw;
+    }
+    .vFrame{
+        display: none;
     }
 </style>
