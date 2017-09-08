@@ -69,14 +69,16 @@
             // Navbar
         }
     }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .header{
+    .header {
         padding-bottom: 2rem;
         color: white;
     }
+
     .options {
         background-color: gray;
         background-position: center;
@@ -100,7 +102,8 @@
     .icon {
         font-size: 5rem;
     }
-    a{
+
+    a {
         color: black;
     }
 </style>
