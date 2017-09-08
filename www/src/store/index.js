@@ -144,7 +144,7 @@ var store = new vuex.Store({
 
 		search({ commit, dispatch }, query) {
 			// console.log(query)
-			var search = query.toLowerCase()
+			var search = query.toLowerCase().replace(/\s+/g, ',');
 
 			api(`tattoos/search/tags/?tags=${search}`)
 
@@ -212,9 +212,8 @@ var store = new vuex.Store({
 		//when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
 
 		sendDesign({ commit, dispatch }, payload) {
-			let tags = payload[0].tags.split(' ')
+			let tags = payload[0].tags.split(/\s+/) // splits on 1 or more white spaces.
 			payload[0].tags = [];
-			let tagIds = [];
 			api.post('tattoo/upload', payload[0])
 				.then(res => {
 					console.log('uploaded i think', res)
