@@ -17,6 +17,20 @@ module.exports = {
 				})
 		}
 	},
+	getUserDesigns: {
+		path: '/my-designs',
+		reqType: 'get',
+		method(req, res, next) {
+			let action = 'Get designs/tattoos that the user (artist) has uploaded'
+			// query the tattoos collection to find all tattoos with a creatorId that matches the uid on the session
+			Tattoos.find({ creatorId: req.session.uid }).then(tattoos => {
+				res.send(handleResponse(action, tattoos))
+				})
+				.catch(error => {
+					return next(handleResponse(action, null, error))
+				})
+		}
+	},
 	addFavorite: {
 		path: '/favorites',
 		reqType: 'put',
@@ -49,6 +63,7 @@ module.exports = {
 				})
 		}
 	}
+
 }
 
 
