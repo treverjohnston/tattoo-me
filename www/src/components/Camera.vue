@@ -1,27 +1,12 @@
 <template>
-    <div class="camera">
-        <div class="container-fluid">
-            <hr>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div v-if="on">
-                        <div class="screen">
-                            <a-scene embedded arjs>
-                                <a-assets>
-                                    <img id="test-image" src="http://res.cloudinary.com/dvh7zccln/image/upload/v1504733715/14-tattoo-png-image_qd9leq.png" rotation="90 180 0">
-                                </a-assets>
-                                <a-image src="#test-image" rotation="90 180 0"></a-image>
-                                <a-marker-camera id="cam" preset='hiro'></a-marker-camera>
-                            </a-scene>
-                        </div>
-                        <button @click="turnOff()" class="btn btn-default">Off</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div id="vue-frame" class="camera">
+        <vue-frame text="VueJS" url="../static/camera.html" frame="myframe" type="button" class="form-control"></vue-frame>
+        <br/>
+        <iframe id="myframe"></iframe>
     </div>
 </template>
 <script>
+    import VueFrame from 'vue-frame'
     export default {
         name: 'camera',
         data() {
@@ -44,6 +29,7 @@
         mounted() {
         },
         components: {
+            VueFrame
         }
     }
 
@@ -54,5 +40,9 @@
     .camera {
         overflow: hidden;
         margin: 0px;
+    }
+    iframe{
+        height: 90vh;
+        width: 100vw;
     }
 </style>
