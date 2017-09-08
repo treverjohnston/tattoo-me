@@ -10,7 +10,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-2">
-                                <router-link :to="'/profile'">
+                                <router-link :to="'/artistmobile'">
                                     <button @click="zoomIn(cardProp)" class="btn btn-default glyphicon glyphicon-zoom-in"></button>
                                 </router-link>
                             </div>
@@ -38,6 +38,7 @@
            
             methods: {
                 zoomIn(card) {
+                    console.log('trying', card)
                     this.$store.dispatch('zoomIn', card)
                 },
                 addFav(card) {

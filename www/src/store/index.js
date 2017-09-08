@@ -61,7 +61,7 @@ var store = new vuex.Store({
 		},
 
 		setGallery(state, obj){
-			console.log(obj)
+			// console.log(obj)
 			state.gallery = obj
 		},
 
