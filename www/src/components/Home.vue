@@ -47,6 +47,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    padding-bottom: 100vh;
+    padding-bottom: 10vh;
   }
 </style>

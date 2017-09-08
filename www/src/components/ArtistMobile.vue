@@ -7,7 +7,6 @@
                     <router-link :to="'/profile'">
                         <button class="btn btn default glyphicon glyphicon-menu-left"></button>
                     </router-link>
-                    <button class="btn btn-default glyphicon glyphicon-usd"></button>
                 </div>
             </div>
             <hr>
