@@ -180,11 +180,11 @@ var store = new vuex.Store({
 				})
 		},
 
-		upvote({ commit, dispatch }, id) {
-			console.log('tattoo', id)
+		like({ commit, dispatch }, id) {
+			// console.log('tattoo', id)
 			api.put(`tattoos/${id}/like`)
-
 				.then(res => {
+					console.log(res)
 					dispatch('getTattoos')
 				})
 				.catch(err => {

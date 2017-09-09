@@ -23,7 +23,7 @@
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
                             <button class="btn">Buy</button>
-                            <button @click="upvote(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
+                            <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                         </div>
                     </div>
                     <div class="col-xs-10">
@@ -58,8 +58,8 @@
             deleteFav(card) {
                 this.$store.dispatch('deleteFav', card)
             },
-            upvote(id) {
-                this.$store.dispatch('upvote', id)
+            like(id) {
+                this.$store.dispatch('like', id)
             },
             show() {
                 this.showButtons = !this.showButtons
