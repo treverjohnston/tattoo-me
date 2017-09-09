@@ -28,7 +28,8 @@ var store = new vuex.Store({
 		results: [],
 		favorites: [],
 		userInfo: {},
-		gallery: []
+		gallery: [],
+		queue: []
 	},
 
 	mutations: {
@@ -63,12 +64,24 @@ var store = new vuex.Store({
 			state.gallery = obj
 		},
 
+		addToQueue(state, obj){
+			console.log('pre', state.queue)
+			state.queue.push(obj.url)
+			console.log('post', state.queue)
+		},
+
 		handleError(state, err) {
 			state.error = err
 		}
 
 	},
 	actions: {
+		addToQueue({commit, dispatch}, obj){
+			commit('addToQueue', obj)
+		},
+		removeFromQueue({commit, dispatch}, obj){
+
+		},
 		removeTattoo({ commit, dispatch }, id) {
 			api.delete('tattoos/' + id)
 				.then(res => {

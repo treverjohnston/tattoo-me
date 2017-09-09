@@ -12,6 +12,7 @@
                         <div v-if="showButtons">
                             <button @click="show" class="btn show glyphicon glyphicon-chevron-up"></button>
                             <!-- if favorite -->
+                            <button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
                             <div v-if="!cardProp.favorite">
                                 <button @click="addFav(cardProp)" class="btn glyphicon glyphicon-heart"></button>
                             </div>
@@ -63,6 +64,9 @@
             },
             show() {
                 this.showButtons = !this.showButtons
+            },
+            addToQueue(tat){
+                this.$store.dispatch('addToQueue', tat)
             }
 
         }
