@@ -21,7 +21,6 @@ let auth = axios.create({
 vue.use(vuex)
 
 var store = new vuex.Store({
-	//{ name: 'This is total rubbish' }
 	state: {
 		activeCards: [],
 		mobileView: [],
@@ -85,7 +84,7 @@ var store = new vuex.Store({
 
 		search({ commit, dispatch }, query) {
 			// console.log(query)
-			var search = query.toLowerCase().replace(/\s+/g, ',');
+			var search = query.toLowerCase().trim().replace(/\s+/g, ',');
 
 			api(`tattoos/search/tags/?tags=${search}`)
 
@@ -154,7 +153,7 @@ var store = new vuex.Store({
 		//when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
 
 		sendDesign({ commit, dispatch }, payload) {
-			let tags = payload[0].tags.split(/\s+/) // splits on 1 or more white spaces.
+			let tags = payload[0].tags.match(/\S+/) || [] // grabs words from string, or returns empty array if only whitespace
 			payload[0].tags = [];
 			api.post('tattoo/upload', payload[0])
 				.then(res => {
