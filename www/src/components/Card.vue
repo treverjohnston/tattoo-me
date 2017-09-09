@@ -86,5 +86,6 @@
         /* border: 1px solid black; */
         height: 15vh;
         width: 20vw;
+        
     }
 </style>

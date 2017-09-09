@@ -21,7 +21,7 @@
                 </div>
                 <div v-if="!card.favorite">
                     <div class="col-xs-offset-7 col-xs-2">
-                        <button @click="addFav(card)" class="btn btn-default glyphicon glyphicon-ok-circle"></button>
+                        <button @click="addFav(card)" class="btn btn-default glyphicon glyphicon-heart"></button>
                     </div>
                 </div>
                 <div v-else>
@@ -76,11 +76,11 @@
         height: 40vh
     }
 
-    .mobile {
+    /* .mobile {
         background-color: gray;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        padding-bottom: 30vh
-    }
+        padding-bottom: 80%
+    } */
 </style>

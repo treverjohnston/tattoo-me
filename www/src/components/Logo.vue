@@ -32,6 +32,10 @@
     .logo{
         width: 30vw;
         margin: 0 auto;
+        /* background-color: white;s */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
 </style>
