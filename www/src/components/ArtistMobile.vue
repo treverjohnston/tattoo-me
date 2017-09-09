@@ -1,18 +1,20 @@
 <template>
-    <div class="mobile">
+    <div class="artistmobile">
         <div class="container-fluid">
             <hr>
             <div class="row">
                 <div class="col-xs-2">
                     <router-link :to="'/profile'">
-                        <button class="btn btn default glyphicon glyphicon-menu-left"></button>
+                        <button class="btn glyphicon glyphicon-menu-left"></button>
                     </router-link>
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-xs-12">
-                    <img :src="card.url" alt="image">
+                    <div class="picture">
+                        <img :src="card.url" alt="image">
+                    </div>
                 </div>
             </div>
         </div>
@@ -21,7 +23,7 @@
 
 <script>
     export default {
-        name: 'mobile',
+        name: 'artistmobile',
         data() {
             return {
 
@@ -47,19 +49,17 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .logo {
-        float: right;
+    .picture{
+        margin-top: 10vh;
     }
-
+    a{
+        color: black;
+    }
+    .btn{
+        background-color: transparent;
+        font-size: 3rem;
+    }
     img {
         height: 40vh
-    }
-
-    .mobile {
-        background-color: gray;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        padding-bottom: 100vh
     }
 </style>
