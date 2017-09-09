@@ -50,11 +50,15 @@
                 </div>
             </div>
         </div>
+        <div v-else>
+            <camera></camera>
+        </div>
     </div>
 </template>
 
 <script>
     import Card from './Card'
+    import Camera from './Camera'
     // import Navbar from './Navbar'
     export default {
         name: 'options',
@@ -80,8 +84,8 @@
             this.$store.dispatch('getTattoos')
         },
         components: {
-            Card
-            // Navbar
+            Card,
+            Camera
         }
     }
 
