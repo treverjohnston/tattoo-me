@@ -18,9 +18,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-
                     <div v-if="!results.length > 0">
-
                         <h2>No Results</h2>
                     </div>
                 </div>
@@ -74,7 +72,6 @@
         border-radius: 4px;
         font-size: 16px;
         background-color: white;
-        /* background-image: url(‘searchicon.png’); */
         background-position: 10px 10px;
         background-repeat: no-repeat;
         padding: 12px 20px 12px 40px;

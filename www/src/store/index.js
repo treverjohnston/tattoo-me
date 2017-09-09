@@ -29,12 +29,16 @@ var store = new vuex.Store({
 		favorites: [],
 		userInfo: {},
 		gallery: [],
-		queue: []
+		queue: [],
+		confirm: []
 	},
 
 	mutations: {
 		zoomIn(state, card) {
 			state.mobileView = card
+		},
+		confirm(state, card) {
+			state.confirm = card
 		},
 
 		setResults(state, res) {
@@ -102,6 +106,9 @@ var store = new vuex.Store({
 		},
 		zoomIn({ commit, dispatch }, card) {
 			commit('zoomIn', card)
+		},
+		confirm({ commit, dispatch }, card) {
+			commit('confirm', card)
 		},
 
 		search({ commit, dispatch }, query) {

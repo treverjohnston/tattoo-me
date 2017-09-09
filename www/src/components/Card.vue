@@ -23,7 +23,9 @@
                             <router-link :to="'/mobile'">
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
-                            <button class="btn">${{cardProp.price}}</button>
+                            <router-link :to="'/purchase'">
+                                <button @click="confirm(cardProp)" class="btn">${{cardProp.price}}</button>
+                            </router-link>
                             <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                         </div>
                     </div>
@@ -46,12 +48,14 @@
             }
         },
         mounted() {
-            // return this.$store.dispatch('getFavs')
         },
 
         methods: {
             zoomIn(card) {
                 this.$store.dispatch('zoomIn', card)
+            },
+            confirm(card) {
+                this.$store.dispatch('confirm', card)
             },
             addFav(card) {
                 this.$store.dispatch('addFav', card)
@@ -65,7 +69,7 @@
             show() {
                 this.showButtons = !this.showButtons
             },
-            addToQueue(tat){
+            addToQueue(tat) {
                 this.$store.dispatch('addToQueue', tat)
             }
 
@@ -92,6 +96,7 @@
         padding-top: 5rem;
         margin-bottom: 5rem;
     }
+
     .btn {
         background-color: transparent;
         font-size: 2rem;

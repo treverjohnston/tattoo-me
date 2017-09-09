@@ -75,10 +75,6 @@
     a{
         color: black;
     }
-    .logo {
-        float: right;
-    }
-
     img {
         height: 40vh
     }
