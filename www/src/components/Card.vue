@@ -81,7 +81,7 @@
     }
 
     img {
-        max-height: 15rem;
+        height: 15rem;
     }
 
     .picture {

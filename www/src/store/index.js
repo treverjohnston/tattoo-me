@@ -60,7 +60,6 @@ var store = new vuex.Store({
 		},
 
 		setGallery(state, obj){
-			console.log(obj)
 			state.gallery = obj
 		},
 
@@ -184,7 +183,6 @@ var store = new vuex.Store({
 			// console.log('tattoo', id)
 			api.put(`tattoos/${id}/like`)
 				.then(res => {
-					console.log(res)
 					dispatch('getTattoos')
 				})
 				.catch(err => {
