@@ -10,7 +10,7 @@
                     <router-link :to="'search'">
                         <div class="panel top">
                             <h2>Select Image From Gallery</h2>
-                            <h2 class="icon glyphicon glyphicon-search"></h2>
+                            <h2 class="icon glyphicon glyphicon-th"></h2>
                         </div>
                     </router-link>
                 </div>
@@ -22,22 +22,29 @@
                         </div>
                     </router-link>
                 </div>
-                <!-- Links to phone camera/photos for upload -->
-                <div class="col-xs-6">
-                    <router-link :to="'camera'">
-                        <div class="panel bot">
-                            <h2>Use Your Camera</h2>
-                            <h2 class="icon glyphicon glyphicon-camera"></h2>
-                        </div>
-                    </router-link>
+                <div v-if="info.accountType == 'artist'">
+                    <!-- Links to phone camera/photos for upload -->
+                    <div class="col-xs-6">
+                        <router-link :to="'camera'">
+                            <div class="panel bot">
+                                <h2>Use Your Camera</h2>
+                                <h2 class="icon glyphicon glyphicon-camera"></h2>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="col-xs-6">
+                        <router-link :to="'add'">
+                            <div class="panel bot">
+                                <h2>Upload Your Design</h2>
+                                <h2 class="icon glyphicon glyphicon-picture"></h2>
+                            </div>
+                        </router-link>
+                    </div>
                 </div>
-                <div class="col-xs-6">
-                    <router-link :to="'add'">
-                        <div class="panel bot">
-                            <h2>Upload Your Design</h2>
-                            <h2 class="icon glyphicon glyphicon-picture"></h2>
-                        </div>
-                    </router-link>
+                <div v-else>
+                    <div class="col-xs-12">
+                        
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,6 +64,9 @@
         methods: {
         },
         computed: {
+            info() {
+                return this.$store.state.userInfo
+            },
             activeCards() {
                 return this.$store.state.activeCards
             }
@@ -88,7 +98,7 @@
     }
 
     .top {
-        padding: 5rem 0 20rem 0;
+        padding: 10rem 0 10rem 0;
     }
 
     .bot {
