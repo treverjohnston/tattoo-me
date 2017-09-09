@@ -3,36 +3,40 @@
     <!-- Change card padding eventually -->
     <div class="card">
         <div class="col-xs-4">
-            <div class="card main">
-                <div class="card-block">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <img :src="cardProp.url" alt="image">
+            <div class="picture">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <div v-if="!showButtons">
+                            <button @click="show" class="btn show glyphicon glyphicon-chevron-down"></button>
+                        </div>
+                        <div v-if="showButtons">
+                            <!--  -->
+                            <button @click="show" class="btn show glyphicon glyphicon-chevron-up"></button>
+                            <div v-if="!cardProp.favorite">
+                                <div class="col-xs-12">
+                                    <button @click="addFav(cardProp)" class="btn glyphicon glyphicon-heart"></button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div v-else>
+                                <div class="col-xs-12">
+                                    <button @click="deleteFav(cardProp)" class="btn glyphicon glyphicon-remove"></button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="col-xs-12">
+                                <router-link :to="'/mobile'">
+                                    <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
+                                </router-link>
+                            </div>
+                            <div class="col-xs-12"><button class="btn">Buy</button></div>
+                            <div class="col-xs-12">
+                                <button @click="upvote(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.likes}}</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <!--  -->
-                        <div v-if="!cardProp.favorite">
-                            <div class="col-xs-2">
-                                <button @click="addFav(cardProp)" class="btn btn-default glyphicon glyphicon-heart"></button>
-                            </div>
-                        </div>
-                        <!--  -->
-                        <div v-else>
-                            <div class="col-xs-2">
-                                <button @click="deleteFav(cardProp)" class="btn btn-default glyphicon glyphicon-remove"></button>
-                            </div>
-                        </div>
-                        <!--  -->
-                        <div class="col-xs-2">
-                            <router-link :to="'/mobile'">
-                                <button @click="zoomIn(cardProp)" class="btn btn-default glyphicon glyphicon-zoom-in"></button>
-                            </router-link>
-                        </div>
-                        <div class="col-xs-4"><button class="btn btn-default">Buy {{cardProp.price}}</button></div>
-                        <div class="col-xs-4">
-                            <button @click="upvote(cardProp._id)" class="vote btn btn-default glyphicon glyphicon-thumbs-up"> {{cardProp.likes}}</button>
-                        </div>
+                    <div class="col-xs-10">
+                        <img :src="cardProp.url" alt="image">
                     </div>
                 </div>
             </div>
@@ -46,13 +50,13 @@
         props: ["cardProp"],
         data() {
             return {
-
+                showButtons: false
             }
         },
         mounted() {
             // return this.$store.dispatch('getFavs')
         },
-       
+
         methods: {
             zoomIn(card) {
                 this.$store.dispatch('zoomIn', card)
@@ -63,8 +67,11 @@
             deleteFav(card) {
                 this.$store.dispatch('deleteFav', card)
             },
-            upvote(id){
+            upvote(id) {
                 this.$store.dispatch('upvote', id)
+            },
+            show() {
+                this.showButtons = !this.showButtons
             }
 
         }
@@ -74,6 +81,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    a{
+        color: black;
+    }
     .vote {
         color: black;
     }
@@ -82,10 +92,15 @@
         max-height: 15rem;
     }
 
-    .card-block {
-        /* border: 1px solid black; */
-        height: 15vh;
-        width: 20vw;
-        
+    .picture {
+        padding-top: 5rem;
+        margin-bottom: 5rem;
+    }
+    .show{
+        font-size: 3rem;
+    }
+    .btn {
+        background-color: transparent;
+        font-size: 2rem;
     }
 </style>
