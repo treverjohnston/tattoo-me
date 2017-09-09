@@ -22,7 +22,7 @@
                             <router-link :to="'/mobile'">
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
-                            <button class="btn">Buy</button>
+                            <button class="btn">{{cardProp.price}}</button>
                             <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                         </div>
                     </div>

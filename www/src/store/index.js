@@ -59,7 +59,7 @@ var store = new vuex.Store({
 			state.userInfo = obj
 		},
 
-		setGallery(state, obj){
+		setGallery(state, obj) {
 			state.gallery = obj
 		},
 
@@ -69,6 +69,16 @@ var store = new vuex.Store({
 
 	},
 	actions: {
+		removeTattoo({ commit, dispatch }, id) {
+			api.delete('tattoos/' + id)
+				.then(res => {
+					dispatch('getArtistGallery')
+					dispatch('getTattoos')
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
+		},
 		getArtistGallery({ commit, dispatch }) {
 			// console.log('right place')
 			api('my-designs')

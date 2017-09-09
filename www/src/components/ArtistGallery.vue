@@ -13,6 +13,7 @@
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
                             <button @click="upvote(cardProp)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
+                            <button @click="removeTattoo(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
                         </div>
                     </div>
                     <div class="col-xs-10">
@@ -38,7 +39,6 @@
 
         methods: {
             zoomIn(card) {
-                // console.log('trying', card)
                 this.$store.dispatch('zoomIn', card)
             },
             addFav(card) {
@@ -52,6 +52,9 @@
             },
             show() {
                 this.showButtons = !this.showButtons
+            },
+            removeTattoo(id){
+                this.$store.dispatch('removeTattoo', id)
             }
         }
     }
