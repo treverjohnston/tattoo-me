@@ -23,7 +23,7 @@
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
                             <button class="btn">Buy</button>
-                            <button @click="upvote(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.likes}}</button>
+                            <button @click="upvote(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                         </div>
                     </div>
                     <div class="col-xs-10">
@@ -88,11 +88,6 @@
         padding-top: 5rem;
         margin-bottom: 5rem;
     }
-
-    .show {
-        font-size: 3rem;
-    }
-
     .btn {
         background-color: transparent;
         font-size: 2rem;

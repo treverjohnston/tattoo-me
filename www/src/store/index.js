@@ -57,11 +57,10 @@ var store = new vuex.Store({
 
 		setInfo(state, obj) {
 			state.userInfo = obj
-			console.log(state.userInfo)
 		},
 
 		setGallery(state, obj){
-			// console.log(obj)
+			console.log(obj)
 			state.gallery = obj
 		},
 
