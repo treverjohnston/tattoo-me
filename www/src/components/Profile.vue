@@ -1,6 +1,7 @@
 <template>
     <div class="profile">
         <div v-if="info.accountType == 'regular'">
+            <hr>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
