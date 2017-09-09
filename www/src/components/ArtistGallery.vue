@@ -12,7 +12,7 @@
                             <router-link :to="'/artistmobile'">
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
-                            <button @click="upvote(cardProp)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
+                            <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                             <button @click="removeTattoo(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
             deleteFav(card) {
                 this.$store.dispatch('deleteFav', card)
             },
-            upvote(card) {
-                this.$store.dispatch('upvote', card)
+            like(id) {
+                this.$store.dispatch('like', id)
             },
             show() {
                 this.showButtons = !this.showButtons

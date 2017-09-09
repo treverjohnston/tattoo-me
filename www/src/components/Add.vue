@@ -23,18 +23,16 @@
     data() {
       return {
         file: '',
-        tags: 'money',
-        price: 0.99
+        tags: '',
+        price: 0
       }
     },
     methods: {
       openCloud() {
         cloudinary.openUploadWidget({ cloud_name: 'tattoo-me', upload_preset: 'tattoopng' },
           (error, result) => { 
-            // console.log(error, result)
             result[0].tags = this.tags
             result[0].price = this.price
-            // console.log(result)
           this.$store.dispatch('sendDesign', result)
           });
 

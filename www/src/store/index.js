@@ -194,6 +194,7 @@ var store = new vuex.Store({
 			api.put(`tattoos/${id}/like`)
 				.then(res => {
 					dispatch('getTattoos')
+					dispatch('getArtistGallery')
 				})
 				.catch(err => {
 					commit('handleError', err)
