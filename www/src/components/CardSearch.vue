@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <div class="picture">
                 <div class="row">
                     <div class="col-xs-2">
@@ -21,9 +21,9 @@
                             <router-link :to="'/mobile'">
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
-                            <router-link :to="'/purchasefav'">
+                            <!-- <router-link :to="'/purchasefav'">
                                 <button @click="confirm(cardProp)" class="btn">${{cardProp.price}}</button>
-                            </router-link>
+                            </router-link> -->
                             <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                         </div>
                     </div>
@@ -96,12 +96,12 @@
     }
 
     img {
-        height: 15rem;
+        height: 25rem;
+        /* width: 15vw; */
     }
 
     .picture {
-        padding-top: 5rem;
-        margin-bottom: 5rem;
+        margin: 5rem 0 5rem 0;
     }
 
     .btn {
