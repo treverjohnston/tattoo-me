@@ -1,15 +1,12 @@
 <template>
-    <div class="artistmobile">
+    <div class="purchase">
+        <hr>
         <div class="container-fluid">
-            <hr>
             <div class="row">
-                <div class="col-xs-2">
-                    <router-link :to="'/profile'">
-                        <button class="btn glyphicon glyphicon-menu-left"></button>
-                    </router-link>
+                <div class="col-xs-offset-5 col-xs-2">
+                    <button class="btn btn-default">Purchase for ${{card.price}}</button>
                 </div>
             </div>
-            <hr>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="picture">
@@ -23,43 +20,44 @@
 
 <script>
     export default {
-        name: 'artistmobile',
+        name: 'purchase',
         data() {
             return {
-
             }
+        },
+        methods: {
         },
         computed: {
             card() {
-                return this.$store.state.mobileView
+                return this.$store.state.confirm
             }
         },
         components: {
         },
-        methods: {
-            addFav(card) {
-                this.$store.dispatch('addFav', card)
-            },
-            deleteFav(card) {
-                this.$store.dispatch('deleteFav', card)
-            }
+        mounted() {
+
         }
+
     }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .picture{
+    .picture {
         margin-top: 10vh;
     }
-    a{
+
+    a {
         color: black;
     }
-    .btn{
-        background-color: transparent;
-        font-size: 3rem;
-    }
+
     img {
         height: 40vh
+    }
+
+    .btn {
+        background-color: transparent;
+        font-size: 3rem;
     }
 </style>

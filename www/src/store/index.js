@@ -27,12 +27,18 @@ var store = new vuex.Store({
 		results: [],
 		favorites: [],
 		userInfo: {},
-		gallery: []
+		gallery: [],
+		queue: [],
+		confirm: [],
+		sortType: true
 	},
 
 	mutations: {
 		zoomIn(state, card) {
 			state.mobileView = card
+		},
+		confirm(state, card) {
+			state.confirm = card
 		},
 
 		setResults(state, res) {
@@ -56,12 +62,20 @@ var store = new vuex.Store({
 
 		setInfo(state, obj) {
 			state.userInfo = obj
-			console.log(state.userInfo)
 		},
 
-		setGallery(state, obj){
-			// console.log(obj)
+		setGallery(state, obj) {
 			state.gallery = obj
+		},
+
+		addToQueue(state, obj){
+			console.log('pre', state.queue)
+			state.queue.push(obj.url)
+			console.log('post', state.queue)
+		},
+
+		sort(state){
+			this.state.sortType = !this.state.sortType
 		},
 
 		handleError(state, err) {
@@ -70,6 +84,25 @@ var store = new vuex.Store({
 
 	},
 	actions: {
+		sort({commit, dispatch}){
+			commit('sort')
+		},
+		addToQueue({commit, dispatch}, obj){
+			commit('addToQueue', obj)
+		},
+		removeFromQueue({commit, dispatch}, obj){
+
+		},
+		removeTattoo({ commit, dispatch }, id) {
+			api.delete('tattoos/' + id)
+				.then(res => {
+					dispatch('getArtistGallery')
+					dispatch('getTattoos')
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
+		},
 		getArtistGallery({ commit, dispatch }) {
 			// console.log('right place')
 			api('my-designs')
@@ -80,6 +113,9 @@ var store = new vuex.Store({
 		},
 		zoomIn({ commit, dispatch }, card) {
 			commit('zoomIn', card)
+		},
+		confirm({ commit, dispatch }, card) {
+			commit('confirm', card)
 		},
 
 		search({ commit, dispatch }, query) {
@@ -180,12 +216,12 @@ var store = new vuex.Store({
 				})
 		},
 
-		upvote({ commit, dispatch }, id) {
-			console.log('tattoo', id)
+		like({ commit, dispatch }, id) {
+			// console.log('tattoo', id)
 			api.put(`tattoos/${id}/like`)
-
 				.then(res => {
 					dispatch('getTattoos')
+					dispatch('getArtistGallery')
 				})
 				.catch(err => {
 					commit('handleError', err)

@@ -31,7 +31,11 @@
     color: #2c3e50;
     margin-top: 60px;
   }
-  /* .logo{
-    width: 20rem;
-  } */
+  body{
+        background-color: gray;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* padding-bottom: 80% */
+  }
 </style>

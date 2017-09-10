@@ -2,7 +2,7 @@
         <div class="login">
             <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xs-offset-2 col-xs-3">
+                        <div class="col-xs-offset-4 col-xs-4">
                             <h2 class="words">Log In</h2>
                             <form @submit.prevent="login">
                                 <div class="form-group">
@@ -12,7 +12,9 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-xs-offset-2 col-xs-3">
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-offset-4 col-xs-4">
                             <div class="text-center">
                                 <h2 class="words">Register</h2>
                                 <form @submit.prevent="register">
@@ -26,7 +28,6 @@
                                             <input type="radio" id="two" value="artist" v-model="picked">
                                             <label for="two">Artist</label>
                                         </div>
-
                                         <button type="submit" class="btn btn-default">Register</button>
                                     </div>
                                 </form>
