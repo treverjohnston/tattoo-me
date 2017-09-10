@@ -36,8 +36,6 @@
               result[0].price = this.price
             this.$store.dispatch('sendDesign', result)
             });
-            this.tags = ''
-            this.price = 0
         } else {
           console.log('need to make a stylish alert saying to fill in the right fields')
         }

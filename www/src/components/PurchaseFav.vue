@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-2">
-                        <router-link :to="'/favorites'">
+                        <router-link :to="'/mobile'">
                             <button class="btn glyphicon glyphicon-menu-left"></button>
                         </router-link>
                     </div>
