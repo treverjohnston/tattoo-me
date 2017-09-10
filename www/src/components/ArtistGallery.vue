@@ -48,7 +48,10 @@
                 this.$store.dispatch('deleteFav', card)
             },
             like(id) {
-                this.$store.dispatch('like', id)
+                var obj = {
+                    id: id
+                }
+                this.$store.dispatch('like', obj)
             },
             show() {
                 this.showButtons = !this.showButtons
