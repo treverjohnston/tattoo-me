@@ -119,12 +119,8 @@ var store = new vuex.Store({
 		},
 
 		search({ commit, dispatch }, query) {
-<<<<<<< HEAD
-			var search = query.toLowerCase().replace(/\s+/g, ',');
-=======
 			// console.log(query)
 			var search = query.toLowerCase().trim().replace(/\s+/g, ',');
->>>>>>> eda432655eb070aab024e76f4c01731cd6674ddd
 
 			api(`tattoos/search/tags/?tags=${search}`)
 
