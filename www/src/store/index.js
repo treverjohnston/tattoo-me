@@ -30,7 +30,8 @@ var store = new vuex.Store({
 		userInfo: {},
 		gallery: [],
 		queue: [],
-		confirm: []
+		confirm: [],
+		sortType: true
 	},
 
 	mutations: {
@@ -74,12 +75,19 @@ var store = new vuex.Store({
 			console.log('post', state.queue)
 		},
 
+		sort(state){
+			this.state.sortType = !this.state.sortType
+		},
+
 		handleError(state, err) {
 			state.error = err
 		}
 
 	},
 	actions: {
+		sort({commit, dispatch}){
+			commit('sort')
+		},
 		addToQueue({commit, dispatch}, obj){
 			commit('addToQueue', obj)
 		},

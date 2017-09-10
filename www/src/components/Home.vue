@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <hr>
       <div class="row">
-        <div class="col-xs-2">
+        <div class="col-xs-offset-4 col-xs-4">
           <div v-if="sortType">
             <button @click="sort" class="btn btn-default">Viewing Newest Designs</button>
           </div>
@@ -25,37 +25,43 @@
         </div>
       </div>
     </div>
-    <!-- <navbar></navbar> -->
   </div>
 </template>
 
 <script>
   import Card from './Card'
-  // import Navbar from './Navbar'
   export default {
     name: 'home',
     data() {
       return {
-        sortType: true
       }
     },
     methods: {
       sort(){
-        this.sortType = !this.sortType
+        this.$store.dispatch('sort')
       },
       compareLikes(a, b){
         return b.numLikes-a.numLikes
       },
       compareDate(a, b){
         return b.created-a.created
+      },
+      reget(){
+        console.log('regetting')
+        this.$store.dispatch('getTattoos')
       }
     },
     computed: {
       activeCardsDate() {
+        console.log('date')
         return this.$store.state.activeCards.sort(this.compareDate)
       },
       activeCardsLikes() {
+        console.log('likes')
         return this.$store.state.activeCards.sort(this.compareLikes)
+      },
+      sortType(){
+        return this.$store.state.sortType
       }
     },
     mounted() {

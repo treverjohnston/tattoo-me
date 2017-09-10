@@ -1,6 +1,4 @@
 <template>
-    <!-- TODO -->
-    <!-- Change card padding eventually -->
     <div class="card">
         <div class="col-xs-4">
             <div class="picture">
@@ -48,6 +46,12 @@
             }
         },
         mounted() {
+            if(this.showButtons == true){
+                this.showButtons = false
+            }
+        },
+        computed:{
+
         },
 
         methods: {
