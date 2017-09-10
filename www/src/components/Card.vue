@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <div class="picture">
                 <div class="row">
                     <div class="col-xs-2">
@@ -9,8 +9,8 @@
                         </div>
                         <div v-if="showButtons">
                             <button @click="show" class="btn show glyphicon glyphicon-chevron-up"></button>
-                            <!-- if favorite -->
                             <button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+                            <!-- if favorite -->
                             <div v-if="!cardProp.favorite">
                                 <button @click="addFav(cardProp)" class="btn glyphicon glyphicon-heart"></button>
                             </div>
@@ -21,9 +21,9 @@
                             <router-link :to="'/mobile'">
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
-                            <router-link :to="'/purchasefav'">
+                            <!-- <router-link :to="'/purchase'">
                                 <button @click="confirm(cardProp)" class="btn">${{cardProp.price}}</button>
-                            </router-link>
+                            </router-link> -->
                             <div v-if="sortType">
                                 <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                             </div>
@@ -100,12 +100,12 @@
     }
 
     img {
-        height: 15rem;
+        height: 25rem;
+        /* width: 15vw; */
     }
 
     .picture {
-        padding-top: 5rem;
-        margin-bottom: 5rem;
+        margin: 5rem 0 5rem 0;
     }
 
     .btn {
