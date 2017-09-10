@@ -1,10 +1,27 @@
 <template>
   <div class="home">
     <div class="container-fluid">
-        <hr>
+      <hr>
       <div class="row">
-        <div v-for="card in activeCards">
+        <div class="col-xs-2">
+          <div v-if="sortType">
+            <button @click="sort" class="btn btn-default">Viewing Newest Designs</button>
+          </div>
+          <div v-else>
+            <button @click="sort" class="btn btn-default">Viewing Most Popular Designs</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div v-if="sortType">
+          <div v-for="card in activeCardsDate">
             <card :cardProp="card"></card>
+          </div>
+        </div>
+        <div v-else>
+          <div v-for="card in activeCardsLikes">
+            <card :cardProp="card"></card>
+          </div>
         </div>
       </div>
     </div>
@@ -19,17 +36,29 @@
     name: 'home',
     data() {
       return {
-
+        sortType: true
       }
     },
-    methods:{
+    methods: {
+      sort(){
+        this.sortType = !this.sortType
+      },
+      compareLikes(a, b){
+        return b.numLikes-a.numLikes
+      },
+      compareDate(a, b){
+        return b.created-a.created
+      }
     },
     computed: {
-      activeCards() {
-        return this.$store.state.activeCards
+      activeCardsDate() {
+        return this.$store.state.activeCards.sort(this.compareDate)
+      },
+      activeCardsLikes() {
+        return this.$store.state.activeCards.sort(this.compareLikes)
       }
     },
-    mounted(){
+    mounted() {
       this.$store.dispatch('getTattoos')
     },
     components: {
@@ -45,4 +74,9 @@
   .home {
     padding-bottom: 10rem;
   }
+  .btn {
+        background-color: transparent;
+        font-size: 2rem;
+        color: black;
+    }
 </style>
