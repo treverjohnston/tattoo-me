@@ -20,7 +20,6 @@
     
     <script>
         import Card from './Card'
-        // import Navbar from './Navbar'
         export default {
             name: 'favorites',
             data() {
@@ -40,7 +39,6 @@
             },
             components: {
                 Card
-                // Navbar
             }
         }
     

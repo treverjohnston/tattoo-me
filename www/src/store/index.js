@@ -217,9 +217,9 @@ var store = new vuex.Store({
 		},
 
 		like({ commit, dispatch }, obj) {
-			// console.log('tattoo', id)
 			api.put(`tattoos/${obj.id}/like`)
 				.then(res => {
+					dispatch('getFavs')
 					dispatch('getTattoos')
 					dispatch('getArtistGallery')
 					dispatch('search', obj.query)
@@ -232,7 +232,6 @@ var store = new vuex.Store({
 		getTattoos({ commit, dispatch }) {
 			api('tattoos')
 				.then(res => {
-					//console.log(res)
 					commit('setResults', res.data.data)
 				})
 				.catch(err => {
@@ -242,7 +241,6 @@ var store = new vuex.Store({
 		getFavs({ commit, dispatch }) {
 			api('favorites')
 				.then(res => {
-					// console.log('setting favorites')
 					commit('setFavs', res)
 				})
 		},
