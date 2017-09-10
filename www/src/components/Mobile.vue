@@ -28,7 +28,7 @@
                 <div v-else>
                     <div class="col-xs-offset-7 col-xs-2">
                         <button @click="deleteFav(card)" class="btn glyphicon glyphicon-remove"></button>
-                        <router-link :to="'/purchase'">
+                        <router-link :to="'/purchasefav'">
                             <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
                         </router-link>     
                     </div>

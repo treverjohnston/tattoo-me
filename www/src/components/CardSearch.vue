@@ -24,12 +24,7 @@
                             <router-link :to="'/purchasefav'">
                                 <button @click="confirm(cardProp)" class="btn">${{cardProp.price}}</button>
                             </router-link>
-                            <div v-if="sortType">
-                                <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
-                            </div>
-                            <div v-else>
-                                <button @click="like(cardProp._id), show()" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
-                            </div>
+                            <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                         </div>
                     </div>
                     <div class="col-xs-10">
@@ -44,7 +39,7 @@
 <script>
     export default {
         name: 'card',
-        props: ["cardProp", "sortType"],
+        props: ["cardProp", "query"],
         data() {
             return {
                 showButtons: false
@@ -74,7 +69,8 @@
             },
             like(id) {
                 var obj = {
-                    id: id
+                    id: id,
+                    query: this.query
                 }
                 this.$store.dispatch('like', obj)
             },
@@ -87,7 +83,6 @@
 
         }
     }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

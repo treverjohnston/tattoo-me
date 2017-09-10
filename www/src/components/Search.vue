@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="res">
                     <div v-for="card in results">
-                        <card :cardProp="card"></card>
+                        <cardsearch :query="query" :cardProp="card"></cardsearch>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
 
 <script>
     import Card from './Card'
-    // import Navbar from './Navbar'
+    import Cardsearch from './CardSearch'
     export default {
         name: 'search',
         data() {
@@ -48,8 +48,8 @@
             }
         },
         components: {
-            Card
-            // Navbar
+            Card,
+            Cardsearch
         }
     }
 

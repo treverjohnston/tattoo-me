@@ -120,7 +120,6 @@ var store = new vuex.Store({
 		},
 
 		search({ commit, dispatch }, query) {
-			// console.log(query)
 			var search = query.toLowerCase().replace(/\s+/g, ',');
 
 			api(`tattoos/search/tags/?tags=${search}`)
@@ -217,12 +216,13 @@ var store = new vuex.Store({
 				})
 		},
 
-		like({ commit, dispatch }, id) {
+		like({ commit, dispatch }, obj) {
 			// console.log('tattoo', id)
-			api.put(`tattoos/${id}/like`)
+			api.put(`tattoos/${obj.id}/like`)
 				.then(res => {
 					dispatch('getTattoos')
 					dispatch('getArtistGallery')
+					dispatch('search', obj.query)
 				})
 				.catch(err => {
 					commit('handleError', err)
