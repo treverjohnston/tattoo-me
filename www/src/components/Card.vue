@@ -24,7 +24,12 @@
                             <router-link :to="'/purchase'">
                                 <button @click="confirm(cardProp)" class="btn">${{cardProp.price}}</button>
                             </router-link>
-                            <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
+                            <div v-if="sortType">
+                                <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
+                            </div>
+                            <div v-else>
+                                <button @click="like(cardProp._id), show()" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xs-10">
@@ -39,18 +44,18 @@
 <script>
     export default {
         name: 'card',
-        props: ["cardProp"],
+        props: ["cardProp", "sortType"],
         data() {
             return {
                 showButtons: false
             }
         },
         mounted() {
-            if(this.showButtons == true){
+            if (this.showButtons == true) {
                 this.showButtons = false
             }
         },
-        computed:{
+        computed: {
 
         },
 

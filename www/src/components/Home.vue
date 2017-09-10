@@ -15,12 +15,12 @@
       <div class="row">
         <div v-if="sortType">
           <div v-for="card in activeCardsDate">
-            <card :cardProp="card"></card>
+            <card :sortType="sortType" :cardProp="card"></card>
           </div>
         </div>
         <div v-else>
           <div v-for="card in activeCardsLikes">
-            <card :cardProp="card"></card>
+            <card :sortType="sortType" :cardProp="card"></card>
           </div>
         </div>
       </div>
@@ -45,19 +45,13 @@
       },
       compareDate(a, b){
         return b.created-a.created
-      },
-      reget(){
-        console.log('regetting')
-        this.$store.dispatch('getTattoos')
       }
     },
     computed: {
       activeCardsDate() {
-        console.log('date')
         return this.$store.state.activeCards.sort(this.compareDate)
       },
       activeCardsLikes() {
-        console.log('likes')
         return this.$store.state.activeCards.sort(this.compareLikes)
       },
       sortType(){
