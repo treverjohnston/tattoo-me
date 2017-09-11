@@ -106,7 +106,7 @@
 
     .btn {
         background-color: transparent;
-        font-size: 2rem;
+        font-size: 4rem;
         color: black;
     }
 </style>

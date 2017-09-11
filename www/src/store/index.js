@@ -259,7 +259,7 @@ var store = new vuex.Store({
 		},
 
 		deleteFav({ commit, dispatch }, tattoo) {
-			console.log(tattoo)
+			// console.log(tattoo)
 			var obj = {
 				favorite: tattoo._id
 			}
