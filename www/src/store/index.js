@@ -30,7 +30,10 @@ var store = new vuex.Store({
 		gallery: [],
 		queue: [],
 		confirm: [],
-		sortType: true
+		sortType: true,
+		activeCardsPage: 0,
+		resultsPage: 0,
+		searchTags: ''
 	},
 
 	mutations: {
@@ -41,12 +44,20 @@ var store = new vuex.Store({
 			state.confirm = card
 		},
 
-		setResults(state, res) {
-			state.activeCards = res
+		setResults(state, payload) {
+			if (payload.append)
+				state.activeCards = state.activeCards.concat(payload.tattoos);
+			else
+				state.activeCards = payload.tattoos;
+			state.activeCardsPage = payload.page;
 		},
-		setSearchResults(state, res) {
-			state.results = res
-
+		setSearchResults(state, payload) {
+			if (payload.append)
+				state.results = state.results.concat(payload.tattoos);
+			else
+				state.results = payload.tattoos;
+			state.resultsPage = payload.page
+			state.searchTags = payload.tags
 		},
 
 		setFavs(state, res) {
@@ -118,15 +129,16 @@ var store = new vuex.Store({
 			commit('confirm', card)
 		},
 
-		search({ commit, dispatch }, {tags, page = 0}) {
+		search({ commit, dispatch }, { tags, append = true, page = 0, cb }) {
 			// console.log(query)
 			var search = tags.toLowerCase().trim().replace(/\s+/g, ',');
-			let limit = 20;
-			api(`tattoos/search/tags/?tags=${search}&limit=${limit}&offset=${page*limit}`)
-
+			let limit = 10;
+			api(`tattoos/search/tags/?tags=${search}&limit=${limit}&offset=${page * limit}`)
 				.then(res => {
 					// console.log(res)
-					commit('setSearchResults', res.data.data)
+					commit('setSearchResults', { tattoos: res.data.data, append, page, tags: tags })
+					if (cb)
+						cb()
 				})
 				.catch(() => console.log('error'))
 		},
@@ -229,11 +241,13 @@ var store = new vuex.Store({
 				})
 		},
 
-		getTattoos({ commit, dispatch }, page = 0) {
+		getTattoos({ commit, dispatch }, { append = true, page = 0, cb }) {
 			let limit = 20;
 			api('tattoos?limit=' + limit + '&offset=' + page * limit)
 				.then(res => {
-					commit('setResults', res.data.data)
+					commit('setResults', { tattoos: res.data.data, append, page })
+					if (cb)
+						cb();
 				})
 				.catch(err => {
 					commit('handleError', err)

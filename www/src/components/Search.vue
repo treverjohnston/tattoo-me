@@ -30,6 +30,7 @@
 <script>
 	import Card from './Card'
 	import Cardsearch from './CardSearch'
+	import $ from 'jquery'
 	export default {
 		name: 'search',
 		data() {
@@ -37,9 +38,22 @@
 				query: ''
 			}
 		},
+		mounted() {
+			$(window).unbind('scroll')
+		},
 		methods: {
 			search() {
-				this.$store.dispatch('search', { tags: this.query })
+				this.$store.dispatch('search', { tags: this.query, append: false, cb: this.detectScrolling })
+			},
+			detectScrolling() {
+				console.log('search detect scrolling')
+				let _this = this;
+				$(window).unbind('scroll')
+				$(window).scroll(function () {
+					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+						_this.$store.dispatch('search', { tags: _this.$store.state.searchTags, page: _this.$store.state.resultsPage + 1 })
+					}
+				});
 			}
 		},
 		computed: {

@@ -13,16 +13,17 @@
 				</div>
 			</div>
 			<div class="row">
-				<div v-if="sortType">
-					<div v-for="card in activeCardsDate">
+				<div>
+					 <!-- v-if="sortType"> -->
+					<div v-for="card in activeCards">
 						<card :sortType="sortType" :cardProp="card"></card>
 					</div>
 				</div>
-				<div v-else>
+				<!-- <div v-else>
 					<div v-for="card in activeCardsLikes">
 						<card :sortType="sortType" :cardProp="card"></card>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -30,6 +31,7 @@
 
 <script>
 	import Card from './Card'
+	import $ from 'jquery'
 	export default {
 		name: 'home',
 		data() {
@@ -45,11 +47,20 @@
 			},
 			compareDate(a, b) {
 				return b.created - a.created
+			},
+			detectScrolling() {
+				let _this = this;
+				$(window).unbind('scroll')
+				$(window).scroll(function () {
+					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+						_this.$store.dispatch('getTattoos', { page: _this.$store.state.activeCardsPage + 1 })
+					}
+				});
 			}
 		},
 		computed: {
-			activeCardsDate() {
-				return this.$store.state.activeCards.sort(this.compareDate)
+			activeCards() {
+				return this.$store.state.activeCards//.sort(this.compareDate)
 			},
 			activeCardsLikes() {
 				return this.$store.state.activeCards.sort(this.compareLikes)
@@ -59,7 +70,7 @@
 			}
 		},
 		mounted() {
-			this.$store.dispatch('getTattoos')
+			this.$store.dispatch('getTattoos', { append: false, cb: this.detectScrolling })
 		},
 		components: {
 			Card
