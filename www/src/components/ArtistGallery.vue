@@ -1,6 +1,6 @@
 <template>
     <div class="artistgallery">
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <div class="picture">
                 <div class="row">
                     <div class="col-xs-2">
