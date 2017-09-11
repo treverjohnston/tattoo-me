@@ -1,7 +1,6 @@
 let Tattoos = require('../models/tattoo')
 let User = require('../models/user')
 let mongoose = require('mongoose')
-let Mailer = require('../config/nodemailer')
 
 module.exports = {
 	favorites: {
@@ -69,19 +68,11 @@ module.exports = {
 				.then(user => {
 					let purchased = false
 					user.purchased.forEach(id => {
-						if (!purchased) {
+						if(!purchased) {
 							if (id.toString() == tattooId) {
 								purchased = true
-								Tattoos.findById(tattooId).select('hdUrl').exec()
+								Tattoos.find({ _id: tattooId }).select('hdUrl').exec()
 									.then(tattoo => {
-										// send hdUrl to user in an email.
-										var account = {
-											email: user.email,
-											hdUrl: tattoo.hdUrl
-										}
-										Mailer.createMailer(account)
-										// console.log("now logging tattoo:")
-										// console.log(tattoo.hdUrl)
 										res.send(handleResponse(action, tattoo))
 									})
 									.catch(error => {
@@ -117,7 +108,7 @@ module.exports = {
 		}
 	},
 	removeFavorite: {
-		path: '/favorites/:tattooIid',
+		path: '/favorites/:tattooId',
 		reqType: 'put',
 		method(req, res, next) {
 			let action = 'Remove favorite'
