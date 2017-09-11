@@ -30,6 +30,7 @@
 
 <script>
 	import Card from './Card'
+	import $ from 'jquery'
 	export default {
 		name: 'home',
 		data() {
@@ -39,28 +40,35 @@
 		methods: {
 			sort() {
 				this.$store.dispatch('sort')
-				this.$store.dispatch('resetActiveCards')
+				this.$store.commit('resetActiveCards')
 				this.$store.dispatch('getTattoos', { sortType: this.$store.state.sortType, append: false })
+			},
+			detectScrolling() {
+				let _this = this;
+				$(window).unbind('scroll')
+				$(window).scroll(function () {
+					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+						_this.$store.dispatch('getTattoos', { page: _this.$store.state.resultsPage + 1 })
+					}
+				});
 			}
 		},
 		computed: {
 			activeCards() {
 				return this.$store.state.activeCards
 			},
-			activeCardsLikes() {
-				return this.$store.state.activeCards.sort(this.compareLikes)
-			},
 			sortType() {
 				return this.$store.state.sortType
 			}
 		},
 		mounted() {
-			this.$store.dispatch('getTattoos')
+			this.$store.dispatch('getTattoos', { append: false, cb: this.detectScrolling })
 		},
 		components: {
 			Card
 		}
 	}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
