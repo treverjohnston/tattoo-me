@@ -2,7 +2,8 @@
     <div id="vue-frame" class="camera">
         <vue-frame ref="vFrame" text="VueJS" url="../static/camera.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
         <br/>
-        <iframe id="myframe"></iframe>
+        <iframe allowtransparency="true" style="background-image:url(http://res.cloudinary.com/dvh7zccln/image/upload/v1504733715/14-tattoo-png-image_qd9leq.png);background-repeat: no-repeat; z-index: 1000"  id="myframe">
+        </iframe>
     </div>
 </template>
 <script>
@@ -15,18 +16,6 @@
             }
         },
         methods: {
-            turnOff() {
-                this.on = !this.on
-                console.log('attempting to turn off')
-                var camera = document.querySelector('#cam')
-                console.log('cam', cam)
-                cam.setAttribute('visible', false)
-                console.log('cam2', cam)
-            },
-            test() {
-                debugger
-                console.log('testing the interception')
-            }
         },
         computed: {
         },
@@ -46,11 +35,13 @@
         overflow: hidden;
         margin: 0px;
     }
-    iframe{
+
+    iframe {
         height: 80vh;
         width: 100vw;
     }
-    .vFrame{
+
+    .vFrame {
         display: none;
     }
 </style>
