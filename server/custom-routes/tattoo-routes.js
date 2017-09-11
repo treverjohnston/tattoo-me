@@ -10,11 +10,13 @@ module.exports = {
 		method(req, res, next) {
 			let action = 'Find tattoo by tag'
 			let names = req.query.tags.split(',');
+			let limit = Math.min(50, req.query.limit || 20);
+			let offset = parseInt(req.query.offset) || 0;
 			Tags.find({ name: { $in: names } })
 				.then(tags => {
 					if (tags.length < names.length)
 						return res.send(handleResponse(action, []))
-					Tattoos.find({ tags: { $all: tags } })
+					Tattoos.find({ tags: { $all: tags } }).limit(limit).skip(offset)
 						.then(tattoos => {
 							res.send(handleResponse(action, tattoos))
 						})
@@ -32,12 +34,12 @@ module.exports = {
 		reqType: 'put',
 		method(req, res, next) {
 			let action = 'Like tattoo';
-			Tattoos.findById(req.params.tattooId).select('likes').exec()
+			Tattoos.findById(req.params.tattooId)//.select('likes').exec()
 				.then(tattoo => {
 					updateTattooLikes(tattoo, req.session.uid);
 					tattoo.save()
 						.then(() => {
-							tattoo.likes = []
+							// tattoo.likes = []
 							res.send(handleResponse(action, tattoo))
 						})
 						.catch(error => {

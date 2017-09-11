@@ -68,13 +68,13 @@ var store = new vuex.Store({
 			state.gallery = obj
 		},
 
-		addToQueue(state, obj){
+		addToQueue(state, obj) {
 			console.log('pre', state.queue)
 			state.queue.push(obj.url)
 			console.log('post', state.queue)
 		},
 
-		sort(state){
+		sort(state) {
 			this.state.sortType = !this.state.sortType
 		},
 
@@ -84,13 +84,13 @@ var store = new vuex.Store({
 
 	},
 	actions: {
-		sort({commit, dispatch}){
+		sort({ commit, dispatch }) {
 			commit('sort')
 		},
-		addToQueue({commit, dispatch}, obj){
+		addToQueue({ commit, dispatch }, obj) {
 			commit('addToQueue', obj)
 		},
-		removeFromQueue({commit, dispatch}, obj){
+		removeFromQueue({ commit, dispatch }, obj) {
 
 		},
 		removeTattoo({ commit, dispatch }, id) {
@@ -118,11 +118,11 @@ var store = new vuex.Store({
 			commit('confirm', card)
 		},
 
-		search({ commit, dispatch }, query) {
+		search({ commit, dispatch }, {tags, page = 0}) {
 			// console.log(query)
-			var search = query.toLowerCase().trim().replace(/\s+/g, ',');
-
-			api(`tattoos/search/tags/?tags=${search}`)
+			var search = tags.toLowerCase().trim().replace(/\s+/g, ',');
+			let limit = 20;
+			api(`tattoos/search/tags/?tags=${search}&limit=${limit}&offset=${page*limit}`)
 
 				.then(res => {
 					// console.log(res)
@@ -229,8 +229,9 @@ var store = new vuex.Store({
 				})
 		},
 
-		getTattoos({ commit, dispatch }) {
-			api('tattoos')
+		getTattoos({ commit, dispatch }, page = 0) {
+			let limit = 20;
+			api('tattoos?limit=' + limit + '&offset=' + page * limit)
 				.then(res => {
 					commit('setResults', res.data.data)
 				})
