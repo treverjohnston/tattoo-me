@@ -3,46 +3,35 @@
         <div class="col-xs-6">
             <div class="picture">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <div class="row">
-                            <div v-if="!showButtons">
-                                <div class="col-xs-2">
-                                    <button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
-                                </div>
+                    <div class="col-xs-2">
+                        <div v-if="!showButtons">
+                            <button @click="show" class="btn show glyphicon glyphicon-chevron-down"></button>
+                        </div>
+                        <div v-if="showButtons">
+                            <button @click="show" class="btn show glyphicon glyphicon-chevron-up"></button>
+                            <button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+                            <!-- if favorite -->
+                            <div v-if="!cardProp.favorite">
+                                <button @click="addFav(cardProp)" class="btn glyphicon glyphicon-heart"></button>
                             </div>
-                            <div v-if="showButtons">
-                                <div class="col-xs-2">
-                                    <button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
-                                </div>
-                                <div class="col-xs-2">
-                                    <button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div v-if="!cardProp.favorite">
-                                        <button @click="addFav(cardProp)" class="btn glyphicon glyphicon-heart"></button>
-                                    </div>
-                                    <div v-else>
-                                        <button @click="deleteFav(cardProp)" class="btn glyphicon glyphicon-remove"></button>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <router-link :to="'/mobile'">
-                                        <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
-                                    </router-link>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div v-if="sortType">
-                                        <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
-                                    </div>
-                                    <div v-else>
-                                        <button @click="like(cardProp._id), show()" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
-                                    </div>
-                                </div>
+                            <div v-else>
+                                <button @click="deleteFav(cardProp)" class="btn glyphicon glyphicon-remove"></button>
+                            </div>
+                            <!--  -->
+                            <router-link :to="'/mobile'">
+                                <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
+                            </router-link>
+                            <!-- <router-link :to="'/purchase'">
+                                <button @click="confirm(cardProp)" class="btn">${{cardProp.price}}</button>
+                            </router-link> -->
+                            <div v-if="sortType">
+                                <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
+                            </div>
+                            <div v-else>
+                                <button @click="like(cardProp._id), show()" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-xs-10">
                         <img :src="cardProp.url" alt="image">
                     </div>
@@ -67,9 +56,6 @@
             }
         },
         computed: {
-            info() {
-                return this.$store.state.userInfo
-            }
         },
 
         methods: {
@@ -124,7 +110,7 @@
 
     .btn {
         background-color: transparent;
-        font-size: 4rem;
+        font-size: 2rem;
         color: black;
     }
 </style>
