@@ -22,6 +22,7 @@ vue.use(vuex)
 
 var store = new vuex.Store({
 	state: {
+		// NOTICE: When adding/removing properties to state, update the resetState mutation
 		activeCards: [],
 		mobileView: [],
 		results: [],
@@ -34,6 +35,7 @@ var store = new vuex.Store({
 		activeCardsPage: 0,
 		resultsPage: 0,
 		searchTags: ''
+		// NOTICE: When adding/removing properties to state, update the resetState mutation
 	},
 
 	mutations: {
@@ -94,8 +96,21 @@ var store = new vuex.Store({
 
 		handleError(state, err) {
 			state.error = err
+		},
+		resetState(state) {
+			activeCards = []
+			mobileView = []
+			results = []
+			favorites = []
+			userInfo = {}
+			gallery = []
+			queue = []
+			confirm = []
+			sortType = true
+			activeCardsPage = 0
+			resultsPage = 0
+			searchTags = ''
 		}
-
 	},
 	actions: {
 		sort({ commit, dispatch }) {
@@ -183,7 +198,7 @@ var store = new vuex.Store({
 					console.log(res.data.message)
 					// dispatch('changeLog')
 					dispatch('getAuth')
-
+					commit('resetState')
 				})
 				.catch(() => console.log('error'))
 		},
