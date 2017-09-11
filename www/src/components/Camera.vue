@@ -46,11 +46,13 @@
         overflow: hidden;
         margin: 0px;
     }
-    iframe{
-        height: 90vh;
+
+    iframe {
+        height: 80vh;
         width: 100vw;
     }
-    .vFrame{
+
+    .vFrame {
         display: none;
     }
 </style>
