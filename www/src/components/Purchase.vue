@@ -3,8 +3,13 @@
         <hr>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-offset-5 col-xs-2">
-                    <button class="btn btn-default">Purchase for ${{card.price}}</button>
+                <div class="col-xs-2">
+                    <router-link :to="'/mobile'">
+                        <button class="btn glyphicon glyphicon-menu-left"></button>
+                    </router-link>
+                </div>
+                <div class="col-xs-offset-2 col-xs-4">
+                    <button class="btn btn-default">Purchase HD for ${{card.price}}</button>
                 </div>
             </div>
             <div class="row">

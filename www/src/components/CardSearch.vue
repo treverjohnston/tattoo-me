@@ -9,8 +9,8 @@
                         </div>
                         <div v-if="showButtons">
                             <button @click="show" class="btn show glyphicon glyphicon-chevron-up"></button>
-                            <button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
                             <!-- if favorite -->
+                            <button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
                             <div v-if="!cardProp.favorite">
                                 <button @click="addFav(cardProp)" class="btn glyphicon glyphicon-heart"></button>
                             </div>
@@ -21,15 +21,10 @@
                             <router-link :to="'/mobile'">
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
-                            <!-- <router-link :to="'/purchase'">
+                            <!-- <router-link :to="'/purchasefav'">
                                 <button @click="confirm(cardProp)" class="btn">${{cardProp.price}}</button>
                             </router-link> -->
-                            <div v-if="sortType">
-                                <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
-                            </div>
-                            <div v-else>
-                                <button @click="like(cardProp._id), show()" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
-                            </div>
+                            <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                         </div>
                     </div>
                     <div class="col-xs-10">
@@ -44,7 +39,7 @@
 <script>
     export default {
         name: 'card',
-        props: ["cardProp", "sortType"],
+        props: ["cardProp", "query"],
         data() {
             return {
                 showButtons: false
@@ -56,6 +51,7 @@
             }
         },
         computed: {
+
         },
 
         methods: {
@@ -73,7 +69,8 @@
             },
             like(id) {
                 var obj = {
-                    id: id
+                    id: id,
+                    query: this.query
                 }
                 this.$store.dispatch('like', obj)
             },
@@ -86,7 +83,6 @@
 
         }
     }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

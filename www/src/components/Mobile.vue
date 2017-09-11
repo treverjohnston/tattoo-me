@@ -20,12 +20,17 @@
                 <div v-if="!card.favorite">
                     <div class="col-xs-offset-7 col-xs-2">
                         <button @click="addFav(card)" class="btn glyphicon glyphicon-heart"></button>
-                        <button class="btn glyphicon glyphicon-usd"></button>                        
+                        <router-link :to="'/purchase'">
+                            <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
+                        </router-link>                       
                     </div>
                 </div>
                 <div v-else>
                     <div class="col-xs-offset-7 col-xs-2">
                         <button @click="deleteFav(card)" class="btn glyphicon glyphicon-remove"></button>
+                        <router-link :to="'/purchasefav'">
+                            <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
+                        </router-link>     
                     </div>
                 </div>
             </div>
@@ -62,7 +67,10 @@
             },
             deleteFav(card) {
                 this.$store.dispatch('deleteFav', card)
-            }
+            },
+            confirm(card) {
+                this.$store.dispatch('confirm', card)
+            },
         }
     }
 </script>

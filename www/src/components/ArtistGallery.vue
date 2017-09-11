@@ -48,7 +48,10 @@
                 this.$store.dispatch('deleteFav', card)
             },
             like(id) {
-                this.$store.dispatch('like', id)
+                var obj = {
+                    id: id
+                }
+                this.$store.dispatch('like', obj)
             },
             show() {
                 this.showButtons = !this.showButtons
@@ -72,16 +75,17 @@
     }
 
     img {
-        max-height: 15rem;
+        height: 25rem;
+        /* width: 15vw; */
     }
 
     .picture {
-        padding-top: 5rem;
-        margin-bottom: 5rem;
+        margin: 5rem 0 5rem 0;
     }
 
     .btn {
         background-color: transparent;
         font-size: 2rem;
+        color: black;
     }
 </style>

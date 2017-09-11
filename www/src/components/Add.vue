@@ -3,12 +3,12 @@
     <div class="container-fluid">
       <hr>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-offset-4 col-xs-4">
           <form @submit.prevent="openCloud">
             <div class="form-group">
-              <button id="upload_widget_opener">Upload Image</button>
-              <input type="text" v-model="tags" placeholder="tags">
-              <input type="decimal" v-model="price" placeholder="$">
+              <input class="form-control" type="text" v-model="tags" placeholder="Tags - EX. cool, awesome">
+              <input class="form-control" type="decimal" v-model="price" placeholder="$">
+              <button class="btn btn-default" id="upload_widget_opener">Upload Image</button>
             </div>
           </form>
         </div>
@@ -29,12 +29,16 @@
     },
     methods: {
       openCloud() {
-        cloudinary.openUploadWidget({ cloud_name: 'tattoo-me', upload_preset: 'tattoopng' },
-          (error, result) => { 
-            result[0].tags = this.tags
-            result[0].price = this.price
-          this.$store.dispatch('sendDesign', result)
-          });
+        if (this.tags !== ''){
+          cloudinary.openUploadWidget({ cloud_name: 'tattoo-me', upload_preset: 'tattoopng' },
+            (error, result) => { 
+              result[0].tags = this.tags
+              result[0].price = this.price
+            this.$store.dispatch('sendDesign', result)
+            });
+        } else {
+          console.log('need to make a stylish alert saying to fill in the right fields')
+        }
 
       },
       addFile() {
@@ -62,5 +66,8 @@
   }
   .form-group{
     font-size: 2rem;
+  }
+  input{
+    margin-bottom: 1rem;
   }
 </style>
