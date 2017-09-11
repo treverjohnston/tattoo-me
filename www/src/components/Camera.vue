@@ -1,6 +1,6 @@
 <template>
     <div id="vue-frame" class="camera">
-        <vue-frame ref="vFrame" text="VueJS" url="__dirname + /../static/camera.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
+        <vue-frame ref="vFrame" text="VueJS" url="static/camera.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
         <br/>
         <iframe id="myframe"></iframe>
     </div>
