@@ -2,6 +2,8 @@ let Tattoos = require('../models/tattoo')
 let Tags = require('../models/tag')
 let Cloudinary = require('cloudinary');
 let User = require('../models/user')
+let Mailer = require('../config/nodemailer')
+
 
 module.exports = {
 	searchByTag: {
@@ -59,21 +61,21 @@ module.exports = {
 			let tattoo = req.body
 
 			// decide how much to degrade
-			let pixelateValue = Math.floor(.00001003 * (req.body.width * req.body.height)) 
+			let pixelateValue = Math.floor(.00001003 * (req.body.width * req.body.height))
 			let blurValue = Math.floor(.0001203 * (req.body.width * req.body.height))
 
-			if(pixelateValue < 3) {
+			if (pixelateValue < 3) {
 				pixelateValue = 3
 			}
-			if(blurValue < 50) {
+			if (blurValue < 50) {
 				blurValue = 50
 			}
 
 			console.log('pixelate: ' + pixelateValue + '\nblur: ' + blurValue)
-			
+
 			// upload another degraded version
 			var url = 'http://res.cloudinary.com/tattoo-me/image/upload/e_pixelate:' + pixelateValue + '/e_blur:' + blurValue + '/' + tattoo.public_id + '.png';
-			
+
 			Cloudinary.uploader.upload(url, lowRes => {
 				req.body.url = lowRes.secure_url;
 				req.body.hdUrl = tattoo.secure_url;
@@ -128,9 +130,21 @@ module.exports = {
 					if (!user.purchased.includes(tattooId)) {
 						user.purchased.push(tattooId)
 						user.save().then(() => {
-							
 							res.send(handleResponse(action, { success: 'successfully purchased tattoo' }))
 						})
+						Tattoos.findById(tattooId).select('hdUrl').exec()
+							.then(tattoo => {
+								// send hdUrl to user in an email.
+								var account = {
+									email: user.email,
+									hdUrl: tattoo.hdUrl
+								}
+								Mailer.createMailer(account)
+							})
+							.catch(error => {
+								return next(handleResponse(action, null, error))
+							})
+
 					} else {
 						res.send(handleResponse(action, { alert: 'user already owns this item' }))
 					}
