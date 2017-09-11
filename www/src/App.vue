@@ -14,7 +14,10 @@
     components: {
       Navbar,
       Logo
-    },
+	},
+	beforeCreate() {
+		document.getElementById('killme').remove();
+	},
     mounted() {
       this.$store.dispatch('getAuth')
     }
