@@ -32,7 +32,7 @@
     .logo{
         width: 30vw;
         margin: 0 auto;
-        /* background-color: white;s */
+        /* height: 10vh; */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;

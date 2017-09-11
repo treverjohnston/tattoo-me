@@ -1,8 +1,9 @@
 <template>
     <div id="vue-frame" class="camera">
-        <vue-frame ref="vFrame" text="VueJS" url="static/camera.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
+        <vue-frame ref="vFrame" text="VueJS" url="../static/camera.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
         <br/>
-        <iframe id="myframe"></iframe>
+        <iframe allowtransparency="true" style="background-image:url(http://res.cloudinary.com/dvh7zccln/image/upload/v1504733715/14-tattoo-png-image_qd9leq.png);background-repeat: no-repeat;"  id="myframe">
+        </iframe>
     </div>
 </template>
 <script>
@@ -15,7 +16,7 @@
             }
         },
         methods: {
-		},
+        },
         computed: {
         },
         mounted() {

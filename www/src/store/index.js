@@ -218,6 +218,7 @@ var store = new vuex.Store({
 										console.log('Tagged tattoo:', res.data.data)
 									})
 									.catch(err => {
+										console.log(err)
 										commit('handleError', err)
 									})
 							})
