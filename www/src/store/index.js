@@ -61,6 +61,7 @@ var store = new vuex.Store({
 		},
 
 		setInfo(state, obj) {
+			console.log(obj)
 			state.userInfo = obj
 		},
 
@@ -139,8 +140,8 @@ var store = new vuex.Store({
 					if (res.data.message == "Invalid Email or Password") {
 						return console.log(res.data.message)
 					} else {
+						console.log(res.data.data)
 						commit('setInfo', res.data.data)
-						// console.log(res)
 						// dispatch('changeLog')
 						router.push('home')
 						return console.log(res.data.message)
@@ -179,6 +180,7 @@ var store = new vuex.Store({
 						return router.push('/')
 					}
 					commit('setInfo', res.data.data)
+					console.log(res.data.data)
 					router.push('home')
 				})
 				.catch(err => {
