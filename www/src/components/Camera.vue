@@ -15,19 +15,7 @@
             }
         },
         methods: {
-            turnOff() {
-                this.on = !this.on
-                console.log('attempting to turn off')
-                var camera = document.querySelector('#cam')
-                console.log('cam', cam)
-                cam.setAttribute('visible', false)
-                console.log('cam2', cam)
-            },
-            test() {
-                debugger
-                console.log('testing the interception')
-            }
-        },
+		},
         computed: {
         },
         mounted() {

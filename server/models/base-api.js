@@ -29,7 +29,8 @@ function API(model, schema) {
 		} else {
 			let limit = Math.min(50, req.query.limit || 20);
 			let offset = parseInt(req.query.offset) || 0;
-			schema.find(params).limit(limit).skip(offset)
+			let sort = req.query.sort || 'created'
+			schema.find(params).sort('-' + sort).limit(limit).skip(offset)
 				.then(data => {
 					var result = handleResponse(actions.findAll, data);
 					// result.query = query

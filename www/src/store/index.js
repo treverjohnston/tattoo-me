@@ -86,7 +86,10 @@ var store = new vuex.Store({
 		},
 
 		sort(state) {
-			this.state.sortType = !this.state.sortType
+			state.sortType = !state.sortType
+		},
+		resetActiveCards(state) {
+			state.activeCards = []
 		},
 
 		handleError(state, err) {
@@ -241,9 +244,10 @@ var store = new vuex.Store({
 				})
 		},
 
-		getTattoos({ commit, dispatch }, { append = true, page = 0, cb }) {
+		getTattoos({ commit, dispatch }, { append = true, page = 0, cb, sortType = true }) {
 			let limit = 20;
-			api('tattoos?limit=' + limit + '&offset=' + page * limit)
+			let sort = sortType ? 'created' : 'numLikes'
+			api('tattoos?limit=' + limit + '&offset=' + page * limit + '&sort=' + sort)
 				.then(res => {
 					commit('setResults', { tattoos: res.data.data, append, page })
 					if (cb)
