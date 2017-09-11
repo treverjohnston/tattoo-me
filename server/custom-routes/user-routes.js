@@ -108,7 +108,7 @@ module.exports = {
 		}
 	},
 	removeFavorite: {
-		path: '/favorites/:tattooIid',
+		path: '/favorites/:tattooId',
 		reqType: 'put',
 		method(req, res, next) {
 			let action = 'Remove favorite'
