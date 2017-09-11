@@ -9,6 +9,7 @@ var session = require('../authentication/sessions')
 var Auth = require('../authentication/auth')
 var Cloudinary = require('cloudinary');
 
+
 Cloudinary.config({
 	cloud_name: 'tattoo-me',
 	api_key: '721159567314847',
@@ -37,7 +38,7 @@ function logger(req, res, next) {
 
 // REGISTER MIDDLEWARE
 app.use(session)
-// app.use(express.static(__dirname + '/../../www/dist'));
+app.use(express.static(__dirname + '/../../www/dist'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('*', logger)

@@ -1,31 +1,21 @@
 <template>
     <div class="artistgallery">
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             <div class="picture">
                 <div class="row">
-                    <div v-if="!showButtons">
-                        <div class="col-xs-2">
-                            <button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
+                    <div class="col-xs-2">
+                        <div v-if="!showButtons">
+                            <button @click="show" class="btn show glyphicon glyphicon-chevron-down"></button>
                         </div>
-                    </div>
-                    <div v-if="showButtons">
-                        <div class="col-xs-2">
-                            <button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
-                        </div>
-                        <div class="col-xs-2">
+                        <div v-if="showButtons">
+                            <button @click="show" class="btn show glyphicon glyphicon-chevron-up"></button>
                             <router-link :to="'/artistmobile'">
-                                <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
+                                <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-zoom-in"></button>
                             </router-link>
-                        </div>
-                        <div class="col-xs-2">
                             <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
-                        </div>
-                        <div class="col-xs-2">
                             <button @click="removeTattoo(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-xs-10">
                         <img :src="cardProp.url" alt="image">
                     </div>
@@ -66,7 +56,7 @@
             show() {
                 this.showButtons = !this.showButtons
             },
-            removeTattoo(id) {
+            removeTattoo(id){
                 this.$store.dispatch('removeTattoo', id)
             }
         }
@@ -95,7 +85,7 @@
 
     .btn {
         background-color: transparent;
-        font-size: 4rem;
+        font-size: 2rem;
         color: black;
     }
 </style>

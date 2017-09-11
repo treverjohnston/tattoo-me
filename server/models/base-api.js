@@ -15,12 +15,11 @@ function API(model, schema) {
 		console.log("requesting api ", model.name)
 		var id = req.params.id || req.query.id || '';
 		var params = req.params.id ? req.params : {};
-		var query = req.query.with || '';
-		console.log(query)
+		// var query = req.query.with || '';
+		// console.log(query)
 
 		if (id) {
 			schema.findById(id)
-				.populate(query)
 				.then(data => {
 					return res.send(handleResponse(actions.find, data))
 				})
@@ -28,11 +27,12 @@ function API(model, schema) {
 					return next(handleResponse(actions.find, null, error))
 				})
 		} else {
-			schema.find(params, query)
-				.populate(query)
+			let limit = Math.min(50, req.query.limit || 20);
+			let offset = parseInt(req.query.offset) || 0;
+			schema.find(params).limit(limit).skip(offset)
 				.then(data => {
 					var result = handleResponse(actions.findAll, data);
-					result.query = query
+					// result.query = query
 					result.params = params
 					return res.send(result)
 				})

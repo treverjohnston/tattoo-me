@@ -11,7 +11,7 @@ var schema = new mongoose.Schema({
 	hdUrl: { type: String, required: true, select: false },
 	tags: [{ type: ObjectId, ref: models.tag }],
 	price: { type: Number, required: true },
-	likes: { type: [ObjectId], ref: models.user.name, select: false },
+	likes: { type: [ObjectId], ref: models.user.name },// select: false },
 	numLikes: { type: Number, default: 0 },
 	// Relations
 	creatorId: { type: ObjectId, ref: models.user.name, required: true, select: false },
