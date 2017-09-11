@@ -4,7 +4,7 @@ import vuex from 'vuex'
 import router from '../router'
 
 var production = !window.location.host.includes('localhost');
-var baseUrl = production ? '//zdkanban.herokuapp.com/' : '//localhost:3000/';
+var baseUrl = production ? '//tattoo-me.herokuapp.com/' : '//localhost:3000/';
 
 let api = axios.create({
 	baseURL: baseUrl + 'api/',
@@ -72,7 +72,6 @@ var store = new vuex.Store({
 		},
 
 		setInfo(state, obj) {
-			console.log(obj)
 			state.userInfo = obj
 		},
 
@@ -80,13 +79,13 @@ var store = new vuex.Store({
 			state.gallery = obj
 		},
 
-		addToQueue(state, obj){
+		addToQueue(state, obj) {
 			console.log('pre', state.queue)
 			state.queue.push(obj.url)
 			console.log('post', state.queue)
 		},
 
-		sort(state){
+		sort(state) {
 			this.state.sortType = !this.state.sortType
 		},
 
@@ -96,13 +95,13 @@ var store = new vuex.Store({
 
 	},
 	actions: {
-		sort({commit, dispatch}){
+		sort({ commit, dispatch }) {
 			commit('sort')
 		},
-		addToQueue({commit, dispatch}, obj){
+		addToQueue({ commit, dispatch }, obj) {
 			commit('addToQueue', obj)
 		},
-		removeFromQueue({commit, dispatch}, obj){
+		removeFromQueue({ commit, dispatch }, obj) {
 
 		},
 		removeTattoo({ commit, dispatch }, id) {
@@ -130,12 +129,11 @@ var store = new vuex.Store({
 			commit('confirm', card)
 		},
 
-		search({ commit, dispatch }, query) {
+		search({ commit, dispatch }, { tags, append = true, page = 0, cb }) {
 			// console.log(query)
-			var search = query.toLowerCase().trim().replace(/\s+/g, ',');
-
-			api(`tattoos/search/tags/?tags=${search}`)
-
+			var search = tags.toLowerCase().trim().replace(/\s+/g, ',');
+			let limit = 10;
+			api(`tattoos/search/tags/?tags=${search}&limit=${limit}&offset=${page * limit}`)
 				.then(res => {
 					// console.log(res)
 					commit('setSearchResults', { tattoos: res.data.data, append, page, tags: tags })
@@ -153,8 +151,8 @@ var store = new vuex.Store({
 					if (res.data.message == "Invalid Email or Password") {
 						return console.log(res.data.message)
 					} else {
-						console.log(res.data.data)
 						commit('setInfo', res.data.data)
+						// console.log(res)
 						// dispatch('changeLog')
 						router.push('home')
 						return console.log(res.data.message)
@@ -193,7 +191,6 @@ var store = new vuex.Store({
 						return router.push('/')
 					}
 					commit('setInfo', res.data.data)
-					console.log(res.data.data)
 					router.push('home')
 				})
 				.catch(err => {
@@ -245,10 +242,9 @@ var store = new vuex.Store({
 				})
 		},
 
-
-		getTattoos({ commit, dispatch }) {
-			api('tattoos')
-
+		getTattoos({ commit, dispatch }, { append = true, page = 0, cb }) {
+			let limit = 20;
+			api('tattoos?limit=' + limit + '&offset=' + page * limit)
 				.then(res => {
 					commit('setResults', { tattoos: res.data.data, append, page })
 					if (cb)
@@ -279,21 +275,19 @@ var store = new vuex.Store({
 		},
 
 		deleteFav({ commit, dispatch }, tattoo) {
-			// console.log(tattoo)
 			var obj = {
 				favorite: tattoo._id
 			}
 			api.put(`favorites/${obj.favorite}`)
 				.then(res => {
 					dispatch('getFavs')
-					// dispatch('getTattoos')
+					dispatch('getTattoos')
 					return router.push('/favorites')
 				})
 				.catch(err => {
 					commit('handleError', err)
 				})
 		},
-
 		handleError({ commit, dispatch }, err) {
 			commit('handleError', err)
 		}
