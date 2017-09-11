@@ -14,7 +14,7 @@
 			</div>
 			<div class="row">
 				<div>
-					 <!-- v-if="sortType"> -->
+					<!-- v-if="sortType"> -->
 					<div v-for="card in activeCards">
 						<card :sortType="sortType" :cardProp="card"></card>
 					</div>
