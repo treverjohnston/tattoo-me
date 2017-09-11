@@ -128,6 +128,7 @@ module.exports = {
 					if (!user.purchased.includes(tattooId)) {
 						user.purchased.push(tattooId)
 						user.save().then(() => {
+							
 							res.send(handleResponse(action, { success: 'successfully purchased tattoo' }))
 						})
 					} else {

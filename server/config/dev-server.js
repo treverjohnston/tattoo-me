@@ -9,6 +9,7 @@ var session = require('../authentication/sessions')
 var Auth = require('../authentication/auth')
 var Cloudinary = require('cloudinary');
 
+
 Cloudinary.config({
 	cloud_name: 'tattoo-me',
 	api_key: '721159567314847',
