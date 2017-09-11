@@ -16,7 +16,7 @@
             }
         },
         methods: {
-        },
+		},
         computed: {
         },
         mounted() {

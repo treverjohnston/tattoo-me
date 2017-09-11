@@ -5,7 +5,7 @@ let ObjectId = mongoose.Schema.ObjectId
 var schema = new mongoose.Schema({
 	// name: { type: String, required: true },
 	// description: { type: String },
-	created: { type: Number, default: Date.now() },
+	created: { type: Number, default: new Date.now() },
 	artistName: { type: String, required: true },
 	url: { type: String, required: true },
 	hdUrl: { type: String, required: true, select: false },

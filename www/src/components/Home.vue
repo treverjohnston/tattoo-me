@@ -14,16 +14,10 @@
 			</div>
 			<div class="row">
 				<div>
-					<!-- v-if="sortType"> -->
 					<div v-for="card in activeCards">
 						<card :sortType="sortType" :cardProp="card"></card>
 					</div>
 				</div>
-				<!-- <div v-else>
-					<div v-for="card in activeCardsLikes">
-						<card :sortType="sortType" :cardProp="card"></card>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</div>
@@ -41,12 +35,8 @@
 		methods: {
 			sort() {
 				this.$store.dispatch('sort')
-			},
-			compareLikes(a, b) {
-				return b.numLikes - a.numLikes
-			},
-			compareDate(a, b) {
-				return b.created - a.created
+				this.$store.commit('resetActiveCards')
+				this.$store.dispatch('getTattoos', { sortType: this.$store.state.sortType, append: false })
 			},
 			detectScrolling() {
 				let _this = this;
@@ -60,10 +50,7 @@
 		},
 		computed: {
 			activeCards() {
-				return this.$store.state.activeCards//.sort(this.compareDate)
-			},
-			activeCardsLikes() {
-				return this.$store.state.activeCards.sort(this.compareLikes)
+				return this.$store.state.activeCards
 			},
 			sortType() {
 				return this.$store.state.sortType
