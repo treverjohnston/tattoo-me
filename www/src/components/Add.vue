@@ -37,7 +37,7 @@
             this.$store.dispatch('sendDesign', result)
             });
         } else {
-          console.log('need to make a stylish alert saying to fill in the right fields')
+          alert('need to make a stylish alert saying to fill in the right fields')
         }
 
       },
@@ -57,13 +57,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .home {
-    background-color: gray;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding-bottom: 100vh;
-  }
+  
   .form-group{
     font-size: 2rem;
   }

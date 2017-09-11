@@ -17,7 +17,7 @@
                                 <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
                             </router-link>
                         </div>
-                        <div class="col-xs-2">
+                        <div class="col-xs-4">
                             <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
                         </div>
                         <div class="col-xs-2">
