@@ -57,13 +57,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .home {
-        background-color: gray;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        padding-bottom: 100vh;
-    }
 
     input[type=text] {
         width: 130px;
@@ -84,5 +77,8 @@
     }
     .res{
         padding-top: 2rem;
+    }
+    .search{
+        margin-bottom: 20rem;
     }
 </style>

@@ -47,7 +47,7 @@
         margin: 0px;
     }
     iframe{
-        height: 90vh;
+        height: 80vh;
         width: 100vw;
     }
     .vFrame{
