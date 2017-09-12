@@ -11,15 +11,15 @@
 			</div>
 			<div class="row">
 				<div class="res">
-					<div v-for="card in results">
-						<cardsearch :query="query" :cardProp="card"></cardsearch>
+					<div v-for="card in tattoos">
+						<Card :query="query" :cardProp="card"></Card>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<div v-if="!results.length > 0">
-						<h2>No Results</h2>
+					<div v-if="!tattoos.length > 0">
+						<h2>No tattoos</h2>
 					</div>
 				</div>
 			</div>
@@ -29,7 +29,6 @@
 
 <script>
 	import Card from './Card'
-	import Cardsearch from './CardSearch'
 	import $ from 'jquery'
 	export default {
 		name: 'search',
@@ -39,6 +38,7 @@
 			}
 		},
 		mounted() {
+			this.$store.commit('resetTattoos')
 			$(window).unbind('scroll')
 		},
 		methods: {
@@ -56,13 +56,12 @@
 			}
 		},
 		computed: {
-			results() {
-				return this.$store.state.results
+			tattoos() {
+				return this.$store.state.tattoos
 			}
 		},
 		components: {
-			Card,
-			Cardsearch
+			Card
 		}
 	}
 

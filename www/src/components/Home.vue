@@ -40,7 +40,7 @@
 		methods: {
 			sort() {
 				this.$store.commit('sort')
-				this.$store.commit('resetActiveCards')
+				this.$store.commit('resetTattoos')
 				this.$store.dispatch('getTattoos', { sortType: this.$store.state.sortType, append: false })
 			},
 			detectScrolling() {
@@ -62,6 +62,8 @@
 			}
 		},
 		mounted() {
+			$(window).unbind('scroll')
+			this.$store.commit('resetTattoos')
 			this.$store.dispatch('getTattoos', { append: false, cb: this.detectScrolling })
 		},
 		components: {

@@ -27,7 +27,6 @@ var store = new vuex.Store({
 		mobileView: [],
 		favorites: [],
 		userInfo: {},
-		gallery: [],
 		queue: [],
 		confirm: [],
 		sortType: true,
@@ -42,7 +41,6 @@ var store = new vuex.Store({
 			state.mobileView = []
 			state.favorites = []
 			state.userInfo = {}
-			state.gallery = []
 			state.queue = []
 			state.confirm = []
 			state.sortType = true
@@ -56,22 +54,15 @@ var store = new vuex.Store({
 			state.confirm = card
 		},
 
-		setResults(state, payload) {
+		setTattoos(state, payload) {
 			if (payload.append)
 				state.tattoos = state.tattoos.concat(payload.tattoos);
 			else
 				state.tattoos = payload.tattoos;
-			state.activeCardsPage = payload.page;
+			state.tattoosPage = payload.page;
+			if (payload.tags)
+				state.searchTags = payload.tags
 		},
-		setSearchResults(state, payload) {
-			if (payload.append)
-				state.tattoos = state.tattoos.concat(payload.tattoos);
-			else
-				state.tattoos = payload.tattoos;
-			state.resultsPage = payload.page
-			state.searchTags = payload.tags
-		},
-
 		setFavs(state, res) {
 			var favorites = res.data.data
 
@@ -87,10 +78,6 @@ var store = new vuex.Store({
 			state.userInfo = obj
 		},
 
-		setGallery(state, obj) {
-			state.gallery = obj
-		},
-
 		addToQueue(state, obj) {
 			state.queue.push(obj.url)
 		},
@@ -98,10 +85,10 @@ var store = new vuex.Store({
 		sort(state) {
 			state.sortType = !state.sortType
 		},
-		resetActiveCards(state) {
+		resetTattoos(state) {
 			state.tattoos = []
+			state.tattoosPage = 0
 		},
-
 		handleError(state, err) {
 			state.error = err
 		},
@@ -117,7 +104,7 @@ var store = new vuex.Store({
 			let sort = sortType ? 'created' : 'numLikes'
 			api('tattoos?limit=' + limit + '&offset=' + page * limit + '&sort=' + sort)
 				.then(res => {
-					commit('setResults', { tattoos: res.data.data, append, page })
+					commit('setTattoos', { tattoos: res.data.data, append, page })
 					if (cb)
 						cb();
 				})
@@ -140,7 +127,7 @@ var store = new vuex.Store({
 			let limit = 10;
 			api(`tattoos/search/tags/?tags=${search}&limit=${limit}&offset=${page * limit}`)
 				.then(res => {
-					commit('setSearchResults', { tattoos: res.data.data, append, page, tags: tags })
+					commit('setTattoos', { tattoos: res.data.data, append, page, tags: tags })
 					if (cb)
 						cb()
 				})
@@ -183,6 +170,7 @@ var store = new vuex.Store({
 					commit('handleError', err)
 				})
 		},
+		// TODO: This is a lot of network calls. Narrow it down by view.
 		like({ commit, dispatch }, obj) {
 			api.put(`tattoos/${obj.id}/like`)
 				.then(res => {
@@ -199,11 +187,10 @@ var store = new vuex.Store({
 		},
 
 		// *** Misc Actions *** //
-		// TODO: This is a lot of network calls. Narrow it down by view.
 		getArtistGallery({ commit, dispatch }) {
 			api('my-designs')
 				.then(res => {
-					commit('setGallery', res.data.data)
+					commit('setTattoos', res.data.data)
 				})
 				.catch(err => {
 					commit('handleError', err)
