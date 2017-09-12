@@ -72,7 +72,9 @@ var store = new vuex.Store({
 
 			state.favorites = favorites
 		},
-
+		updateFavorites(state, tattoos) {
+			vue.set(state.userInfo, 'favorites', tattoos)
+		},
 		setInfo(state, obj) {
 			state.userInfo = obj
 		},
@@ -143,33 +145,31 @@ var store = new vuex.Store({
 					commit('setFavs', res)
 				})
 		},
-		addFav({ commit, dispatch }, tattoo) {
-			var obj = {
-				favorite: tattoo._id
-			}
-			api.put('favorites', obj)
+		favorite({ commit, dispatch }, tattoo) {
+			api.put('favorites/' + tattoo._id, tattoo)
 				.then(res => {
-					dispatch('getFavs')
-					dispatch('getTattoos')
+					// dispatch('getFavs')
+					// dispatch('getTattoos')
+					commit('updateFavorites', res.data.data)
 				})
 				.catch(err => {
 					commit('handleError', err)
 				})
 		},
-		deleteFav({ commit, dispatch }, tattoo) {
-			var obj = {
-				favorite: tattoo._id
-			}
-			api.put(`favorites/${obj.favorite}`)
-				.then(res => {
-					dispatch('getFavs')
-					dispatch('getTattoos')
-					return router.push('/favorites')
-				})
-				.catch(err => {
-					commit('handleError', err)
-				})
-		},
+		// deleteFav({ commit, dispatch }, tattoo) {
+		// 	var obj = {
+		// 		favorite: tattoo._id
+		// 	}
+		// 	api.put(`favorites/${obj.favorite}`)
+		// 		.then(res => {
+		// 			dispatch('getFavs')
+		// 			dispatch('getTattoos')
+		// 			return router.push('/favorites')
+		// 		})
+		// 		.catch(err => {
+		// 			commit('handleError', err)
+		// 		})
+		// },
 		// TODO: This is a lot of network calls. Narrow it down by view.
 		like({ commit, dispatch }, obj) {
 			api.put(`tattoos/${obj.id}/like`)

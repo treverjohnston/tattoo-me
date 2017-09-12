@@ -19,10 +19,10 @@
 								</div>
 								<div class="col-xs-2">
 									<div v-if="!hasFavorited">
-										<button @click="addFav(cardProp)" class="btn glyphicon glyphicon-heart"></button>
+										<button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart"></button>
 									</div>
 									<div v-else>
-										<button @click="deleteFav(cardProp)" class="btn glyphicon glyphicon-heart favorited"></button>
+										<button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart favorited"></button>
 									</div>
 								</div>
 								<div class="col-xs-2">
@@ -87,11 +87,8 @@
 			confirm(card) {
 				this.$store.commit('confirm', card)
 			},
-			addFav(card) {
-				this.$store.dispatch('addFav', card)
-			},
-			deleteFav(card) {
-				this.$store.dispatch('deleteFav', card)
+			favorite() {
+				this.$store.dispatch('favorite', this.cardProp)
 			},
 			like(id) {
 				var obj = {

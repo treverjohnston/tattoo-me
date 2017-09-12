@@ -48,13 +48,7 @@
         methods: {
             zoomIn(card) {
                 this.$store.commit('zoomIn', card)
-            },
-            addFav(card) {
-                this.$store.dispatch('addFav', card)
-            },
-            deleteFav(card) {
-                this.$store.dispatch('deleteFav', card)
-            },
+			},
             like(id) {
                 var obj = {
                     id: id

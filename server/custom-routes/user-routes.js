@@ -99,38 +99,43 @@ module.exports = {
 				})
 		}
 	},
-	addFavorite: {
-		path: '/favorites',
+	favorite: {
+		path: '/favorites/:tattooId',
 		reqType: 'put',
 		method(req, res, next) {
-			let action = 'Add favorite to user'
+			let action = 'Add/remove favorite to user'
 			User.findById(req.session.uid)
 				.then(user => {
-					user.favorites.push(req.body.favorite)
+					let index = user.favorites.indexOf(req.params.tattooId);
+					if (index == -1) {
+						user.favorites.push(req.params.tattooId)
+					} else {
+						user.favorites.splice(index, 1)
+					}
 					user.save().then(() => {
-						res.send(handleResponse(action, { message: 'successfully added favorite' }))
+						res.send(handleResponse(action, user.favorites))
 					})
 				}).catch(error => {
 					return next(handleResponse(action, null, error))
 				})
 		}
 	},
-	removeFavorite: {
-		path: '/favorites/:tattooId',
-		reqType: 'put',
-		method(req, res, next) {
-			let action = 'Remove favorite'
-			User.findById(req.session.uid)
-				.then(user => {
-					user.favorites.splice(user.favorites.indexOf(req.params.tattooId), 1)
-					user.save().then(() => {
-						res.send(handleResponse(action, { message: 'successfully removed favorite' }))
-					})
-				}).catch(error => {
-					return next(handleResponse(action, null, error))
-				})
-		}
-	}
+	// removeFavorite: {
+	// 	path: '/favorites/:tattooId',
+	// 	reqType: 'put',
+	// 	method(req, res, next) {
+	// 		let action = 'Remove favorite'
+	// 		User.findById(req.session.uid)
+	// 			.then(user => {
+	// 				user.favorites.splice(user.favorites.indexOf(req.params.tattooId), 1)
+	// 				user.save().then(() => {
+	// 					res.send(handleResponse(action, { message: 'successfully removed favorite' }))
+	// 				})
+	// 			}).catch(error => {
+	// 				return next(handleResponse(action, null, error))
+	// 			})
+	// 	}
+	// }
 }
 
 function handleResponse(action, data, error) {
