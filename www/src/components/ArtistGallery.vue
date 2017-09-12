@@ -18,7 +18,8 @@
                             </router-link>
                         </div>
                         <div class="col-xs-4">
-                            <button @click="like(cardProp._id)" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
+                            <button v-if="liked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
+                            <button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
                         </div>
                         <div class="col-xs-2">
                             <button @click="removeTattoo(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
@@ -44,9 +45,6 @@
                 showButtons: false
             }
         },
-        mounted() {
-        },
-
         methods: {
             zoomIn(card) {
                 this.$store.commit('zoomIn', card)
@@ -69,7 +67,12 @@
             removeTattoo(id) {
                 this.$store.dispatch('removeTattoo', id)
             }
-        }
+		},
+		computed: {
+			liked() {
+				return this.cardProp.likes.includes(this.$store.state.userInfo._id)
+			}
+		}
     }
 
 </script>
@@ -98,4 +101,8 @@
         font-size: 4rem;
         color: black;
     }
+
+	.liked {
+		color: green
+	}
 </style>

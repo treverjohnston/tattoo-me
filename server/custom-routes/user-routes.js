@@ -99,7 +99,6 @@ module.exports = {
 				})
 		}
 	},
-
 	addFavorite: {
 		path: '/favorites',
 		reqType: 'put',

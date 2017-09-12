@@ -104,6 +104,7 @@ var store = new vuex.Store({
 			api('tattoos?limit=' + limit + '&offset=' + page * limit + '&sort=' + sort)
 				.then(res => {
 					commit('setTattoos', { tattoos: res.data.data, append, page })
+					console.log(res)
 					if (cb)
 						cb();
 				})
