@@ -11,9 +11,6 @@
 						<button @click="sort" class="btn btn-default">Viewing Most Popular Designs</button>
 					</div>
 				</div>
-				<div class="col-xs-offset-2 col-xs-2">
-					<button @click="information" class="btn btn-default glyphicon glyphicon-info-sign"></button>
-				</div>
 			</div>
 			<div class="row">
 				<div v-for="card in tattoos">
