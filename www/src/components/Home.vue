@@ -11,9 +11,11 @@
 						<button @click="sort" class="btn btn-default">Viewing Most Popular Designs</button>
 					</div>
 				</div>
+				<div class="col-xs-offset-2 col-xs-2">
+					<button @click="information" class="btn btn-default glyphicon glyphicon-info-sign"></button>
+				</div>
 			</div>
 			<div class="row">
-				<!-- <div v-if="sortType"> -->
 				<div v-for="card in tattoos">
 					<card :sortType="sortType" :cardProp="card"></card>
 				</div>
@@ -32,6 +34,9 @@
 			}
 		},
 		methods: {
+			information(){
+				console.log('info')
+			},
 			sort() {
 				this.$store.commit('sort')
 				this.$store.commit('resetTattoos')
