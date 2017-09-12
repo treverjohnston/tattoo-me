@@ -8,6 +8,7 @@ import Favorites from '@/components/Favorites'
 import Profile from '@/components/Profile'
 import Options from '@/components/MyOptions'
 import Camera from '@/components/Camera'
+// import NewCamera from '@/components/NewCamera'
 import Add from '@/components/Add'
 import Artistmobile from '@/components/ArtistMobile'
 import Purchase from '@/components/Purchase'
@@ -47,6 +48,11 @@ export default new Router({
       name: 'Camera',
       component: Camera
     },
+    // {
+    //   path: '/newcamera',
+    //   name: 'NewCamera',
+    //   component: NewCamera
+    // },
     {
       path: '/options',
       name: 'Options',

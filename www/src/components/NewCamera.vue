@@ -1,12 +1,20 @@
 <template>
-    <div id="vue-frame" class="camera">
-        <vue-frame ref="vFrame" text="VueJS" url="../static/camera.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
-        <br/>
-        <iframe id="myframe"></iframe>
+    <div class="newcamera">
+        <canvas id="canvas" width="500" height="375">
+            <video autoplay id="videoElement"></video>
+        </canvas>
+
+        <img id="overlay" style="display: none" src="logo.png" alt="">
+        <!-- Used to capture frame from webcam video feed -->
+        <input type="button" value="Save" id="save" />
+
+        <!-- Or alternatively added to an img tag -->
+        <img id="imgtag" src="" width="500" height="375" alt="capture" />
     </div>
 </template>
 <script>
     import VueFrame from 'vue-frame'
+    import Camera from 'Camera.js'
     export default {
         name: 'camera',
         data() {
@@ -19,13 +27,12 @@
         computed: {
         },
         mounted() {
-            this.$refs.vFrame.loadIframe()
         },
         components: {
-            VueFrame
+            VueFrame,
+            Camera
         }
     }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
