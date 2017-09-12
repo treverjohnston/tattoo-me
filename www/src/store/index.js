@@ -53,13 +53,12 @@ var store = new vuex.Store({
 		confirm(state, card) {
 			state.confirm = card
 		},
-
 		setTattoos(state, payload) {
 			if (payload.append)
 				state.tattoos = state.tattoos.concat(payload.tattoos);
 			else
 				state.tattoos = payload.tattoos;
-			state.tattoosPage = payload.page;
+			state.tattoosPage = payload.page || 0;
 			if (payload.tags)
 				state.searchTags = payload.tags
 		},
@@ -190,7 +189,7 @@ var store = new vuex.Store({
 		getArtistGallery({ commit, dispatch }) {
 			api('my-designs')
 				.then(res => {
-					commit('setTattoos', res.data.data)
+					commit('setTattoos', { tattoos: res.data.data })
 				})
 				.catch(err => {
 					commit('handleError', err)

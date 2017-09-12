@@ -39,6 +39,9 @@
 		},
 		mounted() {
 			this.$store.commit('resetTattoos')
+			// $(window).unbind('scroll')
+		},
+		beforeDestroy() {
 			$(window).unbind('scroll')
 		},
 		methods: {

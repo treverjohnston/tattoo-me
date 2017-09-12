@@ -56,9 +56,11 @@
 			}
 		},
 		mounted() {
-			$(window).unbind('scroll')
 			this.$store.commit('resetTattoos')
 			this.$store.dispatch('getTattoos', { append: false, cb: this.detectScrolling })
+		},
+		beforeDestroy() {
+			$(window).unbind('scroll')
 		},
 		components: {
 			Card
