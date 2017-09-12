@@ -69,7 +69,7 @@
                 this.$store.dispatch('deleteFav', card)
             },
             confirm(card) {
-                this.$store.dispatch('confirm', card)
+                this.$store.commit('confirm', card)
             },
         }
     }

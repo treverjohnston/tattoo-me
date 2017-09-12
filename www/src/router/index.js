@@ -12,7 +12,6 @@ import Add from '@/components/Add'
 import Artistmobile from '@/components/ArtistMobile'
 import Purchase from '@/components/Purchase'
 import Purchasefav from '@/components/PurchaseFav'
-import Cardsearch from '@/components/CardSearch'
 
 Vue.use(Router)
 
@@ -22,11 +21,6 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/cardsearch',
-      name: 'Cardsearch',
-      component: Cardsearch
     },
     {
       path: '/purchasefav',

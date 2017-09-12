@@ -78,8 +78,8 @@
             info() {
                 return this.$store.state.userInfo
             },
-            activeCards() {
-                return this.$store.state.activeCards
+            tattoos() {
+                return this.$store.state.tattoos
             },
             queue() {
                 return this.$store.state.queue

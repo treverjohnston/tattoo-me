@@ -49,7 +49,7 @@
 
         methods: {
             zoomIn(card) {
-                this.$store.dispatch('zoomIn', card)
+                this.$store.commit('zoomIn', card)
             },
             addFav(card) {
                 this.$store.dispatch('addFav', card)
