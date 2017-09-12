@@ -13,7 +13,6 @@
 				</div>
 			</div>
 			<div class="row">
-				<!-- <div v-if="sortType"> -->
 				<div v-for="card in tattoos">
 					<card :sortType="sortType" :cardProp="card"></card>
 				</div>
@@ -32,6 +31,9 @@
 			}
 		},
 		methods: {
+			information(){
+				console.log('info')
+			},
 			sort() {
 				this.$store.commit('sort')
 				this.$store.commit('resetTattoos')
