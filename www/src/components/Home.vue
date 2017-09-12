@@ -18,11 +18,6 @@
 					<card :sortType="sortType" :cardProp="card"></card>
 				</div>
 			</div>
-			<!-- <div v-else>
-			<div v-for="card in activeCardsLikes">
-			  <card :sortType="sortType" :cardProp="card"></card>
-			</div>
-		  </div> -->
 		</div>
 	</div>
 	</div>
