@@ -46,7 +46,7 @@
 			detectScrolling() {
 				let _this = this;
 				$(window).unbind('scroll')
-				$(window).scroll(function () {
+				$(window).scroll(() => {
 					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
 						_this.$store.dispatch('getTattoos', { page: _this.$store.state.tattoosPage + 1 })
 					}

@@ -202,7 +202,7 @@ var store = new vuex.Store({
 			api.post('tattoo/upload', payload[0])
 				.then(res => {
 					let tattooId = res.data.data._id
-					tags.forEach(function (tag) {
+					tags.forEach(tag => {
 						api.post('tags', { name: tag })
 							.then(res => {
 								api.put('tattoos/' + tattooId + '/update', { tag: res.data.data._id })

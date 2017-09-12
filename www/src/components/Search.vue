@@ -48,7 +48,7 @@
 			detectScrolling() {
 				let _this = this;
 				$(window).unbind('scroll')
-				$(window).scroll(function () {
+				$(window).scroll(() => {
 					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
 						_this.$store.dispatch('search', { tags: _this.$store.state.searchTags, page: _this.$store.state.tattoosPage + 1 })
 					}
