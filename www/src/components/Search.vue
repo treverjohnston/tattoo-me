@@ -50,7 +50,7 @@
 				$(window).unbind('scroll')
 				$(window).scroll(function () {
 					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-						_this.$store.dispatch('search', { tags: _this.$store.state.searchTags, page: _this.$store.state.resultsPage + 1 })
+						_this.$store.dispatch('search', { tags: _this.$store.state.searchTags, page: _this.$store.state.tattoosPage + 1 })
 					}
 				});
 			}

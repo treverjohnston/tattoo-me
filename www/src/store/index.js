@@ -22,23 +22,33 @@ vue.use(vuex)
 
 var store = new vuex.Store({
 	state: {
-		// NOTICE: When adding/removing properties to state, update the resetState mutation
-		activeCards: [],
+		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
+		tattoos: [],
 		mobileView: [],
-		results: [],
 		favorites: [],
 		userInfo: {},
 		gallery: [],
 		queue: [],
 		confirm: [],
 		sortType: true,
-		activeCardsPage: 0,
-		resultsPage: 0,
+		tattoosPage: 0,
 		searchTags: ''
-		// NOTICE: When adding/removing properties to state, update the resetState mutation
+		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
 	mutations: {
+		setDefaultState(state) {
+			state.tattoos = []
+			state.mobileView = []
+			state.favorites = []
+			state.userInfo = {}
+			state.gallery = []
+			state.queue = []
+			state.confirm = []
+			state.sortType = true
+			state.tattoosPage = 0
+			state.searchTags = ''
+		},
 		zoomIn(state, card) {
 			state.mobileView = card
 		},
@@ -48,16 +58,16 @@ var store = new vuex.Store({
 
 		setResults(state, payload) {
 			if (payload.append)
-				state.activeCards = state.activeCards.concat(payload.tattoos);
+				state.tattoos = state.tattoos.concat(payload.tattoos);
 			else
-				state.activeCards = payload.tattoos;
+				state.tattoos = payload.tattoos;
 			state.activeCardsPage = payload.page;
 		},
 		setSearchResults(state, payload) {
 			if (payload.append)
-				state.results = state.results.concat(payload.tattoos);
+				state.tattoos = state.tattoos.concat(payload.tattoos);
 			else
-				state.results = payload.tattoos;
+				state.tattoos = payload.tattoos;
 			state.resultsPage = payload.page
 			state.searchTags = payload.tags
 		},
@@ -82,184 +92,26 @@ var store = new vuex.Store({
 		},
 
 		addToQueue(state, obj) {
-			console.log('pre', state.queue)
 			state.queue.push(obj.url)
-			console.log('post', state.queue)
 		},
 
 		sort(state) {
 			state.sortType = !state.sortType
 		},
 		resetActiveCards(state) {
-			state.activeCards = []
+			state.tattoos = []
 		},
 
 		handleError(state, err) {
 			state.error = err
 		},
-		resetState(state) {
-			activeCards = []
-			mobileView = []
-			results = []
-			favorites = []
-			userInfo = {}
-			gallery = []
-			queue = []
-			confirm = []
-			sortType = true
-			activeCardsPage = 0
-			resultsPage = 0
-			searchTags = ''
+		updateTattoo(state, tattoo) {
+			let index = state.tattoos.findIndex(tat => tat._id == tattoo._id)
+			vue.set(state.tattoos, index, tattoo)
 		}
 	},
 	actions: {
-		sort({ commit, dispatch }) {
-			commit('sort')
-		},
-		addToQueue({ commit, dispatch }, obj) {
-			commit('addToQueue', obj)
-		},
-		removeFromQueue({ commit, dispatch }, obj) {
-
-		},
-		removeTattoo({ commit, dispatch }, id) {
-			api.delete('tattoos/' + id)
-				.then(res => {
-					dispatch('getArtistGallery')
-					dispatch('getTattoos')
-				})
-				.catch(err => {
-					commit('handleError', err)
-				})
-		},
-		getArtistGallery({ commit, dispatch }) {
-			// console.log('right place')
-			api('my-designs')
-				.then(res => {
-					commit('setGallery', res.data.data)
-				})
-				.catch(() => console.log('error'))
-		},
-		zoomIn({ commit, dispatch }, card) {
-			commit('zoomIn', card)
-		},
-		confirm({ commit, dispatch }, card) {
-			commit('confirm', card)
-		},
-
-		search({ commit, dispatch }, { tags, append = true, page = 0, cb }) {
-			// console.log(query)
-			var search = tags.toLowerCase().trim().replace(/\s+/g, ',');
-			let limit = 10;
-			api(`tattoos/search/tags/?tags=${search}&limit=${limit}&offset=${page * limit}`)
-				.then(res => {
-					// console.log(res)
-					commit('setSearchResults', { tattoos: res.data.data, append, page, tags: tags })
-					if (cb)
-						cb()
-				})
-				.catch(() => console.log('error'))
-		},
-
-		login({ commit, dispatch }, obj) {
-			auth.post("login", obj)
-				.then((res) => {
-					// console.log(res)
-					// res = JSON.parse(res);
-					if (res.data.message == "Invalid Email or Password") {
-						return console.log(res.data.message)
-					} else {
-						commit('setInfo', res.data.data)
-						// console.log(res)
-						// dispatch('changeLog')
-						router.push('home')
-						return console.log(res.data.message)
-					}
-
-				})
-				.catch(() => console.log('error'))
-		},
-		register({ commit, dispatch }, obj) {
-			auth.post("register", obj)
-				.then((res) => {
-					if (res.data.message) {
-						commit('setInfo', res.data.data)
-						console.log('account created')
-						router.push('home')
-					} else if (res.error) {
-						alert("Invalid Email or password");
-					}
-				})
-				.catch(() => console.log('error'))
-		},
-		logout({ commit, dispatch }) {
-			auth.delete('logout')
-				.then((res) => {
-					console.log(res.data.message)
-					// dispatch('changeLog')
-					dispatch('getAuth')
-					commit('resetState')
-				})
-				.catch(() => console.log('error'))
-		},
-		getAuth({ commit, dispatch }) {
-			auth('authenticate')
-				.then(res => {
-					if (!res.data.data) {
-						return router.push('/')
-					}
-					commit('setInfo', res.data.data)
-					router.push('home')
-				})
-				.catch(err => {
-					console.log(err)
-					router.push('/')
-				})
-		},
-		//when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
-
-		sendDesign({ commit, dispatch }, payload) {
-			let tags = payload[0].tags.match(/\S+/) || [] // grabs words from string, or returns empty array if only whitespace
-			payload[0].tags = [];
-			api.post('tattoo/upload', payload[0])
-				.then(res => {
-					console.log('uploaded i think', res)
-					let tattooId = res.data.data._id
-					tags.forEach(function (tag) {
-						api.post('tags', { name: tag })
-							.then(res => {
-								api.put('tattoos/' + tattooId + '/update', { tag: res.data.data._id })
-									.then(res => {
-										console.log('Tagged tattoo:', res.data.data)
-									})
-									.catch(err => {
-										console.log(err)
-										commit('handleError', err)
-									})
-							})
-							.catch(err => {
-								commit('handleError', err)
-							})
-					}, this);
-				})
-				.catch(err => {
-					commit('handleError', err)
-				})
-		},
-
-		like({ commit, dispatch }, obj) {
-			api.put(`tattoos/${obj.id}/like`)
-				.then(res => {
-					dispatch('getFavs')
-					dispatch('getTattoos')
-					dispatch('getArtistGallery')
-					dispatch('search', obj.query)
-				})
-				.catch(err => {
-					commit('handleError', err)
-				})
-		},
-
+		// *** Base Tattoo Actions *** //
 		getTattoos({ commit, dispatch }, { append = true, page = 0, cb, sortType = true }) {
 			let limit = 20;
 			let sort = sortType ? 'created' : 'numLikes'
@@ -273,6 +125,31 @@ var store = new vuex.Store({
 					commit('handleError', err)
 				})
 		},
+		removeTattoo({ commit, dispatch }, id) {
+			api.delete('tattoos/' + id)
+				.then(res => {
+					dispatch('getArtistGallery')
+					dispatch('getTattoos')
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
+		},
+		search({ commit, dispatch }, { tags, append = true, page = 0, cb }) {
+			var search = tags.toLowerCase().trim().replace(/\s+/g, ',');
+			let limit = 10;
+			api(`tattoos/search/tags/?tags=${search}&limit=${limit}&offset=${page * limit}`)
+				.then(res => {
+					commit('setSearchResults', { tattoos: res.data.data, append, page, tags: tags })
+					if (cb)
+						cb()
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
+		},
+
+		// *** Tattoo Favorites Actions *** //
 		getFavs({ commit, dispatch }) {
 			api('favorites')
 				.then(res => {
@@ -292,7 +169,6 @@ var store = new vuex.Store({
 					commit('handleError', err)
 				})
 		},
-
 		deleteFav({ commit, dispatch }, tattoo) {
 			var obj = {
 				favorite: tattoo._id
@@ -307,11 +183,108 @@ var store = new vuex.Store({
 					commit('handleError', err)
 				})
 		},
-		handleError({ commit, dispatch }, err) {
-			commit('handleError', err)
+		like({ commit, dispatch }, obj) {
+			api.put(`tattoos/${obj.id}/like`)
+				.then(res => {
+					commit('updateTattoo', res.data.data)
+					// dispatch('getFavs')
+					// dispatch('getTattoos')
+					// dispatch('getArtistGallery')
+					// // FIXME: This most likely doesn't work. query isn't attached to obj ever
+					// dispatch('search', obj.query)
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
+		},
+
+		// *** Misc Actions *** //
+		// TODO: This is a lot of network calls. Narrow it down by view.
+		getArtistGallery({ commit, dispatch }) {
+			api('my-designs')
+				.then(res => {
+					commit('setGallery', res.data.data)
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
+		},
+		sendDesign({ commit, dispatch }, payload) {
+			let tags = payload[0].tags.match(/\S+/) || [] // grabs words from string, or returns empty array if only whitespace
+			payload[0].tags = [];
+			api.post('tattoo/upload', payload[0])
+				.then(res => {
+					let tattooId = res.data.data._id
+					tags.forEach(function (tag) {
+						api.post('tags', { name: tag })
+							.then(res => {
+								api.put('tattoos/' + tattooId + '/update', { tag: res.data.data._id })
+									.then(res => {
+										console.log('Tagged tattoo:', res.data.data)
+									})
+									.catch(err => {
+										commit('handleError', err)
+									})
+							})
+							.catch(err => {
+								commit('handleError', err)
+							})
+					}, this);
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
+		},
+
+		// *** User Auth Actions *** //
+		register({ commit, dispatch }, obj) {
+			auth.post("register", obj)
+				.then((res) => {
+					if (res.data.message) {
+						commit('setInfo', res.data.data)
+						router.push('home')
+					} else if (res.error) {
+						alert("Invalid Email or password");
+					}
+				})
+				.catch((err) => commit('handleError', err))
+		},
+		login({ commit, dispatch }, obj) {
+			auth.post("login", obj)
+				.then((res) => {
+					if (res.data.message == "Invalid Email or Password") {
+						alert("Invalid Email or password");
+					} else {
+						commit('setInfo', res.data.data)
+						router.push('home')
+					}
+
+				})
+				.catch((err) => commit('handleError', err))
+		},
+		logout({ commit, dispatch }) {
+			auth.delete('logout')
+				.then((res) => {
+					dispatch('getAuth')
+					commit('setDefaultState')
+				})
+				.catch((err) => commit('handleError', err))
+		},
+		getAuth({ commit, dispatch }) {
+			auth('authenticate')
+				.then(res => {
+					if (!res.data.data) {
+						return router.push('/')
+					}
+					commit('setInfo', res.data.data)
+					router.push('home')
+				})
+				.catch(err => {
+					commit('handleError', err)
+					router.push('/')
+				})
 		}
 	}
-
 })
 
 

@@ -67,10 +67,10 @@
 
         methods: {
             zoomIn(card) {
-                this.$store.dispatch('zoomIn', card)
+                this.$store.commit('zoomIn', card)
             },
             confirm(card) {
-                this.$store.dispatch('confirm', card)
+                this.$store.commit('confirm', card)
             },
             addFav(card) {
                 this.$store.dispatch('addFav', card)
@@ -89,7 +89,7 @@
                 this.showButtons = !this.showButtons
             },
             addToQueue(tat) {
-                this.$store.dispatch('addToQueue', tat)
+                this.$store.commit('addToQueue', tat)
             }
 
         }

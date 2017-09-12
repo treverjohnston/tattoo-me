@@ -14,7 +14,7 @@
 			</div>
 			<div class="row">
 				<!-- <div v-if="sortType"> -->
-				<div v-for="card in activeCards">
+				<div v-for="card in tattoos">
 					<card :sortType="sortType" :cardProp="card"></card>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 		},
 		methods: {
 			sort() {
-				this.$store.dispatch('sort')
+				this.$store.commit('sort')
 				this.$store.commit('resetActiveCards')
 				this.$store.dispatch('getTattoos', { sortType: this.$store.state.sortType, append: false })
 			},
@@ -48,14 +48,14 @@
 				$(window).unbind('scroll')
 				$(window).scroll(function () {
 					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-						_this.$store.dispatch('getTattoos', { page: _this.$store.state.resultsPage + 1 })
+						_this.$store.dispatch('getTattoos', { page: _this.$store.state.tattoosPage + 1 })
 					}
 				});
 			}
 		},
 		computed: {
-			activeCards() {
-				return this.$store.state.activeCards
+			tattoos() {
+				return this.$store.state.tattoos
 			},
 			sortType() {
 				return this.$store.state.sortType
