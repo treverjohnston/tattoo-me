@@ -1,6 +1,7 @@
 <template>
     <div class="bar">
-       
+        <!-- <div class="container-fluid">
+            <div class="row"> -->
         <nav class="navbar navbar-inverse navbar-fixed-bottom">
             <ul>
                 <div class="col-xs-offset-1 col-xs-1">
@@ -14,9 +15,9 @@
                     </router-link>
                 </div>
                 <div class="col-xs-offset-1 col-xs-1">
-                    <router-link :to="'/options'">
-                        <li><a href="#" class="glyphicon glyphicon-plus-sign"></a></li>
-                    </router-link>
+                        <router-link :to="'/options'">                            
+                    <li><a href="#" class="glyphicon glyphicon-plus-sign"></a></li>
+                        </router-link>
                 </div>
                 <div class="col-xs-offset-1 col-xs-1">
                     <router-link :to="'/favorites'">
@@ -24,9 +25,9 @@
                     </router-link>
                 </div>
                 <div class="col-xs-offset-1 col-xs-1">
-                    <router-link :to="'/profile'">
-                        <li><a href="#" class="glyphicon glyphicon-user"></a></li>
-                    </router-link>
+                        <router-link :to="'/profile'">                            
+                    <li><a href="#" class="glyphicon glyphicon-user"></a></li>
+                        </router-link>
                 </div>
             </ul>
         </nav>
@@ -40,9 +41,6 @@
             return {
 
             }
-        },
-        methods: {
-
         }
     }
 
@@ -56,9 +54,8 @@
 
     li {
         list-style: none;
-        font-size: 10rem;
+        font-size: 8rem;
         padding-top: 2rem;
-        margin-bottom: 2rem;
     }
 
     .bar {
