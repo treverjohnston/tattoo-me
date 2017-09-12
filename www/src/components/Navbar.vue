@@ -56,6 +56,7 @@
         list-style: none;
         font-size: 8rem;
         padding-top: 2rem;
+        padding-bottom: 2rem;
     }
 
     .bar {
