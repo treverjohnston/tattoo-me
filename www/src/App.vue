@@ -36,7 +36,7 @@
 	}
 
 	body {
-		background-color: gray;
+		background-color: grey;
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
