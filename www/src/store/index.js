@@ -32,7 +32,8 @@ var store = new vuex.Store({
 		sortType: true,
 		tattoosPage: 0,
 		searchTags: '',
-		uploadedTattoo: {}
+		uploadedTattoo: {},
+		topArtists: []
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -47,7 +48,8 @@ var store = new vuex.Store({
 			state.sortType = true
 			state.tattoosPage = 0
 			state.searchTags = ''
-			state.uploadedTattoo = {}
+			state.uploadedTattoo = {},
+			state.topArtists = []
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -99,10 +101,11 @@ var store = new vuex.Store({
 			let index = state.tattoos.findIndex(tat => tat._id == tattoo._id)
 			vue.set(state.tattoos, index, tattoo)
 		},
-		uploadedTat(state, tattoo){
-			console.log('before', tattoo)
+		uploadedTat(state, tattoo) {
 			state.uploadedTattoo = tattoo
-			console.log('in state as: ',state.uploadedTattoo)
+		},
+		setTopArtists(state, tattoos){
+			state.topArtists = tattoos
 		}
 	},
 	actions: {
@@ -172,6 +175,12 @@ var store = new vuex.Store({
 		},
 
 		// *** Misc Actions *** //
+		getTopArtist({ commit, dispatch }) {
+			api('artists/top-weekly')
+			.then(res=>{
+				commit('setTopArtists', res.data.data)
+			})
+		},
 		getArtistGallery({ commit, dispatch }) {
 			api('my-designs')
 				.then(res => {
