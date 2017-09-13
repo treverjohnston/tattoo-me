@@ -31,7 +31,8 @@ var store = new vuex.Store({
 		confirm: [],
 		sortType: true,
 		tattoosPage: 0,
-		searchTags: ''
+		searchTags: '',
+		uploadedTattoo: {}
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -46,6 +47,7 @@ var store = new vuex.Store({
 			state.sortType = true
 			state.tattoosPage = 0
 			state.searchTags = ''
+			state.uploadedTattoo = {}
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -96,6 +98,11 @@ var store = new vuex.Store({
 		updateTattoo(state, tattoo) {
 			let index = state.tattoos.findIndex(tat => tat._id == tattoo._id)
 			vue.set(state.tattoos, index, tattoo)
+		},
+		uploadedTat(state, tattoo){
+			console.log('before', tattoo)
+			state.uploadedTattoo = tattoo
+			console.log('in state as: ',state.uploadedTattoo)
 		}
 	},
 	actions: {
@@ -208,6 +215,7 @@ var store = new vuex.Store({
 								api.put('tattoos/' + tattooId + '/update', { tag: res.data.data._id })
 									.then(res => {
 										console.log('Tagged tattoo:', res.data.data)
+										commit('uploadedTat', res.data.data)
 									})
 									.catch(err => {
 										commit('handleError', err)

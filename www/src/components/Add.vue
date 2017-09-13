@@ -18,6 +18,17 @@
           </form>
         </div>
       </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div v-if="uploaded.hasOwnProperty('_id')">
+            <h2 class="text">This is the low-res version that people will see before purchase</h2>
+            <img :src="uploaded.url" alt="image uploaded">
+          </div>
+          <div v-else>
+            <h3>Uploaded Picture Will Appear Below</h3>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,23 +45,25 @@
     },
     methods: {
       openCloud() {
-        if (this.tags !== ''){
+        if (this.tags !== '') {
           cloudinary.openUploadWidget({ cloud_name: 'tattoo-me', upload_preset: 'tattoopng' },
-            (error, result) => { 
+            (error, result) => {
               result[0].tags = this.tags
               result[0].price = this.price
-            this.$store.dispatch('sendDesign', result)
+              this.$store.dispatch('sendDesign', result)
             });
         } else {
           alert('need to make a stylish alert saying to fill in the right fields')
         }
-
       },
       addFile() {
         return this.$store.dispatch('addFile', this.file)
       }
     },
     computed: {
+      uploaded() {
+        return this.$store.state.uploadedTattoo
+      }
     },
     mounted() {
     },
@@ -62,14 +75,26 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .title{
+  .title {
     margin-bottom: 4rem;
     color: white;
   }
-  .form-group{
+
+  .form-group {
     font-size: 2rem;
   }
-  input{
+
+  input {
     margin-bottom: 1rem;
+  }
+
+  .text {
+    color: white;
+  }
+
+  img {
+    height: 40vh;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
   }
 </style>
