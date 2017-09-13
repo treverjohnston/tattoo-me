@@ -1,7 +1,7 @@
 <template>
     <div class="artistgallery">
         <div class="col-xs-6">
-            <div class="picture">
+            <div class="well picture">
                 <div class="row">
                     <div v-if="!showButtons">
                         <div class="col-xs-2">
@@ -87,7 +87,7 @@
     }
 
     .picture {
-        margin: 5rem 0 5rem 0;
+        margin: 5rem 0 0rem 0;
     }
 
     .btn {
@@ -98,5 +98,8 @@
 
 	.liked {
 		color: green
+	}
+    .well{
+		padding: 0 0 5em 0;
 	}
 </style>
