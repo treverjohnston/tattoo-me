@@ -38,7 +38,16 @@ module.exports = {
             let action = 'Like tattoo';
             Tattoos.findById(req.params.tattooId)//.select('likes').exec()
                 .then(tattoo => {
-                    updateTattooLikes(tattoo, req.session.uid);
+                    if (updateTattooLikes(tattoo, req.session.uid)) {
+                        User.findById(tattoo.creatorId)
+                            .then(user => {
+                                user.weeklyLikes.push(Date.now())
+                                user.save()
+                                    .then(() => {
+                                        console.log('updated weekly likes')
+                                    })
+                            })
+                    }
                     tattoo.save()
                         .then(() => {
                             // tattoo.likes = []
@@ -154,18 +163,63 @@ module.exports = {
                     return next(handleResponse(action, null, error))
                 })
         }
-
     },
+    getWeeklyTopArtists: {
+        path: '/artists/top-weekly',
+        reqType: 'get',
+        method(req, res, next) {
+            let action = 'Find artists with most likes on their designs in the past week'
+            let limit = Math.min(req.query.limit || 10, 50);
+            User.find({ accountType: 'artist' })
+                .then(users => {
+                    let artists = []
+                    users.forEach(artist => {
+                        for (let i = 0; i < artist.weeklyLikes.length; i++) {
+                            if (Date.now() - artist.weeklyLikes[i] > (1000 * 60 * 60 * 24 * 7)) {
+                                artist.weeklyLikes.splice(i, 1)
+                                i--;
+                            }
+                        }
+                        artists.push({ _id: artist._id, numWeeklyLikes: artist.weeklyLikes.length })
+                        // artist.numWeeklyLikes = artist.weeklyLikes.length;
+                    });
+                    artists.sort((a, b) => {
+                        return b.numWeeklyLikes - a.numWeeklyLikes;
+                    })
+                    res.send(handleResponse(action, artists.slice(0, limit)))
+                    // artists.save() // array of documents don't have a save function
+                    //     .then(() => {
+                    //         User.find({ accountType: 'artist' }).limit(limit).sort('-numWeeklyLikes')
+                    //             .then(users => {
+                    //                 res.send(handleResponse(action, users))
+                    //             })
+                    //             .catch(error => {
+                    //                 return next(handleResponse(action, null, error))
+                    //             })
+                    //     })
+                    //     .catch(error => {
+                    //         return next(handleResponse(action, null, error))
+                    //     })
+                })
+                .catch(error => {
+                    return next(handleResponse(action, null, error))
+                })
+        }
+    }
 }
 
 function updateTattooLikes(tattoo, userId) {
     let index = tattoo.likes.indexOf(userId);
+    let liked;
     if (index == -1) {
         tattoo.likes.push(userId);
+        liked = true
     } else {
         tattoo.likes.splice(index, 1);
+        liked = false
     }
     tattoo.numLikes = tattoo.likes.length;
+    return liked;
 }
 
 function handleResponse(action, data, error) {
