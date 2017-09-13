@@ -105,9 +105,7 @@ var store = new vuex.Store({
 			state.uploadedTattoo = tattoo
 		},
 		setTopArtists(state, tattoos){
-			console.log('at commit', tattoos)
 			state.topArtists = tattoos
-			console.log('state :', state.topArtists)
 		}
 	},
 	actions: {

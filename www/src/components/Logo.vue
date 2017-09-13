@@ -22,6 +22,9 @@
                     know what you're looking for, try searching by tags. If you just want to see what some tattoos look like
                     on you, then add to your queue and open up the phones camera to see what it looks like.
                 </h4>
+                <router-link :to="'/topartists'">
+                <button class="top-artists btn btn-default">Check out the top artists of the week!</button>
+                </router-link>
             </md-sidenav>
         </div>
     </div>
@@ -32,7 +35,6 @@
         name: 'logo',
         data() {
             return {
-
             }
         },
         methods: {
@@ -63,6 +65,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .top-artists{
+        margin-top: 3rem;
+    }
     .picture {
         height: 20rem;
         /* margin: 0 auto; */
@@ -71,17 +76,6 @@
     .sidePic {
         height: 10rem;
     }
-
-    /* .md-toolbar { */
-        /* width: 100%; */
-        /* margin: 0 auto; */
-        /* position: absolute; */
-        /* top: 0px; */
-        /* height: 15vh; */
-        /* background-position: center; */
-        /* background-repeat: no-repeat; */
-        /* background-size: cover; */
-    /* } */
     .text{
         padding: 0 1rem 0 1rem;
     }
