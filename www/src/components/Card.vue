@@ -45,8 +45,19 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-10">
+					<div class="col-xs-12">
 						<img :src="cardProp.url" alt="image">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="artist">
+							<!-- <router-link :to="'/viewartist'">
+								<button class="btn btn-default"> -->
+									<h3>Design by: {{cardProp.artistName}}</h3>
+								<!-- </button>
+							</router-link> -->
+						</div>
 					</div>
 				</div>
 			</div>
@@ -140,7 +151,12 @@
 	.favorited {
 		color: red
 	}
-	.well{
+
+	.well {
 		padding: 0 0 5em 0;
+	}
+
+	.artist {
+		margin-top: 4rem;
 	}
 </style>

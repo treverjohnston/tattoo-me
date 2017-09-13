@@ -3,6 +3,11 @@
     <div class="container-fluid">
       <hr>
       <div class="row">
+        <div class="col-xs-12">
+          <h2 class="title">Upload a Design</h2>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-xs-offset-4 col-xs-4">
           <form @submit.prevent="openCloud">
             <div class="form-group">
@@ -57,7 +62,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  
+  .title{
+    margin-bottom: 4rem;
+    color: white;
+  }
   .form-group{
     font-size: 2rem;
   }
