@@ -50,6 +50,15 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="tags">
+                        <div v-for="tag in card.tags">
+                            <h4>{{tag}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
