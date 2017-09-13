@@ -28,16 +28,29 @@
 		<div v-else>
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-xs-4">
-						<img :src="info.url" alt="profile picture">
+					<div v-if="info.url">
+						<div class="col-xs-4">
+							<img :src="info.url" alt="profile picture">
+						</div>
+					</div>
+					<div v-else>
+						<div class="col-xs-4">
+						<button class="btn btn-default">
+							<h3>Upload an Artist Image</h3>
+						</button>
+						</div>
 					</div>
 					<div class="col-xs-6">
 						<div class="row">
-							<div class="col-xs-12">
-								{{info.name}}
+							<div class="col-xs-4">
+								<h2>
+									{{info.name}}
+								</h2>
 							</div>
-							<div class="col-xs-12">
-								{{info.email}}
+							<div class="col-xs-4">
+								<h2>
+									{{info.email}}
+								</h2>
 							</div>
 						</div>
 					</div>
