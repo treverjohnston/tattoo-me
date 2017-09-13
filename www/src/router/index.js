@@ -13,6 +13,7 @@ import Add from '@/components/Add'
 import Artistmobile from '@/components/ArtistMobile'
 import Purchase from '@/components/Purchase'
 import Purchasefav from '@/components/PurchaseFav'
+import Viewartist from '@/components/ViewArtist'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/viewartist',
+      name: 'Viewartist',
+      component: Viewartist
     },
     {
       path: '/purchasefav',
