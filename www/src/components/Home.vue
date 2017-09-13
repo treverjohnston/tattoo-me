@@ -76,7 +76,7 @@
 	}
 
 	.btn {
-		background-color: transparent;
+		/* background-color: transparent; */
 		font-size: 2rem;
 		color: black;
 	}

@@ -36,10 +36,13 @@
 	}
 
 	body {
-		background-color: grey;
+		background-color: rgb(52, 61, 79);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
 		/* padding-bottom: 80% */
+	}
+	.glyphicon-usd{
+		color: green
 	}
 </style>

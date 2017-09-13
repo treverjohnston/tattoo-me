@@ -154,6 +154,7 @@
 
 	.well {
 		padding: 0 0 5em 0;
+		background-color: rgba(255, 255, 255, .8)
 	}
 
 	.artist {
