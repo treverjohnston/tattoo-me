@@ -19,10 +19,18 @@
                 </div>
                 <div v-if="!card.favorite">
                     <div class="col-xs-offset-7 col-xs-2">
-                        <button @click="addFav(card)" class="btn glyphicon glyphicon-heart"></button>
-                        <router-link :to="'/purchase'">
-                            <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
-                        </router-link>                       
+                        <div v-if="!hasFavorited">
+                            <button @click="favorite(card)" class="btn glyphicon glyphicon-heart"></button>
+                            <router-link :to="'/purchase'">
+                                <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
+                            </router-link>
+                        </div>
+                        <div v-else>
+                            <button @click="favorite(card)" class="btn glyphicon glyphicon-heart favorited"></button>
+                            <router-link :to="'/purchase'">
+                                <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
                 <div v-else>
@@ -30,7 +38,7 @@
                         <button @click="deleteFav(card)" class="btn glyphicon glyphicon-remove"></button>
                         <router-link :to="'/purchasefav'">
                             <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
-                        </router-link>     
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -57,11 +65,17 @@
         computed: {
             card() {
                 return this.$store.state.mobileView
+            },
+            hasFavorited() {
+                return this.$store.state.userInfo.favorites.includes(this.card._id)
             }
         },
         components: {
         },
         methods: {
+            favorite(card) {
+                this.$store.dispatch('favorite', card)
+            },
             addFav(card) {
                 this.$store.dispatch('addFav', card)
             },
@@ -73,21 +87,33 @@
             },
         }
     }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .picture{
+    .picture {
         margin-top: 10vh;
     }
-    a{
+
+    a {
         color: black;
     }
+
     img {
         height: 40vh
     }
-    .btn{
+
+    .btn {
         background-color: transparent;
         font-size: 3rem;
+    }
+
+    .liked {
+        color: green
+    }
+
+    .favorited {
+        color: red
     }
 </style>
