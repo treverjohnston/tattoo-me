@@ -148,38 +148,16 @@ var store = new vuex.Store({
 		favorite({ commit, dispatch }, tattoo) {
 			api.put('favorites/' + tattoo._id, tattoo)
 				.then(res => {
-					// dispatch('getFavs')
-					// dispatch('getTattoos')
 					commit('updateFavorites', res.data.data)
 				})
 				.catch(err => {
 					commit('handleError', err)
 				})
 		},
-		// deleteFav({ commit, dispatch }, tattoo) {
-		// 	var obj = {
-		// 		favorite: tattoo._id
-		// 	}
-		// 	api.put(`favorites/${obj.favorite}`)
-		// 		.then(res => {
-		// 			dispatch('getFavs')
-		// 			dispatch('getTattoos')
-		// 			return router.push('/favorites')
-		// 		})
-		// 		.catch(err => {
-		// 			commit('handleError', err)
-		// 		})
-		// },
-		// TODO: This is a lot of network calls. Narrow it down by view.
 		like({ commit, dispatch }, obj) {
 			api.put(`tattoos/${obj.id}/like`)
 				.then(res => {
 					commit('updateTattoo', res.data.data)
-					// dispatch('getFavs')
-					// dispatch('getTattoos')
-					// dispatch('getArtistGallery')
-					// // FIXME: This most likely doesn't work. query isn't attached to obj ever
-					// dispatch('search', obj.query)
 				})
 				.catch(err => {
 					commit('handleError', err)
