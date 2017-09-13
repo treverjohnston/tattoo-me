@@ -112,6 +112,6 @@
 	}
 
 	.profile {
-		padding-bottom: 10rem;
+		padding-bottom: 15rem;
 	}
 </style>
