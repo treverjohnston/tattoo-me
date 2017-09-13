@@ -36,7 +36,7 @@
 	}
 
 	body {
-		background-color: rgb(52, 61, 79);
+		background-color: rgb(128, 140, 163);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;

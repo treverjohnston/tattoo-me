@@ -13,9 +13,15 @@
                         <h3 class="md-title"><img class="sidePic" src="../assets/Tattoo-me.png"></h3>
                     </div>
                 </md-toolbar>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi cupiditate esse necessitatibus beatae nobis,
-                    deserunt ut est fugit, tempora deleniti, eligendi commodi doloribus. Nemo, assumenda possimus, impedit
-                    inventore perferendis iusto!</p>
+                <h3>
+                    Welcome to Tattoo-Me
+                </h3>
+                <h4 class=" text text-justify">
+                    This app is made for people who want to see what real tattoo designs would look like without any hassle. You can search through
+                    designs on the home page, save your favorites, and add them to a queue to try them on yourself. If you
+                    know what you're looking for, try searching by tags. If you just want to see what some tattoos look like
+                    on you, then add to your queue and open up the phones camera to see what it looks like.
+                </h4>
             </md-sidenav>
         </div>
     </div>
@@ -57,21 +63,26 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .picture{
+    .picture {
         height: 20rem;
         /* margin: 0 auto; */
     }
-    .sidePic{
+
+    .sidePic {
         height: 10rem;
     }
-    .logo {
-        width: 100%;
-        margin: 0 auto;
+
+    /* .md-toolbar { */
+        /* width: 100%; */
+        /* margin: 0 auto; */
         /* position: absolute; */
         /* top: 0px; */
         /* height: 15vh; */
         /* background-position: center; */
         /* background-repeat: no-repeat; */
         /* background-size: cover; */
+    /* } */
+    .text{
+        padding: 0 1rem 0 1rem;
     }
 </style>

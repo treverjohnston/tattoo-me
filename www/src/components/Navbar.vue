@@ -65,4 +65,7 @@
         bottom: 0px;
         /* height: 10vh; */
     }
+    a{
+        color: rgb(128, 140, 163);
+    }
 </style>
