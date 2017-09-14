@@ -3,9 +3,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
-                    <h2>
-                        {{artist._id}}
-                    </h2>
+                    <router-link :artist="artist" :to="`/viewartist/${artist._id}`">
+                        <button @click="setCurrentArtist(artist)" class="btn btn-default">
+                            <h2>
+                                {{artist.name}}
+                            </h2>
+                        </button>
+                    </router-link>
                     <h2>
                         {{artist.numWeeklyLikes}}
                     </h2>
@@ -24,6 +28,9 @@
             }
         },
         methods: {
+            setCurrentArtist(id){
+                this.$store.commit('setCurrentArtist', this.artist)
+            }
         },
         computed: {
         },
@@ -31,6 +38,7 @@
         components: {
         },
         mounted() {
+            // this.$store.dispatch('getArtistProfile', this.artist._id)
         }
     }
 

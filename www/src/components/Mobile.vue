@@ -18,27 +18,30 @@
                     </div>
                 </div>
                 <div v-if="!card.favorite">
-                    <div class="col-xs-offset-7 col-xs-2">
+                    <div class="col-xs-offset-5 col-xs-4">
                         <div v-if="!hasFavorited">
                             <button @click="favorite(card)" class="btn glyphicon glyphicon-heart"></button>
                             <router-link :to="'/purchase'">
                                 <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
                             </router-link>
+                            <a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
                         </div>
                         <div v-else>
                             <button @click="favorite(card)" class="btn glyphicon glyphicon-heart favorited"></button>
                             <router-link :to="'/purchase'">
                                 <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
                             </router-link>
+                            <a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
                         </div>
                     </div>
                 </div>
                 <div v-else>
-                    <div class="col-xs-offset-7 col-xs-2">
+                    <div class="col-xs-offset-5 col-xs-4">
                         <button @click="deleteFav(card)" class="btn glyphicon glyphicon-remove"></button>
                         <router-link :to="'/purchasefav'">
                             <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
                         </router-link>
+                        <a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
                     </div>
                 </div>
             </div>
@@ -52,9 +55,10 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="tags">
+                    <div class="panel tags">
+                            <!-- <h2 class="text-left">Tags:</h2> -->
                         <div v-for="tag in card.tags">
-                            <h4>{{tag}}</h4>
+                            <h4 class="tag-text">{{tag.name}}</h4>
                         </div>
                     </div>
                 </div>
@@ -101,8 +105,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .panel{
+        margin: 3rem 0 0 0;
+        padding: 2rem 0 2rem 0;
+    }
+    .tag-text{
+        font-size: 3rem;
+    }
     .picture {
-        margin-top: 10vh;
+        margin-top: 5vh;
     }
 
     a {
@@ -115,7 +126,7 @@
 
     .btn {
         background-color: transparent;
-        font-size: 3rem;
+        font-size: 5em;
     }
 
     .liked {
