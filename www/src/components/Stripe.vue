@@ -1,4 +1,3 @@
-
 <!--  -->
 <!-- WHEN A PERSON PRESSES THE $ BUTTON IT SETS THE TATTOO OBJECT IN THE STATE AT THIS.$STORE.STATE.CONFIRM -->
 <!--  -->
@@ -21,7 +20,7 @@
 				<div id="card-element" class="field is-empty"></div>
 				<span><span>Credit or debit card</span></span>
 			</label>
-			<button type="submit" @click='pay' :disabled='!complete'>Pay $25</button>
+			<button type="submit">Pay $25</button>
 			<div class="outcome">
 				<div class="error" role="alert"></div>
 				<div class="success">
@@ -47,11 +46,17 @@
 			}
 		},
 
+		computed: {
+			tattoo() {
+				return this.$store.state.confirm
+			}
+		},
+
 		components: { Card },
 		mounted() {
 			var stripe = Stripe('pk_test_cr5DjQkjunl2TGMOTUIRhzk7');
 			var elements = stripe.elements();
-
+			var _this = this;
 			var card = elements.create('card', {
 				iconStyle: 'solid',
 				style: {
@@ -95,6 +100,23 @@
 					}
 				});
 			});
+			function setOutcome(result) {
+				var successElement = document.querySelector('.success');
+				var errorElement = document.querySelector('.error');
+				successElement.classList.remove('visible');
+				errorElement.classList.remove('visible');
+
+				if (result.token) {
+					// Use the token to create a charge or a customer
+					// https://stripe.com/docs/charges
+					_this.$store.dispatch('purchaseTattoo', { token: result.token, tattooId: _this.tattoo._id })
+					successElement.querySelector('.token').textContent = result.token.id;
+					successElement.classList.add('visible');
+				} else if (result.error) {
+					errorElement.textContent = result.error.message;
+					errorElement.classList.add('visible');
+				}
+			}
 
 			card.on('change', function (event) {
 				setOutcome(event);
@@ -109,7 +131,6 @@
 				stripe.createToken(card, extraDetails).then(setOutcome);
 			});
 		},
-
 		methods: {
 			pay() {
 				// createToken returns a Promise which resolves in a result object with
@@ -119,26 +140,10 @@
 				// More general https://stripe.com/docs/stripe.js#stripe-create-token.
 				createToken().then(data => {
 					if (data.token)
-						this.$store.dispatch('purchaseTattoo', { token: data.token, tattooId: '59b1c589cb41352e30cee15f' })
+						this.$store.dispatch('purchaseTattoo', { token: data.token, tattooId: 'tattoo._id' })
 					else
 						console.log(data)
 				})
-			},
-			setOutcome(result) {
-				var successElement = document.querySelector('.success');
-				var errorElement = document.querySelector('.error');
-				successElement.classList.remove('visible');
-				errorElement.classList.remove('visible');
-
-				if (result.token) {
-					// Use the token to create a charge or a customer
-					// https://stripe.com/docs/charges
-					successElement.querySelector('.token').textContent = result.token.id;
-					successElement.classList.add('visible');
-				} else if (result.error) {
-					errorElement.textContent = result.error.message;
-					errorElement.classList.add('visible');
-				}
 			}
 		}
 	}
@@ -183,7 +188,7 @@
 	label {
 		height: 35px;
 		position: relative;
-		color: #8798AB;
+		color: #1D1F21;
 		display: block;
 		margin-top: 30px;
 		margin-bottom: 20px;
@@ -238,16 +243,16 @@
 	}
 
 	.field::-webkit-input-placeholder {
-		color: #8898AA;
+		color: #1D1F21;
 	}
 
 	.field::-moz-placeholder {
-		color: #8898AA;
+		color: #1D1F21;
 	}
 	/* IE doesn't show placeholders when empty+focused */
 
 	.field:-ms-input-placeholder {
-		color: #424770;
+		color: #1D1F21;
 	}
 
 	.field.is-empty:not(.is-focused) {
