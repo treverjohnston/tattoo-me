@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="res">
 					<div v-for="card in tattoos">
-						<Card :query="query" :cardProp="card"></Card>
+						<searchcard :query="query" :cardProp="card"></searchcard>
 					</div>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-	import Card from './Card'
+	import Searchcard from './SearchCard'
 	import $ from 'jquery'
 	export default {
 		name: 'search',
@@ -64,7 +64,7 @@
 			}
 		},
 		components: {
-			Card
+			Searchcard
 		}
 	}
 

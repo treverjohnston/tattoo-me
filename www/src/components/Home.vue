@@ -45,6 +45,9 @@
 						_this.$store.dispatch('getTattoos', { page: _this.$store.state.tattoosPage + 1 })
 					}
 				});
+			},
+			toggleStripe() {
+
 			}
 		},
 		computed: {

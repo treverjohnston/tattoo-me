@@ -47,7 +47,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .favorites {
-        padding-bottom: 10rem;
+        padding-bottom: 15rem;
     }
 
     .res{

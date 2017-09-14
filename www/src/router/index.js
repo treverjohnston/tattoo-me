@@ -11,6 +11,7 @@ import Camera from '@/components/Camera'
 // import NewCamera from '@/components/NewCamera'
 import Add from '@/components/Add'
 import Artistmobile from '@/components/ArtistMobile'
+import Searchmobile from '@/components/SearchMobile'
 import Purchase from '@/components/Purchase'
 import Purchasefav from '@/components/PurchaseFav'
 import Viewartist from '@/components/ViewArtist'
@@ -31,7 +32,7 @@ export default new Router({
       component: Topartists
     },
     {
-      path: '/viewartist',
+      path: '/viewartist/:artistId',
       name: 'Viewartist',
       component: Viewartist
     },
@@ -89,6 +90,11 @@ export default new Router({
       path: '/search',
       name: 'Search',
       component: Search
+    },
+    {
+      path: '/searchmobile',
+      name: 'Searchmobile',
+      component: Searchmobile
     },
     {
       path: '/mobile',

@@ -115,27 +115,33 @@ module.exports = {
 					user.save().then(() => {
 						res.send(handleResponse(action, user.favorites))
 					})
-				}).catch(error => {
+				})
+				.catch(error => {
 					return next(handleResponse(action, null, error))
 				})
 		}
 	},
-	// removeFavorite: {
-	// 	path: '/favorites/:tattooId',
-	// 	reqType: 'put',
-	// 	method(req, res, next) {
-	// 		let action = 'Remove favorite'
-	// 		User.findById(req.session.uid)
-	// 			.then(user => {
-	// 				user.favorites.splice(user.favorites.indexOf(req.params.tattooId), 1)
-	// 				user.save().then(() => {
-	// 					res.send(handleResponse(action, { message: 'successfully removed favorite' }))
-	// 				})
-	// 			}).catch(error => {
-	// 				return next(handleResponse(action, null, error))
-	// 			})
-	// 	}
-	// }
+	artistProfile: {
+		path: '/artist/:artistId',
+		reqType: 'get',
+		method(req, res, next) {
+			let action = 'View artist public profile'
+			User.findOne({ _id: req.params.artistId, accountType: 'artist' }).select('name')
+				.then(artist => {
+					Tattoos.find({ creatorId: artist._id })
+						.then(tattoos => {
+							// artist.tattoos = tattoos;
+							res.send(handleResponse(action, { artist, tattoos }))
+						})
+						.catch(error => {
+							return next(handleResponse(action, null, error))
+						})
+				})
+				.catch(error => {
+					return next(handleResponse(action, null, error))
+				})
+		}
+	}
 }
 
 function handleResponse(action, data, error) {
