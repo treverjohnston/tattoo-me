@@ -18,7 +18,7 @@
             <hr>
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>Designs by: {{info.name}}</h1>
+                    <h1>Designs by: {{current.name}}</h1>
                 </div>
             </div>
             <hr>
@@ -47,7 +47,10 @@
                 return this.$store.state.userInfo
             },
             gallery() {
-                return this.$store.state.tattoos
+                return this.$store.state.artistProfile.tattoos
+            },
+            current(){
+                return this.$store.state.artistProfile.artist
             }
         },
         components: {
@@ -56,6 +59,7 @@
         mounted() {
             this.$store.commit('resetTattoos')
             this.$store.dispatch('getArtistGallery')
+            this.$store.dispatch('getArtistProfile', this.$route.params.artistId)
         }
     }
 

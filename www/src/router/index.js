@@ -31,7 +31,7 @@ export default new Router({
       component: Topartists
     },
     {
-      path: '/viewartist',
+      path: '/viewartist/:artistId',
       name: 'Viewartist',
       component: Viewartist
     },
