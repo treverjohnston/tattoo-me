@@ -56,7 +56,7 @@
 		mounted() {
 			var stripe = Stripe('pk_test_cr5DjQkjunl2TGMOTUIRhzk7');
 			var elements = stripe.elements();
-
+			var _this = this;
 			var card = elements.create('card', {
 				iconStyle: 'solid',
 				style: {
@@ -109,6 +109,7 @@
 				if (result.token) {
 					// Use the token to create a charge or a customer
 					// https://stripe.com/docs/charges
+					_this.$store.dispatch('purchaseTattoo', { token: result.token, tattooId: _this.tattoo._id })
 					successElement.querySelector('.token').textContent = result.token.id;
 					successElement.classList.add('visible');
 				} else if (result.error) {
@@ -129,7 +130,7 @@
 				};
 				stripe.createToken(card, extraDetails).then(setOutcome);
 			});
-
+		},
 		methods: {
 			pay() {
 				// createToken returns a Promise which resolves in a result object with
