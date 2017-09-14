@@ -120,22 +120,6 @@ module.exports = {
 				})
 		}
 	},
-	// removeFavorite: {
-	// 	path: '/favorites/:tattooId',
-	// 	reqType: 'put',
-	// 	method(req, res, next) {
-	// 		let action = 'Remove favorite'
-	// 		User.findById(req.session.uid)
-	// 			.then(user => {
-	// 				user.favorites.splice(user.favorites.indexOf(req.params.tattooId), 1)
-	// 				user.save().then(() => {
-	// 					res.send(handleResponse(action, { message: 'successfully removed favorite' }))
-	// 				})
-	// 			}).catch(error => {
-	// 				return next(handleResponse(action, null, error))
-	// 			})
-	// 	}
-	// }
 }
 
 function handleResponse(action, data, error) {
