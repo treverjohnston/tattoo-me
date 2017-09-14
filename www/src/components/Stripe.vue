@@ -21,7 +21,7 @@
 				<div id="card-element" class="field is-empty"></div>
 				<span><span>Credit or debit card</span></span>
 			</label>
-			<button type="submit" @click='pay' :disabled='!complete'>Pay $25</button>
+			<button type="submit">Pay $25</button>
 			<div class="outcome">
 				<div class="error" role="alert"></div>
 				<div class="success">
@@ -44,6 +44,12 @@
 				stripeOptions: {
 					// see https://stripe.com/docs/stripe.js#element-options for details
 				}
+			}
+		},
+
+		computed: {
+			tattoo() {
+				return this.$store.state.confirm
 			}
 		},
 
@@ -108,23 +114,8 @@
 				};
 				stripe.createToken(card, extraDetails).then(setOutcome);
 			});
-		},
 
-		methods: {
-			pay() {
-				// createToken returns a Promise which resolves in a result object with
-				// either a token or an error key.
-				// See https://stripe.com/docs/api#tokens for the token object.
-				// See https://stripe.com/docs/api#errors for the error object.
-				// More general https://stripe.com/docs/stripe.js#stripe-create-token.
-				createToken().then(data => {
-					if (data.token)
-						this.$store.dispatch('purchaseTattoo', { token: data.token, tattooId: '59b1c589cb41352e30cee15f' })
-					else
-						console.log(data)
-				})
-			},
-			setOutcome(result) {
+			function setOutcome(result) {
 				var successElement = document.querySelector('.success');
 				var errorElement = document.querySelector('.error');
 				successElement.classList.remove('visible');
@@ -139,6 +130,22 @@
 					errorElement.textContent = result.error.message;
 					errorElement.classList.add('visible');
 				}
+			};
+		},
+
+		methods: {
+			pay() {
+				// createToken returns a Promise which resolves in a result object with
+				// either a token or an error key.
+				// See https://stripe.com/docs/api#tokens for the token object.
+				// See https://stripe.com/docs/api#errors for the error object.
+				// More general https://stripe.com/docs/stripe.js#stripe-create-token.
+				createToken().then(data => {
+					if (data.token)
+						this.$store.dispatch('purchaseTattoo', { token: data.token, tattooId: 'tattoo._id' })
+					else
+						console.log(data)
+				})
 			}
 		}
 	}
@@ -183,7 +190,7 @@
 	label {
 		height: 35px;
 		position: relative;
-		color: #8798AB;
+		color: #1D1F21;
 		display: block;
 		margin-top: 30px;
 		margin-bottom: 20px;
@@ -238,16 +245,16 @@
 	}
 
 	.field::-webkit-input-placeholder {
-		color: #8898AA;
+		color: #1D1F21;
 	}
 
 	.field::-moz-placeholder {
-		color: #8898AA;
+		color: #1D1F21;
 	}
 	/* IE doesn't show placeholders when empty+focused */
 
 	.field:-ms-input-placeholder {
-		color: #424770;
+		color: #1D1F21;
 	}
 
 	.field.is-empty:not(.is-focused) {

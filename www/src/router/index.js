@@ -17,6 +17,7 @@ import Purchasefav from '@/components/PurchaseFav'
 import Viewartist from '@/components/ViewArtist'
 import Topartists from '@/components/TopArtists'
 import Confirmdelete from '@/components/ConfirmDelete'
+import Stripe from '@/components/Stripe'
 
 Vue.use(Router)
 
@@ -106,6 +107,11 @@ export default new Router({
       path: '/mobile',
       name: 'Mobile',
       component: Mobile
+    },
+    {
+      path: '/stripe',
+      name: 'Stripe',
+      component: Stripe
     }
   ]
 })
