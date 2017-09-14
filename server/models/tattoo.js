@@ -9,7 +9,7 @@ var schema = new mongoose.Schema({
     artistName: { type: String, required: true },
     url: { type: String, required: true },
     hdUrl: { type: String, required: true, select: false },
-    tags: [{ type: ObjectId, ref: models.tag }],
+    tags: [{ type: ObjectId, ref: models.tag.name }],
     price: { type: Number, required: true },
     likes: { type: [ObjectId], ref: models.user.name, default: [] },// select: false },
     numLikes: { type: Number, default: 0 },

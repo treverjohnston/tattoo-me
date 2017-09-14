@@ -19,7 +19,7 @@ function API(model, schema) {
 		// console.log(query)
 
 		if (id) {
-			schema.findById(id)
+			schema.findById(id).populate('tags').exec()
 				.then(data => {
 					return res.send(handleResponse(actions.find, data))
 				})
@@ -30,7 +30,7 @@ function API(model, schema) {
 			let limit = Math.min(50, req.query.limit || 20);
 			let offset = parseInt(req.query.offset) || 0;
 			let sort = req.query.sort || 'created'
-			schema.find(params).sort('-' + sort).limit(limit).skip(offset)
+			schema.find(params).sort('-' + sort).limit(limit).skip(offset).populate('tags').exec()
 				.then(data => {
 					var result = handleResponse(actions.findAll, data);
 					// result.query = query
