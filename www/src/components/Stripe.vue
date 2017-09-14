@@ -46,6 +46,12 @@
 			}
 		},
 
+		computed: {
+			tattoo() {
+				return this.$store.state.confirm
+			}
+		},
+
 		components: { Card },
 		mounted() {
 			var stripe = Stripe('pk_test_cr5DjQkjunl2TGMOTUIRhzk7');
@@ -123,7 +129,6 @@
 				};
 				stripe.createToken(card, extraDetails).then(setOutcome);
 			});
-		},
 
 		methods: {
 			pay() {
@@ -134,11 +139,11 @@
 				// More general https://stripe.com/docs/stripe.js#stripe-create-token.
 				createToken().then(data => {
 					if (data.token)
-						this.$store.dispatch('purchaseTattoo', { token: data.token, tattooId: '59b1c589cb41352e30cee15f' })
+						this.$store.dispatch('purchaseTattoo', { token: data.token, tattooId: 'tattoo._id' })
 					else
 						console.log(data)
 				})
-			},
+			}
 		}
 	}
 
@@ -182,7 +187,7 @@
 	label {
 		height: 35px;
 		position: relative;
-		color: #8798AB;
+		color: #1D1F21;
 		display: block;
 		margin-top: 30px;
 		margin-bottom: 20px;
@@ -237,16 +242,16 @@
 	}
 
 	.field::-webkit-input-placeholder {
-		color: #8898AA;
+		color: #1D1F21;
 	}
 
 	.field::-moz-placeholder {
-		color: #8898AA;
+		color: #1D1F21;
 	}
 	/* IE doesn't show placeholders when empty+focused */
 
 	.field:-ms-input-placeholder {
-		color: #424770;
+		color: #1D1F21;
 	}
 
 	.field.is-empty:not(.is-focused) {

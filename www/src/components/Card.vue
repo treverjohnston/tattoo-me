@@ -98,9 +98,6 @@
 			zoomIn(card) {
 				this.$store.commit('zoomIn', card)
 			},
-			confirm(card) {
-				this.$store.commit('confirm', card)
-			},
 			favorite() {
 				this.$store.dispatch('favorite', this.cardProp)
 			},
