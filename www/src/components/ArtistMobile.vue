@@ -8,6 +8,9 @@
                         <button class="btn glyphicon glyphicon-menu-left"></button>
                     </router-link>
                 </div>
+                <div class="col-xs-offset-8 col-xs-2">
+                    <a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
+                </div>
             </div>
             <hr>
             <div class="row">
@@ -45,20 +48,24 @@
             }
         }
     }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .picture{
+    .picture {
         margin-top: 10vh;
     }
-    a{
+
+    a {
         color: black;
     }
-    .btn{
+
+    .btn {
         background-color: transparent;
-        font-size: 3rem;
+        font-size: 5rem;
     }
+
     img {
         height: 40vh
     }

@@ -18,27 +18,30 @@
                     </div>
                 </div>
                 <div v-if="!card.favorite">
-                    <div class="col-xs-offset-7 col-xs-2">
+                    <div class="col-xs-offset-5 col-xs-4">
                         <div v-if="!hasFavorited">
                             <button @click="favorite(card)" class="btn glyphicon glyphicon-heart"></button>
                             <router-link :to="'/purchase'">
                                 <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
                             </router-link>
+                            <a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
                         </div>
                         <div v-else>
                             <button @click="favorite(card)" class="btn glyphicon glyphicon-heart favorited"></button>
                             <router-link :to="'/purchase'">
                                 <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
                             </router-link>
+                            <a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
                         </div>
                     </div>
                 </div>
                 <div v-else>
-                    <div class="col-xs-offset-7 col-xs-2">
+                    <div class="col-xs-offset-5 col-xs-4">
                         <button @click="deleteFav(card)" class="btn glyphicon glyphicon-remove"></button>
                         <router-link :to="'/purchasefav'">
                             <button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
                         </router-link>
+                        <a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
                     </div>
                 </div>
             </div>
@@ -115,7 +118,7 @@
 
     .btn {
         background-color: transparent;
-        font-size: 3rem;
+        font-size: 5em;
     }
 
     .liked {
