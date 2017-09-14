@@ -126,7 +126,7 @@ var store = new vuex.Store({
 			api('tattoos?limit=' + limit + '&offset=' + page * limit + '&sort=' + sort)
 				.then(res => {
 					commit('setTattoos', { tattoos: res.data.data, append, page })
-					console.log(res)
+					// console.log(res)
 					if (cb)
 						cb();
 				})
@@ -135,8 +135,10 @@ var store = new vuex.Store({
 				})
 		},
 		removeTattoo({ commit, dispatch }, id) {
+			router.push('Profile')
 			api.delete('tattoos/' + id)
 				.then(res => {
+					console.log(res)
 					dispatch('getArtistGallery')
 					dispatch('getTattoos')
 				})
@@ -223,7 +225,7 @@ var store = new vuex.Store({
 				})
 		},
 		sendDesign({ commit, dispatch }, payload) {
-			let tags = payload[0].tags.match(/\S+/) || [] // grabs words from string, or returns empty array if only whitespace
+			let tags = payload[0].tags.match(/\S+/g) || [] // grabs words from string, or returns empty array if only whitespace
 			payload[0].tags = [];
 			api.post('tattoo/upload', payload[0])
 				.then(res => {

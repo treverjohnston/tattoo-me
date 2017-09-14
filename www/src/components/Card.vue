@@ -31,10 +31,17 @@
 									</router-link>
 								</div>
 								<div class="col-xs-2">
-									<div>
-										<button v-if="hasLiked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
-										<button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
-									</div>
+									<router-link :to="'/stripe'">
+										<button @click="confirm(cardProp)" class="btn glyphicon money glyphicon-usd"></button>
+									</router-link>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-2">
+								<div>
+									<button v-if="hasLiked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
+									<button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
 								</div>
 							</div>
 						</div>
@@ -109,6 +116,9 @@
 			addToQueue(tat) {
 				this.$store.commit('addToQueue', tat)
 			},
+			confirm(card) {
+				this.$store.commit('confirm', card)
+			}
 		}
 	}
 
@@ -155,5 +165,9 @@
 
 	.artist {
 		margin-top: 4rem;
+	}
+
+	.money {
+		color: green;
 	}
 </style>

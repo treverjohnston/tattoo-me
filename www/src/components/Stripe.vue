@@ -1,3 +1,7 @@
+
+<!--  -->
+<!-- WHEN A PERSON PRESSES THE $ BUTTON IT SETS THE TATTOO OBJECT IN THE STATE AT THIS.$STORE.STATE.CONFIRM -->
+<!--  -->
 <template>
 	<div id='app'>
 		<!-- <h1>Please give us your payment details:</h1>

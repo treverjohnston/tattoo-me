@@ -16,6 +16,7 @@ import Purchase from '@/components/Purchase'
 import Purchasefav from '@/components/PurchaseFav'
 import Viewartist from '@/components/ViewArtist'
 import Topartists from '@/components/TopArtists'
+import Confirmdelete from '@/components/ConfirmDelete'
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/confirmdelete',
+      name: 'Confirmdelete',
+      component: Confirmdelete
     },
     {
       path: '/topartists',
