@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>AR Sandbox</title>
+    <!-- <meta name="description" content="360&deg; Image Gallery - A-Frame"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="touch-emulator.js"></script> -->
+    <script src="hammerjs.js"></script>
+    <script src="filesaverjs.js"></script>
+</head>
+
+<body>
+    <video autoplay id="videoElement" style="display: none"></video>
+    <!-- <input type="button" value="Save" id="save" /> -->
+    <div id="controls">
+        <button type="button" onclick="captureImage()">Capture Image</button>
+        <button type="button" onclick="showLive()">Show Live</button>
+    </div>
+    <div id="stage">
+        <canvas id="canvas"></canvas>
+        <!-- <div id="container">
+            <canvas id="img-overlay"></canvas>
+        </div> -->
+    </div>
+    <img id="overlay" style="display: none" src="test-image.png" alt="">
+    <!-- Used to capture frame from webcam video feed -->
+
+    <!-- Or alternatively added to an img tag -->
+    <img id="imgtag" style="display: none" src="" alt="capture" />
+    <!-- <img src="http://res.cloudinary.com/dvh7zccln/image/upload/v1504733715/14-tattoo-png-image_qd9leq.png" alt=""> -->
+    <script>
+        var hammertime = new Hammer((document.getElementById('canvas')));
+        var pinch = new Hammer.Pinch()
+        hammertime.get('pinch').set({ enable: true });
+        var video = document.querySelector("#videoElement");
+        var localStream
+        var run = true
+
+        // check for getUserMedia support
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+        if (navigator.getUserMedia) {
+            // get webcam feed if available
+            navigator.getUserMedia({ video: true }, handleVideo, videoError);
+        }
+
+        function handleVideo(stream) {
+            localStream = stream
+            // if found attach feed to video element
+            video.src = window.URL.createObjectURL(stream);
+            update()
+            insertImage()
+        }
+
+        function videoError(e) {
+            // no webcam found - do something
+        }
+        var v, canvas, context, w, h;
+        var imgtag = document.getElementById('imgtag'); // get reference to img tag
+        var sel = document.getElementById('fileselect'); // get reference to file select input element
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // when DOM loaded, get canvas 2D context and store width and height of element
+            v = document.getElementById('videoElement');
+            canvas = document.getElementById('canvas');
+            context = canvas.getContext('2d');
+            w = canvas.width;
+            h = canvas.height;
+
+        }, false);
+
+        function draw(v, c, w, h) {
+
+            if (v.paused || v.ended) return false; // if no video, exit here
+
+            context.drawImage(v, 0, 0, w, h); // draw video feed to canvas
+
+            var uri = canvas.toDataURL("image/png"); // convert canvas to data URI
+            // context.drawImage(uri, 0, 0, canvasWidth, canvasHeight)
+            // console.log(uri); // uncomment line to log URI for testing
+
+            imgtag.src = uri; // add URI to IMG tag src
+        }
+
+        // document.getElementById('save').addEventListener('click', function (e) {
+
+        //     draw(v, context, w, h); // when save button is clicked, draw video feed to canvas
+
+        // });
+
+        var canvas = document.getElementById('canvas')
+        var context = canvas.getContext("2d")
+        var canvasWidth = document.body.clientWidth * .90
+        var canvasHeight = canvasWidth * .75
+        canvas.setAttribute('width', canvasWidth)
+        canvas.setAttribute('height', canvasHeight)
+
+        function update() {
+            if (run) {
+                context.drawImage(video, 0, 0, canvasWidth, canvasHeight)
+                requestAnimationFrame(update)
+            }
+        }
+
+        function insertImage() {
+            if (run) {
+                var overlay = document.getElementById('overlay')
+                context.drawImage(overlay, x, y, sizeX, sizeY)
+                // var image2 = new Image()
+                // image2.src = "assets/test-image.png"
+                // context.drawImage(image2, 100, 100, 70, 50)
+                requestAnimationFrame(insertImage)
+            }
+        }
+        var dragging = false
+        var timeout = true
+        var pinch = false
+        var x = canvasWidth * .45
+        var y = canvasHeight * .45
+        var sizeX = canvasWidth * .1
+        var sizeY = canvasHeight * .1
+
+        hammertime.on('pinchin', (ev) => {
+            console.log(ev)
+            sizeX += 4
+            sizeY += 2
+            x -= 4
+            y -= 2
+            // var overlay = document.getElementById('overlay')
+            // context.clearRect(0, 0, canvasWidth, canvasHeight)
+            // context.drawImage(overlay, x, y, sizeX, sizeY)
+
+        })
+        hammertime.on('pinchout', (ev) => {
+            console.log(ev)
+            sizeX -= 4
+            sizeY -= 2
+            x += 4
+            y += 2
+            // var overlay = document.getElementById('overlay')
+            // context.clearRect(0, 0, canvasWidth, canvasHeight)
+            // context.drawImage(overlay, x, y, sizeX, sizeY)
+        })
+
+        function captureImage() {
+            var uri = canvas.toDataURL("image/png")
+            imgtag.src = uri
+            // console.log(uri)
+            run = false
+            localStream.getVideoTracks()[0].stop()
+            var button = document.createElement("button")
+            button.innerHTML = "Save Image"
+            button.id = 'save-button'
+            button.addEventListener('click', function () {
+                canvas.toBlob((blob) => {
+                    saveAs(blob, "test capture.png")
+                })
+                document.getElementById('save-button').remove()
+                showLive()
+            })
+            var addTo = document.getElementById('controls')
+            addTo.appendChild(button)
+            // canvas.toBlob((blob) => {
+            //     saveAs(blob, "test capture.png")
+            // })
+            // setTimeout(console.log("done"), 10000)
+            // setTimeout(context.drawImage(imgtag, x, y, sizeX, sizeY), 10000)
+            // context.drawImage(imgtag, x, y, sizeX, sizeY)
+        }
+
+        // function saveImage() {
+        //     canvas.toBlob((blob) => {
+        //         saveAs(blob, "test capture.png")
+        //     })
+        // }
+
+        function showLive() {
+            run = true
+            navigator.getUserMedia({ video: true }, handleVideo, videoError)
+            var button = document.getElementById('save-button')
+            if (button) {
+                document.getElementById('save-button').remove()
+            }
+        }
+
+        // document.getElementById('canvas').addEventListener('gesturestart', function (e) {
+        //     pinch = true
+        //     console.log(e)
+        // })
+        // document.getElementById('canvas').addEventListener('gesturechange', function (e) {
+        //     if (e.scale < 1.0 && pinch) {
+        //         sizeX -= 4
+        //         sizeY -= 2
+        //         x += 4
+        //         y += 2
+        //         var overlay = document.getElementById('overlay')
+        //         context.clearRect(0, 0, 500, 375)
+        //         context.drawImage(overlay, x, y, sizeX, sizeY)
+        //         timeout = false
+        //         setTimeout(function () {
+        //             timeout = true
+        //         }, 1000 / 30)
+        //     } else if (e.scale > 1.0 && pinch) {
+        //         sizeX += 4
+        //         sizeY += 2
+        //         x -= 4
+        //         y -= 2
+        //         var overlay = document.getElementById('overlay')
+        //         context.clearRect(0, 0, 500, 375)
+        //         context.drawImage(overlay, x, y, sizeX, sizeY)
+        //         timeout = false
+        //         setTimeout(function () {
+        //             timeout = true
+        //         }, 1000 / 30)
+        //     }
+        // })
+        // document.getElementById('canvas').addEventListener('gestureend', function (e) {
+        //     pinch = false
+        //     console.log(e)
+        // })
+
+            // document.getElementById('canvas').addEventListener('mousedown', function (e) {
+            //     dragging = true
+            //     console.log(e)
+            // })
+            // document.getElementById('canvas').addEventListener('mousemove', function (e) {
+            //     if (dragging && timeout) {
+            //         console.log(e)
+            //         var overlay = document.getElementById('overlay')
+            //         context.clearRect(0, 0, 500, 375)
+            //         context.drawImage(overlay, e.offsetX - 25, e.offsetY - 19, 50, 37)
+            //         timeout = false
+            //         setTimeout(function () {
+            //             timeout = true
+            //         }, 1000 / 30);
+            //     }
+            // })
+            // document.getElementById('canvas').addEventListener('mouseup', function (e) {
+            //     dragging = false
+            //     console.log(e)
+            // })
+
+            // for iOS 
+
+            // create file reader
+            // var fr;
+
+            // sel.addEventListener('change', function (e) {
+            //     var f = sel.files[0]; // get selected file (camera capture)
+
+            //     fr = new FileReader();
+            //     fr.onload = receivedData; // add onload event
+
+            //     fr.readAsDataURL(f); // get captured image as data URI
+            // })
+
+            // function receivedData() {
+            //     // readAsDataURL is finished - add URI to IMG tag src
+            //     imgtag.src = fr.result;
+            // }
+    </script>
+</body>
+
+</html>
