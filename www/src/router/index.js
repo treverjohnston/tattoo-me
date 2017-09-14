@@ -17,6 +17,7 @@ import Purchasefav from '@/components/PurchaseFav'
 import Viewartist from '@/components/ViewArtist'
 import Topartists from '@/components/TopArtists'
 import Confirmdelete from '@/components/ConfirmDelete'
+import Publicartistmobile from '@/components/PublicArtistMobile'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/publicartistmobile',
+      name: 'Publicartistmobile',
+      component: Publicartistmobile
     },
     {
       path: '/confirmdelete',
