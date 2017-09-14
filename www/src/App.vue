@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
 		<logo></logo>
+		<Stripe></Stripe>		
 		<router-view></router-view>
 		<navbar></navbar>
 	</div>
@@ -9,11 +10,14 @@
 <script>
 	import Navbar from './Components/Navbar'
 	import Logo from './Components/Logo'
+	import Stripe from './Components/Stripe'
+
 	export default {
 		name: 'app',
 		components: {
 			Navbar,
-			Logo
+			Logo,
+			Stripe
 		},
 		beforeCreate() {
 			this.$store.commit('setDefaultState')

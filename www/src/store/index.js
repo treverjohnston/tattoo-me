@@ -49,7 +49,7 @@ var store = new vuex.Store({
 			state.tattoosPage = 0
 			state.searchTags = ''
 			state.uploadedTattoo = {},
-			state.topArtists = []
+				state.topArtists = []
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -104,7 +104,7 @@ var store = new vuex.Store({
 		uploadedTat(state, tattoo) {
 			state.uploadedTattoo = tattoo
 		},
-		setTopArtists(state, tattoos){
+		setTopArtists(state, tattoos) {
 			state.topArtists = tattoos
 		}
 	},
@@ -147,6 +147,15 @@ var store = new vuex.Store({
 					commit('handleError', err)
 				})
 		},
+		purchaseTattoo({ commit, dispatch }, { token, tattooId }) {
+			api.put('tattoos/' + tattooId + '/purchase', { stripeToken: token })
+				.then(res => {
+					console.log(res);
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
+		},
 
 		// *** Tattoo Favorites Actions *** //
 		getFavs({ commit, dispatch }) {
@@ -177,9 +186,9 @@ var store = new vuex.Store({
 		// *** Misc Actions *** //
 		getTopArtist({ commit, dispatch }) {
 			api('artists/top-weekly')
-			.then(res=>{
-				commit('setTopArtists', res.data.data)
-			})
+				.then(res => {
+					commit('setTopArtists', res.data.data)
+				})
 		},
 		getArtistGallery({ commit, dispatch }) {
 			api('my-designs')
