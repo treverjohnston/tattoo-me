@@ -33,7 +33,9 @@ var store = new vuex.Store({
 		tattoosPage: 0,
 		searchTags: '',
 		uploadedTattoo: {},
-		topArtists: []
+		topArtists: [],
+		artistProfile: {},
+		currentArtist: {}
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -49,7 +51,9 @@ var store = new vuex.Store({
 			state.tattoosPage = 0
 			state.searchTags = ''
 			state.uploadedTattoo = {},
-				state.topArtists = []
+			state.topArtists = [],
+			state.artistProfile = {},
+			state.currentArtist = {}
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -106,6 +110,12 @@ var store = new vuex.Store({
 		},
 		setTopArtists(state, tattoos) {
 			state.topArtists = tattoos
+		},
+		setArtistProfile(state, profile){
+			state.artistProfile = profile
+		},
+		setCurrentArtist(state, artist){
+			state.currentArtist = artist
 		}
 	},
 	actions: {
@@ -184,11 +194,24 @@ var store = new vuex.Store({
 		},
 
 		// *** Misc Actions *** //
+		
+		getArtistProfile({commit, dispatch}, id){
+			api(`artist/${id}`)
+			.then(res=>{
+				commit('setArtistProfile', res.data.data)
+			})
+			.catch(err => {
+				commit('handleError', err)
+			})
+		},
 		getTopArtist({ commit, dispatch }) {
 			api('artists/top-weekly')
-				.then(res => {
-					commit('setTopArtists', res.data.data)
-				})
+			.then(res=>{
+				commit('setTopArtists', res.data.data)
+			})
+			.catch(err => {
+				commit('handleError', err)
+			})
 		},
 		getArtistGallery({ commit, dispatch }) {
 			api('my-designs')
