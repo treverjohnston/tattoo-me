@@ -32,13 +32,9 @@
 								</div>
 								<div class="col-xs-2">
 									<div>
-										<!-- v-if="sortType"> -->
 										<button v-if="hasLiked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
 										<button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
 									</div>
-									<!-- <div v-else>
-                                        <button @click="like(cardProp._id), show()" class="vote btn glyphicon glyphicon-thumbs-up"> {{cardProp.numLikes}}</button>
-                                    </div> -->
 								</div>
 							</div>
 						</div>

@@ -49,7 +49,7 @@
             gallery() {
                 return this.$store.state.artistProfile.tattoos
             },
-            current(){
+            current() {
                 return this.$store.state.artistProfile.artist
             }
         },
