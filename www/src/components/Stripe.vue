@@ -1,4 +1,3 @@
-
 <!--  -->
 <!-- WHEN A PERSON PRESSES THE $ BUTTON IT SETS THE TATTOO OBJECT IN THE STATE AT THIS.$STORE.STATE.CONFIRM -->
 <!--  -->
@@ -21,7 +20,7 @@
 				<div id="card-element" class="field is-empty"></div>
 				<span><span>Credit or debit card</span></span>
 			</label>
-			<button type="submit" @click='pay' :disabled='!complete'>Pay $25</button>
+			<button type="submit">Pay $25</button>
 			<div class="outcome">
 				<div class="error" role="alert"></div>
 				<div class="success">
@@ -95,6 +94,22 @@
 					}
 				});
 			});
+			function setOutcome(result) {
+				var successElement = document.querySelector('.success');
+				var errorElement = document.querySelector('.error');
+				successElement.classList.remove('visible');
+				errorElement.classList.remove('visible');
+
+				if (result.token) {
+					// Use the token to create a charge or a customer
+					// https://stripe.com/docs/charges
+					successElement.querySelector('.token').textContent = result.token.id;
+					successElement.classList.add('visible');
+				} else if (result.error) {
+					errorElement.textContent = result.error.message;
+					errorElement.classList.add('visible');
+				}
+			}
 
 			card.on('change', function (event) {
 				setOutcome(event);
@@ -124,22 +139,6 @@
 						console.log(data)
 				})
 			},
-			setOutcome(result) {
-				var successElement = document.querySelector('.success');
-				var errorElement = document.querySelector('.error');
-				successElement.classList.remove('visible');
-				errorElement.classList.remove('visible');
-
-				if (result.token) {
-					// Use the token to create a charge or a customer
-					// https://stripe.com/docs/charges
-					successElement.querySelector('.token').textContent = result.token.id;
-					successElement.classList.add('visible');
-				} else if (result.error) {
-					errorElement.textContent = result.error.message;
-					errorElement.classList.add('visible');
-				}
-			}
 		}
 	}
 
