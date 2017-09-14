@@ -22,7 +22,9 @@
                             <button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
                         </div>
                         <div class="col-xs-2">
-                            <button @click="removeTattoo(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
+                            <router-link :to="`/confirmDelete`">
+                                <button @click="confirm(cardProp)" class="btn glyphicon glyphicon-remove"></button>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -58,9 +60,9 @@
             show() {
                 this.showButtons = !this.showButtons
             },
-            removeTattoo(id) {
-                this.$store.dispatch('removeTattoo', id)
-            }
+            confirm(card) {
+				this.$store.commit('confirm', card)
+			}
 		},
 		computed: {
 			liked() {

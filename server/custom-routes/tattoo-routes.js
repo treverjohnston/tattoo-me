@@ -150,34 +150,38 @@ module.exports = {
 						var token = req.body.stripeToken.id; // Using Express
 
 						// Charge the user's card:
-						stripe.charges.create({
-							amount: 1000,
-							currency: "usd",
-							description: "Example charge",
-							source: token,
-						}, function (err, charge) {
-							if (err) {
-								return next(handleResponse(action, null, err))
-							}
-							console.log(charge)
-							// asynchronously called
-							user.purchased.push(tattooId)
-							user.save().then(() => {
-								res.send(handleResponse(action, { success: 'successfully purchased tattoo' }))
-							})
-							Tattoos.findById(tattooId).select('hdUrl').exec()
-								.then(tattoo => {
-									// send hdUrl to user in an email.
-									var account = {
-										email: user.email,
-										hdUrl: tattoo.hdUrl
+						Tattoos.findById(tattooId).select('hdUrl price').exec()
+							.then(tattoo => {
+								// send hdUrl to user in an email.
+								stripe.charges.create({
+									amount: tattoo.price * 100,
+									currency: "usd",
+									description: "Example charge",
+									source: token,
+								}, function (err, charge) {
+									if (err) {
+										return next(handleResponse(action, null, err))
 									}
-									Mailer.createMailer(account)
+									console.log(charge)
+									// asynchronously called
+									user.purchased.push(tattooId)
+									user.save()
+										.then(() => {
+											res.send(handleResponse(action, { success: 'successfully purchased tattoo' }))
+											var account = {
+												email: user.email,
+												hdUrl: tattoo.hdUrl
+											}
+											Mailer.createMailer(account)
+										})
+										.catch(error => {
+											return next(handleResponse(action, null, error))
+										})
 								})
-								.catch(error => {
-									return next(handleResponse(action, null, error))
-								})
-						});
+							})
+							.catch(error => {
+								return next(handleResponse(action, null, error))
+							})
 
 					} else {
 						res.send(handleResponse(action, { alert: 'user already owns this item' }))

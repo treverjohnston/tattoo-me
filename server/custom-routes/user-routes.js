@@ -25,7 +25,7 @@ module.exports = {
 		method(req, res, next) {
 			let action = 'Get designs/tattoos that the user (artist) has uploaded'
 			// query the tattoos collection to find all tattoos with a creatorId that matches the uid on the session
-			Tattoos.find({ creatorId: req.session.uid }).then(tattoos => {
+			Tattoos.find({ creatorId: req.session.uid }).sort('-created').then(tattoos => {
 				res.send(handleResponse(action, tattoos))
 			})
 				.catch(error => {
@@ -128,7 +128,7 @@ module.exports = {
 			let action = 'View artist public profile'
 			User.findOne({ _id: req.params.artistId, accountType: 'artist' }).select('name')
 				.then(artist => {
-					Tattoos.find({ creatorId: artist._id })
+					Tattoos.find({ creatorId: artist._id }).sort('-created')
 						.then(tattoos => {
 							// artist.tattoos = tattoos;
 							res.send(handleResponse(action, { artist, tattoos }))
