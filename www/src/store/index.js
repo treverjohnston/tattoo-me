@@ -135,8 +135,10 @@ var store = new vuex.Store({
 				})
 		},
 		removeTattoo({ commit, dispatch }, id) {
+			router.push('Profile')
 			api.delete('tattoos/' + id)
 				.then(res => {
+					console.log(res)
 					dispatch('getArtistGallery')
 					dispatch('getTattoos')
 				})

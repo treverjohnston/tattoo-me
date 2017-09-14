@@ -38,6 +38,13 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-xs-2">
+								<router-link :to="'/stripe'">
+									<button @click="confirm(cardProp)" class="btn glyphicon money glyphicon-usd"></button>
+								</router-link>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -109,6 +116,9 @@
 			addToQueue(tat) {
 				this.$store.commit('addToQueue', tat)
 			},
+			confirm(card) {
+				this.$store.commit('confirm', card)
+			}
 		}
 	}
 
@@ -155,5 +165,9 @@
 
 	.artist {
 		margin-top: 4rem;
+	}
+
+	.money {
+		color: green;
 	}
 </style>
