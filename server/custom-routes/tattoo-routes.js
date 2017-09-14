@@ -180,7 +180,7 @@ module.exports = {
                                 i--;
                             }
                         }
-                        artists.push({ _id: artist._id, numWeeklyLikes: artist.weeklyLikes.length })
+                        artists.push({ _id: artist._id, numWeeklyLikes: artist.weeklyLikes.length, name: artist.name })
                         // artist.numWeeklyLikes = artist.weeklyLikes.length;
                     });
                     artists.sort((a, b) => {
