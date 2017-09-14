@@ -11,7 +11,7 @@
         <div class="col-xs-offset-4 col-xs-4">
           <form @submit.prevent="openCloud">
             <div class="form-group">
-              <input class="form-control" type="text" v-model="tags" placeholder="Tags - EX. cool, awesome">
+              <input class="form-control" type="text" v-model="tags" placeholder="Tags - For multiple tags, separate by a space">
               <input class="form-control" type="decimal" v-model="price" placeholder="$">
               <button class="btn btn-default" id="upload_widget_opener">Upload Image</button>
             </div>

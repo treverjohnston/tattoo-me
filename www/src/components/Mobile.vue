@@ -55,9 +55,10 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="tags">
+                    <div class="panel tags">
+                            <!-- <h2 class="text-left">Tags:</h2> -->
                         <div v-for="tag in card.tags">
-                            <h4>{{tag.name}}</h4>
+                            <h4 class="tag-text">{{tag.name}}</h4>
                         </div>
                     </div>
                 </div>
@@ -104,8 +105,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .panel{
+        margin: 3rem 0 0 0;
+        padding: 2rem 0 2rem 0;
+    }
+    .tag-text{
+        font-size: 3rem;
+    }
     .picture {
-        margin-top: 10vh;
+        margin-top: 5vh;
     }
 
     a {
