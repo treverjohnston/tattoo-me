@@ -64,7 +64,12 @@
 					</div>
 				</div>
 			</div>
-			<!-- </div> -->
+			<md-snackbar :md-position="vertical + ' ' + horizontal" ref="snackbar" :md-duration="duration">
+				<span>Image Added To Camera Queue</span>
+				<router-link :to="`/camera`">
+					<md-button class="md-primary" @click="$refs.snackbar.close()">Camera</md-button>
+				</router-link>
+			</md-snackbar>
 		</div>
 	</div>
 </template>
@@ -75,6 +80,9 @@
 		props: ["cardProp"],
 		data() {
 			return {
+				vertical: 'top',
+				horizontal: 'center',
+				duration: 4000,
 				showButtons: false
 			}
 		},
@@ -117,6 +125,7 @@
 			},
 			addToQueue(tat) {
 				this.$store.commit('addToQueue', tat)
+				this.$refs.snackbar.open()
 			},
 			confirm(card) {
 				this.$store.commit('confirm', card)
