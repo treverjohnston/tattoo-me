@@ -2,8 +2,13 @@
 	<div>
 		<video autoplay id="videoElement" style="display: none"></video>
 		<div id="controls">
-			<button type="button" @click="captureImage">Capture Image</button>
-			<button type="button" @click="showLive">Show Live</button>
+			<!-- <button type="button" @click="captureImage">Capture Image</button> -->
+			<!-- <button type="button" @click="changeCamera">Change Camera</button> -->
+			<!-- <i id="" @click="changeCamera" class="md-size-4x material-icons">autorenew</i> -->
+			<!-- <md-icon @click="changeCamera" class="md-size-4x">autorenew</md-icon> -->
+			<md-button @click="changeCamera" class="md-fab md-clean">
+				<md-icon>autorenew</md-icon>
+			</md-button>
 		</div>
 
 		<div id="stage">
@@ -13,13 +18,6 @@
 		<img crossorigin="*" id="overlay" style="display: none" :src="currentTattoo" alt="">
 		<img id="imgtag" style="display: none" src="" alt="capture" />
 	</div>
-
-
-	<!-- <div id="vue-frame" class="camera">
-        <vue-frame ref="vFrame" text="VueJS" url="../static/camera2.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
-        <br/>
-        <iframe id="myframe"></iframe>
-    </div> -->
 </template>
 <script>
 	import VueFrame from 'vue-frame'
@@ -47,7 +45,9 @@
 				canvasWidth: '',
 				canvasHeight: '',
 				imgtag: '',
-				aspectRatio: null
+				aspectRatio: null,
+				paused: false,
+				camera: 'front'
 			}
 		},
 		methods: {
@@ -81,7 +81,7 @@
 				this.run = false
 				this.localStream.getVideoTracks()[0].stop()
 				var button = document.createElement("button")
-				button.innerHTML = "Save Image"
+				button.innerHTML = "Save Image to Device"
 				button.id = 'save-button'
 				button.addEventListener('click', function () {
 					_this.canvas.toBlob((blob) => {
@@ -95,11 +95,21 @@
 			},
 			showLive() {
 				this.run = true
-				navigator.getUserMedia({ video: { facingMode: { exact: "environment" } } }, this.handleVideo, this.videoError)
+				navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError)
 
 				var button = document.getElementById('save-button')
 				if (button) {
 					document.getElementById('save-button').remove()
+				}
+			},
+			changeCamera() {
+				if (this.camera == 'front') {
+					navigator.getUserMedia({ video: { facingMode: { exact: "environment" } } }, this.handleVideo, this.videoError)
+					this.camera = 'rear'
+				}
+				else {
+					this.camera = 'front'
+					navigator.getUserMedia({ video: {facingMode: 'user'} }, this.handleVideo, this.videoError)
 				}
 			},
 			handleVideo(stream) {
@@ -109,7 +119,7 @@
 				this.insertImage()
 			},
 			videoError(e) {
-				// no webcam found - do something
+				console.log('no rear camera dumby')
 			}
 		},
 		computed: {
@@ -129,7 +139,7 @@
 			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
 			if (navigator.getUserMedia) {
-				navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError);
+				navigator.getUserMedia({ video: {facingMode: 'user'} }, this.handleVideo, this.videoError);
 			}
 
 			this.imgtag = document.getElementById('imgtag')
@@ -159,6 +169,21 @@
 				_this.sizeY -= 4
 				_this.x += 4
 				_this.y += 2
+			})
+
+			this.canvas.addEventListener('click', () => {
+				this.paused = !this.paused
+				if (this.paused) {
+					this.captureImage()
+				}
+				else {
+					this.run = true
+					navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError)
+					var button = document.getElementById('save-button')
+					if (button) {
+						document.getElementById('save-button').remove()
+					}
+				}
 			})
 		},
 		destroyed() {
