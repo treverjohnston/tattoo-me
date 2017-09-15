@@ -140,8 +140,6 @@
 		},
 		mounted() {
 			var _this = this
-			// this.$refs.vFrame.loadIframe()
-
 			this.hammertime = new Hammer((document.getElementById('canvas')));
 			this.pinch = new Hammer.Pinch()
 			this.hammertime.get('pinch').set({ enable: true });
