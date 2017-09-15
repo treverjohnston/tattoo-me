@@ -10,7 +10,7 @@
             <canvas id="canvas"></canvas>
         </div>
 
-        <img  crossorigin="*" id="overlay" style="display: none" :src="currentTattoo" alt="">
+        <img crossorigin="*" id="overlay" style="display: none" :src="currentTattoo" alt="">
         <img id="imgtag" style="display: none" src="" alt="capture" />
     </div>
 
@@ -84,7 +84,12 @@
             },
             showLive() {
                 this.run = true
-                navigator.getUserMedia({ video: {facingMode: {exact: "environment"}} }, this.handleVideo, this.videoError)
+                var contraints = {
+                    video: {
+                        facingMode: { exact: "environment" }
+                    }
+                }
+                navigator.getUserMedia({ video: { facingMode: { exact: "environment" } } }, this.handleVideo, this.videoError)
                 var button = document.getElementById('save-button')
                 if (button) {
                     document.getElementById('save-button').remove()
@@ -135,18 +140,18 @@
 
             this.hammertime.on('pinchout', (ev) => {
                 console.log(ev)
-                _this.sizeX += 4
-                _this.sizeY += 2
-                _this.x -= 2
-                _this.y -= 1
+                _this.sizeX += 8
+                _this.sizeY += 4
+                _this.x -= 4
+                _this.y -= 2
             })
 
             this.hammertime.on('pinchin', (ev) => {
                 console.log(ev)
-                _this.sizeX -= 4
-                _this.sizeY -= 2
-                _this.x += 2
-                _this.y += 1
+                _this.sizeX -= 8
+                _this.sizeY -= 4
+                _this.x += 4
+                _this.y += 2
             })
         },
         components: {
