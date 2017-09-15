@@ -134,19 +134,17 @@
             this.canvas.setAttribute('height', this.canvasHeight)
 
             this.hammertime.on('pinchout', (ev) => {
-                console.log(ev)
-                _this.sizeX += 4
-                _this.sizeY += 2
-                _this.x -= 2
-                _this.y -= 1
+                _this.sizeX += 8
+                _this.sizeY += 4
+                _this.x -= 4
+                _this.y -= 2
             })
 
             this.hammertime.on('pinchin', (ev) => {
-                console.log(ev)
-                _this.sizeX -= 4
-                _this.sizeY -= 2
-                _this.x += 2
-                _this.y += 1
+                _this.sizeX -= 8
+                _this.sizeY -= 4
+                _this.x += 4
+                _this.y += 2
             })
         },
         components: {
