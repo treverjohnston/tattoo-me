@@ -10,7 +10,7 @@
             <canvas id="canvas"></canvas>
         </div>
 
-        <img  crossorigin="*" id="overlay" style="display: none" :src="currentTattoo" alt="">
+        <img crossorigin="*" id="overlay" style="display: none" :src="currentTattoo" alt="">
         <img id="imgtag" style="display: none" src="" alt="capture" />
     </div>
 
@@ -84,7 +84,12 @@
             },
             showLive() {
                 this.run = true
-                navigator.getUserMedia({ video: {facingMode: {exact: "environment"}} }, this.handleVideo, this.videoError)
+                var contraints = {
+                    video: {
+                        facingMode: { exact: "environment" }
+                    }
+                }
+                navigator.getUserMedia({ video: { facingMode: { exact: "environment" } } }, this.handleVideo, this.videoError)
                 var button = document.getElementById('save-button')
                 if (button) {
                     document.getElementById('save-button').remove()
