@@ -22,8 +22,11 @@
                 </div>
             </div>
             <hr>
-            <div v-for="card in gallery">
-                <publicartistgallery :cardProp="card"></publicartistgallery>
+
+            <div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+                <div v-masonry-tile class="item" v-for="item in blocks">
+                    <publicartistgallery :cardProp="item"></publicartistgallery>
+                </div>
             </div>
         </div>
     </div>
@@ -46,7 +49,7 @@
             info() {
                 return this.$store.state.userInfo
             },
-            gallery() {
+            blocks() {
                 return this.$store.state.artistProfile.tattoos
             },
             current() {
@@ -73,5 +76,15 @@
 
     .viewartist {
         padding-bottom: 15rem;
+    }
+
+    .tattoo {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .item {
+        margin: 0 1rem 0 1rem;
+        width: 45%;
     }
 </style>

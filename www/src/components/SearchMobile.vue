@@ -21,16 +21,16 @@
 					<div class="col-xs-offset-5 col-xs-4">
 						<div v-if="!hasFavorited">
 							<button @click="favorite(card)" class="btn glyphicon glyphicon-heart"></button>
-							<router-link :to="'/purchase'">
-								<button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
-							</router-link>
+							<router-link :to="'/stripe'">
+                                <button @click="confirm(card)" class="btn glyphicon money glyphicon-usd"></button>
+                            </router-link>
 							<a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
 						</div>
 						<div v-else>
 							<button @click="favorite(card)" class="btn glyphicon glyphicon-heart favorited"></button>
-							<router-link :to="'/purchase'">
-								<button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
-							</router-link>
+							<router-link :to="'/stripe'">
+                                <button @click="confirm(card)" class="btn glyphicon money glyphicon-usd"></button>
+                            </router-link>
 							<a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
 						</div>
 					</div>
@@ -38,8 +38,8 @@
 				<div v-else>
 					<div class="col-xs-offset-5 col-xs-4">
 						<button @click="deleteFav(card)" class="btn glyphicon glyphicon-remove"></button>
-						<router-link :to="'/purchasefav'">
-							<button @click="confirm(card)" class="btn glyphicon glyphicon-usd"></button>
+						<router-link :to="'/stripe'">
+							<button @click="confirm(card)" class="btn glyphicon money glyphicon-usd"></button>
 						</router-link>
 						<a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
 					</div>

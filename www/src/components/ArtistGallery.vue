@@ -1,37 +1,35 @@
 <template>
 	<div class="artistgallery">
-		<div class="col-xs-6">
-			<div class="well picture">
-				<div class="row">
-					<div v-if="!showButtons">
-						<div class="col-xs-2">
-							<button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
-						</div>
-					</div>
-					<div v-if="showButtons">
-						<div class="col-xs-2">
-							<button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
-						</div>
-						<div class="col-xs-2">
-							<router-link :to="'/artistmobile'">
-								<button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
-							</router-link>
-						</div>
-						<div class="col-xs-4">
-							<button v-if="liked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
-							<button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
-						</div>
-						<div class="col-xs-2">
-							<router-link :to="`/confirmDelete`">
-								<button @click="confirm(cardProp)" class="btn glyphicon glyphicon-remove"></button>
-							</router-link>
-						</div>
+		<div class="well picture">
+			<div class="row">
+				<div v-if="!showButtons">
+					<div class="col-xs-2">
+						<button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<img :src="cardProp.url" alt="image">
+				<div v-if="showButtons">
+					<div class="col-xs-2">
+						<button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
 					</div>
+					<div class="col-xs-2">
+						<router-link :to="'/artistmobile'">
+							<button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
+						</router-link>
+					</div>
+					<div class="col-xs-4">
+						<button v-if="liked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
+						<button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
+					</div>
+					<div class="col-xs-2">
+						<router-link :to="`/confirmDelete`">
+							<button @click="confirm(cardProp)" class="btn glyphicon glyphicon-remove"></button>
+						</router-link>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<img :src="cardProp.url" alt="image">
 				</div>
 			</div>
 		</div>
@@ -86,13 +84,9 @@
 	}
 
 	img {
-		height: 25rem;
-		/* width: 15vw; */
+		min-width: 20vw;
 	}
 
-	.picture {
-		margin: 5rem 0 0rem 0;
-	}
 
 	.btn {
 		background-color: transparent;

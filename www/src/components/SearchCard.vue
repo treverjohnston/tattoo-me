@@ -1,66 +1,64 @@
 <template>
     <div class="card">
-        <div class="col-xs-6">
-            <div class="well picture">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="row">
-                            <div v-if="!showButtons">
-                                <div class="col-xs-2">
-                                    <button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
-                                </div>
-                            </div>
-                            <div v-if="showButtons">
-                                <div class="col-xs-2">
-                                    <button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
-                                </div>
-                                <div class="col-xs-2">
-                                    <button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div v-if="!hasFavorited">
-                                        <button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart"></button>
-                                    </div>
-                                    <div v-else>
-                                        <button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart favorited"></button>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <router-link :to="'/searchmobile'">
-                                        <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
-                                    </router-link>
-                                </div>
-                                <div class="col-xs-2">
-                                    <router-link :to="'/stripe'">
-                                        <button @click="confirm(cardProp)" class="btn glyphicon money glyphicon-usd"></button>
-                                    </router-link>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
+        <div class="well picture">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div v-if="!showButtons">
                             <div class="col-xs-2">
-                                <div>
-                                    <button v-if="hasLiked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
-                                    <button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
+                                <button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
+                            </div>
+                        </div>
+                        <div v-if="showButtons">
+                            <div class="col-xs-2">
+                                <button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
+                            </div>
+                            <div class="col-xs-2">
+                                <button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+                            </div>
+                            <div class="col-xs-2">
+                                <div v-if="!hasFavorited">
+                                    <button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart"></button>
                                 </div>
+                                <div v-else>
+                                    <button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart favorited"></button>
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <router-link :to="'/searchmobile'">
+                                    <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
+                                </router-link>
+                            </div>
+                            <div class="col-xs-2">
+                                <router-link :to="'/stripe'">
+                                    <button @click="confirm(cardProp)" class="btn glyphicon money glyphicon-usd"></button>
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <div>
+                                <button v-if="hasLiked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
+                                <button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <img :src="cardProp.url" alt="image">
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <img :src="cardProp.url" alt="image">
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="artist">
-                            <router-link :to="`/viewartist/${cardProp.creatorId}`">
-                                <button class="btn btn-default">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="artist">
+                        <router-link :to="`/viewartist/${cardProp.creatorId}`">
+                            <button class="btn btn-default">
                                         <h3>Design by: {{cardProp.artistName}}</h3>
                                     </button>
-                            </router-link>
-                        </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -87,13 +85,13 @@
                 return this.$store.state.userInfo
             },
             hasLiked() {
-				if (!this.$store.state.userInfo.likes)
-					return false;
+                if (!this.$store.state.userInfo.likes)
+                    return false;
                 return this.cardProp.likes.includes(this.$store.state.userInfo._id)
             },
             hasFavorited() {
-				if (!this.$store.state.userInfo.favorites)
-					return false;
+                if (!this.$store.state.userInfo.favorites)
+                    return false;
                 return this.$store.state.userInfo.favorites.includes(this.cardProp._id)
             }
         },
@@ -121,8 +119,8 @@
                 this.$store.commit('addToQueue', tat)
             },
             confirm(card) {
-				this.$store.commit('confirm', card)
-			}
+                this.$store.commit('confirm', card)
+            }
         }
     }
 
@@ -139,13 +137,9 @@
     }
 
     img {
-        height: 25rem;
+		min-width: 20vw;
         /* width: 15vw; */
         /* margin: 0 auto; */
-    }
-
-    .picture {
-        margin: 5rem 0 0rem 0;
     }
 
     .btn {
@@ -163,14 +157,15 @@
     }
 
     .well {
-        padding: 0 0 5em 0;
+        /* padding: 0 0 5em 0; */
         background-color: rgba(255, 255, 255, .8)
     }
 
     .artist {
         margin-top: 4rem;
     }
-    .glyphicon-usd{
+
+    .glyphicon-usd {
         color: green;
     }
 </style>

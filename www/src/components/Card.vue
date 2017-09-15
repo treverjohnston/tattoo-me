@@ -137,9 +137,7 @@
 	}
 
 	img {
-		/* min-height: 15rem; */
 		min-width: 20vw;
-		/* margin: 0 auto; */
 	}
 
 	.btn {
@@ -157,26 +155,7 @@
 	}
 
 	.well {
-		/* padding: 0 0 5rem 0; */
-		/* max-width: 20%; */
 		background-color: rgba(255, 255, 255, .8);
-		/* margin: 2rem 1rem 0rem 1rem; */
-		/* display: inline-block;
-		background: #FEFEFE;
-		border: 2px solid #FAFAFA;
-		box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-		margin: 0 2px 15px;
-		-webkit-column-break-inside: avoid;
-		-moz-column-break-inside: avoid;
-		padding: 15px;
-		padding-bottom: 5px;
-		background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-		opacity: 1;
-
-		-webkit-transition: all .2s ease;
-		-moz-transition: all .2s ease;
-		-o-transition: all .2s ease;
-		transition: all .2s ease; */
 	}
 
 	.artist {

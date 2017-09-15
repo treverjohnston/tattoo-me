@@ -2,8 +2,13 @@
 	<div>
 		<video autoplay id="videoElement" style="display: none"></video>
 		<div id="controls">
-			<button type="button" @click="captureImage">Capture Image</button>
-			<button type="button" @click="showLive">Show Live</button>
+			<!-- <button type="button" @click="captureImage">Capture Image</button> -->
+			<!-- <button type="button" @click="changeCamera">Change Camera</button> -->
+			<!-- <i id="" @click="changeCamera" class="md-size-4x material-icons">autorenew</i> -->
+			<!-- <md-icon @click="changeCamera" class="md-size-4x">autorenew</md-icon> -->
+			<md-button @click="changeCamera" class="md-fab md-clean">
+				<md-icon>autorenew</md-icon>
+			</md-button>
 		</div>
 
 		<div id="stage">
@@ -13,13 +18,6 @@
 		<img crossorigin="*" id="overlay" style="display: none" :src="currentTattoo" alt="">
 		<img id="imgtag" style="display: none" src="" alt="capture" />
 	</div>
-
-
-	<!-- <div id="vue-frame" class="camera">
-        <vue-frame ref="vFrame" text="VueJS" url="../static/camera2.html" frame="myframe" type="button" class="vFrame form-control"></vue-frame>
-        <br/>
-        <iframe id="myframe"></iframe>
-    </div> -->
 </template>
 <script>
 	import VueFrame from 'vue-frame'
@@ -47,24 +45,47 @@
 				canvasWidth: '',
 				canvasHeight: '',
 				imgtag: '',
-				aspectRatio: null
+				aspectRatio: null,
+				paused: false,
+				camera: 'front',
+				videoHeight: null,
+				videoWidth: null,
 			}
 		},
 		methods: {
 			update() {
 				if (this.run) {
+					let canvasChanged = false;
 					if (this.canvasWidth != window.innerWidth || this.canvasHeight != window.innerHeight - 320) {
-						this.canvasWidth = window.innerWidth;
-						this.canvasHeight = window.innerHeight - 320;
-						this.canvas.setAttribute('width', this.canvasWidth)
-						this.canvas.setAttribute('height', this.canvasHeight)
+						canvasChanged = true;
+						this.setCanvasDimensions();
 					}
 					if (!this.aspectRatio && this.video.videoWidth) {
 						this.aspectRatio = this.video.videoWidth / this.video.videoHeight
 					}
 
-					this.context.drawImage(this.video, 0, 0, this.canvasWidth, this.canvasHeight)
+					if (canvasChanged || (!this.videoHeight && this.aspectRatio)) {
+						this.setVideoDimensions();
+					}
+
+					this.context.drawImage(this.video, (this.canvasWidth - this.videoWidth) / 2, (this.canvasHeight - this.videoHeight) / 2, this.videoWidth || this.canvasWidth, this.videoHeight || this.canvasHeight)
 					requestAnimationFrame(this.update)
+				}
+			},
+			setCanvasDimensions() {
+				this.canvasWidth = window.innerWidth;
+				this.canvasHeight = window.innerHeight - 320;
+				this.canvas.setAttribute('width', this.canvasWidth)
+				this.canvas.setAttribute('height', this.canvasHeight)
+			},
+			setVideoDimensions() {
+				let canvasRatio = this.canvasWidth / this.canvasHeight;
+				if (canvasRatio < this.aspectRatio) {
+					this.videoWidth = this.canvasWidth;
+					this.videoHeight = this.videoWidth / this.aspectRatio
+				} else {
+					this.videoHeight = this.canvasHeight;
+					this.videoWidth = this.videoHeight * this.aspectRatio
 				}
 			},
 			insertImage() {
@@ -81,7 +102,7 @@
 				this.run = false
 				this.localStream.getVideoTracks()[0].stop()
 				var button = document.createElement("button")
-				button.innerHTML = "Save Image"
+				button.innerHTML = "Save Image to Device"
 				button.id = 'save-button'
 				button.addEventListener('click', function () {
 					_this.canvas.toBlob((blob) => {
@@ -95,11 +116,21 @@
 			},
 			showLive() {
 				this.run = true
-				navigator.getUserMedia({ video: { facingMode: { exact: "environment" } } }, this.handleVideo, this.videoError)
+				navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError)
 
 				var button = document.getElementById('save-button')
 				if (button) {
 					document.getElementById('save-button').remove()
+				}
+			},
+			changeCamera() {
+				if (this.camera == 'front') {
+					navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(this.handleVideo).catch(this.videoError)
+					this.camera = 'rear'
+				}
+				else {
+					this.camera = 'front'
+					navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } }).then(this.handleVideo).catch(this.videoError)
 				}
 			},
 			handleVideo(stream) {
@@ -109,7 +140,7 @@
 				this.insertImage()
 			},
 			videoError(e) {
-				// no webcam found - do something
+				console.log('no rear camera dumby')
 			}
 		},
 		computed: {
@@ -119,33 +150,26 @@
 		},
 		mounted() {
 			var _this = this
-			// this.$refs.vFrame.loadIframe()
-
 			this.hammertime = new Hammer((document.getElementById('canvas')));
 			this.pinch = new Hammer.Pinch()
 			this.hammertime.get('pinch').set({ enable: true });
 			this.video = document.querySelector("#videoElement");
+			
+			// navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
-			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-
-			if (navigator.getUserMedia) {
-				navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError);
-			}
+			// if (navigator.getUserMedia) {
+				navigator.mediaDevices.getUserMedia({ video: { facingMode: {exact: 'environment'} }}).then(this.handleVideo).catch(this.videoError);
+			// }
 
 			this.imgtag = document.getElementById('imgtag')
 
 			this.canvas = document.getElementById('canvas')
 			this.context = this.canvas.getContext("2d")
-			// this.canvasWidth = document.body.clientWidth * .90
-			// this.canvasHeight = this.canvasWidth * .75
-			this.canvasWidth = window.innerWidth;
-			this.canvasHeight = window.innerHeight - 320;
+			this.setCanvasDimensions();
 			this.x = this.canvasWidth * .45
 			this.y = this.canvasHeight * .45
 			this.sizeX = this.canvasWidth * .1
 			this.sizeY = this.canvasHeight * .1
-			this.canvas.setAttribute('width', this.canvasWidth)
-			this.canvas.setAttribute('height', this.canvasHeight)
 
 			this.hammertime.on('pinchout', (ev) => {
 				_this.sizeX += 8
@@ -160,9 +184,25 @@
 				_this.x += 4
 				_this.y += 2
 			})
+
+			this.canvas.addEventListener('click', () => {
+				this.paused = !this.paused
+				if (this.paused) {
+					this.captureImage()
+				}
+				else {
+					this.run = true
+					navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError)
+					var button = document.getElementById('save-button')
+					if (button) {
+						document.getElementById('save-button').remove()
+					}
+				}
+			})
 		},
 		destroyed() {
 			this.localStream.getVideoTracks()[0].stop();
+			this.run = false;
 		},
 		components: {
 			VueFrame,
@@ -172,7 +212,6 @@
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	.camera {
 		overflow: hidden;
