@@ -1,39 +1,76 @@
 <template>
-    <div id="mapview">
-        <gmap-map :center="center" :zoom="7" style="height: 100vh; width: 100vw">
-            <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position" :clickable="true" :draggable="true" @click="center=m.position"></gmap-marker>
-        </gmap-map>
-    </div>
-</template>
-
-<script>
-    /////////////////////////////////////////
-    // New in 0.4.0
-    import * as VueGoogleMaps from 'vue2-google-maps';
-    import Vue from 'vue';
-
-    Vue.use(VueGoogleMaps, {
-        load: {
-            key: 'AIzaSyDikewxaZ5Azkf-ynjTTOceRz8lJ0yte4o',
-            v: 'OPTIONAL VERSION NUMBER',
-            // libraries: 'places', //// If you need to use place input
-        }
-    });
-
-    export default {
-        data() {
-            return {
-                center: { lat: 10.0, lng: 10.0 },
-                markers: [{
-                    position: { lat: 10.0, lng: 10.0 }
-                }, {
-                    position: { lat: 11.0, lng: 11.0 }
-                }]
+        <div>
+            <div id="mapview" v-model="map">
+                <!-- map loads here -->
+            </div>
+            <!-- <button type="button" @click="initMap">Load Map</button> -->
+    
+        </div>
+    </template>
+    
+    <script>
+        export default {
+            data() {
+                return {
+                    map: {},
+                    infoWindow: 'hell',
+                    canvasHeight: ''
+                }
+            },
+            mounted() {
+                this.initMap()
+            },
+            methods: {
+                initMap() {
+                    this.map = new google.maps.Map(document.getElementById('mapview'), {
+                        center: { lat: -34.397, lng: 150.644 },
+                        zoom: 12
+                    });
+                    this.infoWindow = new google.maps.InfoWindow({ map: this.map });
+    
+    
+                    // Try HTML5 geolocation.
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            var pos = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+    
+                            this.infoWindow.setPosition(pos);
+                            this.infoWindow.setContent('You are here');
+                            this.infoWindow.open(this.map);
+                            this.map.setCenter(pos);
+                        }, function () {
+                            handleLocationError(true, this.infoWindow, this.map.getCenter());
+                        });
+                    } else {
+                        // Browser doesn't support Geolocation
+                        handleLocationError(false, this.infoWindow, this.map.getCenter());
+                    }
+                    this.canvasHeight = window.innerHeight
+                    document.getElementById('mapview').style.height = this.canvasHeight - 320 + 'px'
+                },
+    
+                handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                    infoWindow.setPos(pos);
+                    infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
+                    infoWindow.open(map)
+                }
             }
         }
-    }
-
-</script>
-
-<style scoped>
-</style>
+    
+    </script>
+    
+    <style scoped>
+        #mapview {
+            height: 100vh;
+        }
+    
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>

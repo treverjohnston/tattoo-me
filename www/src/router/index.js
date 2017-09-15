@@ -21,7 +21,7 @@ import Publicartistmobile from '@/components/PublicArtistMobile'
 import Stripe from '@/components/Stripe'
 import Success from '@/components/Success'
 import Fail from '@/components/Fail'
-import Mapstwo from '@/components/Mapstwo'
+import Maps from '@/components/Maps'
 
 Vue.use(Router)
 
@@ -133,9 +133,9 @@ export default new Router({
       component: Fail
     },
     {
-      path: '/Mapstwo',
-      name: 'Mapstwo',
-      component: Mapstwo
+      path: '/maps',
+      name: 'Maps',
+      component: Maps
     }
   ]
 })
