@@ -23,7 +23,10 @@
                     on you, then add to your queue and open up the phones camera to see what it looks like.
                 </h4>
                 <router-link :to="'/topartists'">
-                <button class="top-artists btn btn-default">Check out the top artists of the week!</button>
+                    <button class="top-artists btn btn-default">Check out the top artists of the week!</button>
+                </router-link>
+                <router-link :to="'/mapstwo'">
+                    <button class="maps btn btn-default">Tattoo shops near me</button>
                 </router-link>
             </md-sidenav>
         </div>
@@ -65,9 +68,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .top-artists{
+    .top-artists {
         margin-top: 3rem;
     }
+
     .picture {
         height: 20rem;
         /* margin: 0 auto; */
@@ -76,7 +80,8 @@
     .sidePic {
         height: 10rem;
     }
-    .text{
+
+    .text {
         padding: 0 1rem 0 1rem;
     }
 </style>

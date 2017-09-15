@@ -4,21 +4,23 @@
 			<hr>
 			<div class="row">
 				<div class="col-xs-12">
-					<form type="submit" @submit.prevent="search()">
+					<form class="form" type="submit" @submit.prevent="search()">
 						<input type="text" placeholder="Search" v-model="query">
 					</form>
 				</div>
 			</div>
 			<div class="row">
-				<div class="res">
-					<div v-for="card in tattoos">
-						<searchcard :query="query" :cardProp="card"></searchcard>
+				<!-- <div class="col-xs-12"> -->
+					<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+						<div v-masonry-tile class="item" v-for="item in blocks">
+							<searchcard :query="query" :cardProp="item"></searchcard>
+						</div>
 					</div>
-				</div>
+				<!-- </div> -->
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<div v-if="!tattoos.length > 0">
+					<div v-if="!blocks.length > 0">
 						<h2>No tattoos</h2>
 					</div>
 				</div>
@@ -59,7 +61,7 @@
 			}
 		},
 		computed: {
-			tattoos() {
+			blocks() {
 				return this.$store.state.tattoos
 			}
 		},
@@ -89,9 +91,17 @@
 	input[type=text]:focus {
 		width: 100%;
 	}
+	.form{
+		padding-bottom: 3rem;
+	}
+	.tattoo {
+		width: 90%;
+		margin: 0 auto;
+	}
 
-	.res {
-		padding-top: 2rem;
+	.item {
+		margin: 0 1rem 0 1rem;
+		width: 45%;
 	}
 
 	.search {

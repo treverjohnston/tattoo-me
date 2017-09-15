@@ -48,23 +48,44 @@
 				aspectRatio: null,
 				paused: false,
 				camera: 'front'
+				videoHeight: null,
+				videoWidth: null,
 			}
 		},
 		methods: {
 			update() {
 				if (this.run) {
+					let canvasChanged = false;
 					if (this.canvasWidth != window.innerWidth || this.canvasHeight != window.innerHeight - 320) {
-						this.canvasWidth = window.innerWidth;
-						this.canvasHeight = window.innerHeight - 320;
-						this.canvas.setAttribute('width', this.canvasWidth)
-						this.canvas.setAttribute('height', this.canvasHeight)
+						canvasChanged = true;
+						this.setCanvasDimensions();
 					}
 					if (!this.aspectRatio && this.video.videoWidth) {
 						this.aspectRatio = this.video.videoWidth / this.video.videoHeight
 					}
 
-					this.context.drawImage(this.video, 0, 0, this.canvasWidth, this.canvasHeight)
+					if (canvasChanged || (!this.videoHeight && this.aspectRatio)) {
+						this.setVideoDimensions();
+					}
+
+					this.context.drawImage(this.video, (this.canvasWidth - this.videoWidth) / 2, (this.canvasHeight - this.videoHeight) / 2, this.videoWidth || this.canvasWidth, this.videoHeight || this.canvasHeight)
 					requestAnimationFrame(this.update)
+				}
+			},
+			setCanvasDimensions() {
+				this.canvasWidth = window.innerWidth;
+				this.canvasHeight = window.innerHeight - 320;
+				this.canvas.setAttribute('width', this.canvasWidth)
+				this.canvas.setAttribute('height', this.canvasHeight)
+			},
+			setVideoDimensions() {
+				let canvasRatio = this.canvasWidth / this.canvasHeight;
+				if (canvasRatio < this.aspectRatio) {
+					this.videoWidth = this.canvasWidth;
+					this.videoHeight = this.videoWidth / this.aspectRatio
+				} else {
+					this.videoHeight = this.canvasHeight;
+					this.videoWidth = this.videoHeight * this.aspectRatio
 				}
 			},
 			insertImage() {
@@ -148,14 +169,15 @@
 			this.context = this.canvas.getContext("2d")
 			// this.canvasWidth = document.body.clientWidth * .90
 			// this.canvasHeight = this.canvasWidth * .75
-			this.canvasWidth = window.innerWidth;
-			this.canvasHeight = window.innerHeight - 320;
+			// this.canvasWidth = window.innerWidth;
+			// this.canvasHeight = window.innerHeight - 320;
+			// this.canvas.setAttribute('width', this.canvasWidth)
+			// this.canvas.setAttribute('height', this.canvasHeight)
+			this.setCanvasDimensions();
 			this.x = this.canvasWidth * .45
 			this.y = this.canvasHeight * .45
 			this.sizeX = this.canvasWidth * .1
 			this.sizeY = this.canvasHeight * .1
-			this.canvas.setAttribute('width', this.canvasWidth)
-			this.canvas.setAttribute('height', this.canvasHeight)
 
 			this.hammertime.on('pinchout', (ev) => {
 				_this.sizeX += 8

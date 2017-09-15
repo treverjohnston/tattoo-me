@@ -13,9 +13,11 @@
 				</div>
 			</div>
 			<div class="row">
-				<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
-					<div v-masonry-tile class="item" v-for="item in blocks">
-						<card :cardProp="item"></card>
+				<div class="col-xs-12">
+					<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+						<div v-masonry-tile class="item" v-for="item in blocks">
+							<card :cardProp="item"></card>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -80,13 +82,13 @@
 	}
 
 	.tattoo {
-		width: 95%;
+		width: 90%;
 		margin: 0 auto;
 	}
 
 	.item {
 		margin: 0 1rem 0 1rem;
-		width: 30%;
+		width: 45%;
 	}
 
 	.btn {
