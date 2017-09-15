@@ -158,7 +158,7 @@
 			// navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
 			// if (navigator.getUserMedia) {
-				navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }}).then(this.handleVideo).catch(this.videoError);
+				navigator.mediaDevices.getUserMedia({ video: { facingMode: {exact: 'environment'} }}).then(this.handleVideo).catch(this.videoError);
 			// }
 
 			this.imgtag = document.getElementById('imgtag')
