@@ -45,7 +45,8 @@
 		background-size: cover;
 		/* padding-bottom: 80% */
 	}
-	.glyphicon-usd{
+
+	.glyphicon-usd {
 		color: green
 	}
 </style>
