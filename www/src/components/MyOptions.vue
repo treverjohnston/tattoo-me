@@ -104,7 +104,7 @@
     }
 
     .options {
-        background-color: gray;
+        /* background-color: gray; */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
