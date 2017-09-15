@@ -25,7 +25,7 @@
                 <router-link :to="'/topartists'">
                     <button class="top-artists btn btn-default">Check out the top artists of the week!</button>
                 </router-link>
-                <router-link :to="'/mapstwo'">
+                <router-link :to="'/maps'">
                     <button class="maps btn btn-default">Tattoo shops near me</button>
                 </router-link>
             </md-sidenav>
