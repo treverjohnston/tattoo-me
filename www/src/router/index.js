@@ -19,6 +19,8 @@ import Topartists from '@/components/TopArtists'
 import Confirmdelete from '@/components/ConfirmDelete'
 import Publicartistmobile from '@/components/PublicArtistMobile'
 import Stripe from '@/components/Stripe'
+import Success from '@/components/Success'
+import Fail from '@/components/Fail'
 
 Vue.use(Router)
 
@@ -113,11 +115,21 @@ export default new Router({
       path: '/mobile',
       name: 'Mobile',
       component: Mobile
-	},
-	{
-		path: '/stripe',
-		name: 'Stripe',
-		component: Stripe
-	  }  
+    },
+    {
+      path: '/stripe',
+      name: 'Stripe',
+      component: Stripe
+    },
+    {
+      path: '/success',
+      name: 'Success',
+      component: Success
+    },
+    {
+      path: '/fail',
+      name: 'Fail',
+      component: Fail
+    }
   ]
 })

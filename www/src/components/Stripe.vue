@@ -35,6 +35,7 @@
 <script>
 	// import { stripeKey, stripeOptions } from './stripeConfig.json'
 	import { Card, createToken } from 'vue-stripe-elements'
+	import router from "../router"
 
 	export default {
 		data() {
@@ -110,11 +111,13 @@
 					// Use the token to create a charge or a customer
 					// https://stripe.com/docs/charges
 					_this.$store.dispatch('purchaseTattoo', { token: result.token, tattooId: _this.tattoo._id })
-					successElement.querySelector('.token').textContent = result.token.id;
-					successElement.classList.add('visible');
+					// successElement.querySelector('.token').textContent = result.token.id;
+					// successElement.classList.add('visible');
+					router.push({name: "Success"})
 				} else if (result.error) {
 					errorElement.textContent = result.error.message;
 					errorElement.classList.add('visible');
+					router.push({name: "Fail"})
 				}
 			}
 

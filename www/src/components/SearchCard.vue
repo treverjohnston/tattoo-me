@@ -87,9 +87,13 @@
                 return this.$store.state.userInfo
             },
             hasLiked() {
+				if (!this.$store.state.userInfo.likes)
+					return false;
                 return this.cardProp.likes.includes(this.$store.state.userInfo._id)
             },
             hasFavorited() {
+				if (!this.$store.state.userInfo.favorites)
+					return false;
                 return this.$store.state.userInfo.favorites.includes(this.cardProp._id)
             }
         },
