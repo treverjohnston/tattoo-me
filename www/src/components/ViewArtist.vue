@@ -23,14 +23,14 @@
             </div>
             <hr>
             <div v-for="card in gallery">
-                <artistgallery :cardProp="card"></artistgallery>
+                <publicartistgallery :cardProp="card"></publicartistgallery>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Artistgallery from './ArtistGallery'
+    import Publicartistgallery from './PublicartistGallery'
     export default {
         name: 'viewartist',
         data() {
@@ -54,7 +54,7 @@
             }
         },
         components: {
-            Artistgallery
+            Publicartistgallery
         },
         mounted() {
             this.$store.commit('resetTattoos')
