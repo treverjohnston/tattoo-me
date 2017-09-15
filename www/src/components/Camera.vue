@@ -82,16 +82,9 @@
                 var addTo = document.getElementById('controls')
                 addTo.appendChild(button)
             },
-            // saveImage() {
-            //     this.canvas.toBlob((blob) => {
-            //         saveAs(blob, "test save.png")
-            //     })
-            //     document.getElementById('save-button').remove()
-            //     this.showLive()
-            // },
             showLive() {
                 this.run = true
-                navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError)
+                navigator.getUserMedia({ video: {facingMode: {exact: "environment"}} }, this.handleVideo, this.videoError)
                 var button = document.getElementById('save-button')
                 if (button) {
                     document.getElementById('save-button').remove()
@@ -124,27 +117,10 @@
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
             if (navigator.getUserMedia) {
-                // get webcam feed if available
                 navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError);
             }
 
-            // var v, canvas, context, w, h;
             this.imgtag = document.getElementById('imgtag')
-
-            // document.addEventListener('DOMContentLoaded', function () {
-            //     // when DOM loaded, get canvas 2D context and store width and height of element
-            //     v = document.getElementById('videoElement');
-            //     canvas = document.getElementById('canvas');
-            //     context = canvas.getContext('2d');
-            //     w = canvas.width;
-            //     h = canvas.height;
-
-            // }, false)
-
-            // x: canvasWidth * .45,
-            //     y: canvasHeight * .45,
-            //         sizeX: canvasWidth * .1,
-            //             sizeY: canvasHeight * .1,
 
             this.canvas = document.getElementById('canvas')
             this.context = this.canvas.getContext("2d")
