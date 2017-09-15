@@ -24,32 +24,47 @@
                     </router-link>
                 </div>
                 <div v-if="info.accountType == 'artist'">
-                    <!-- Links to phone camera/photos for upload -->
-                    <div class="col-xs-6">
-                        <router-link :to="'camera'">
-                            <div class="panel bot">
-                                <h2>Use Your Camera</h2>
-                                <h2 class="icon glyphicon glyphicon-camera"></h2>
-                            </div>
-                        </router-link>
+                    <div v-if="queue.length > 0">
+
+                        <!-- Links to phone camera/photos for upload -->
+                        <div class="col-xs-6">
+                            <router-link :to="'camera'">
+                                <div class="panel bot">
+                                    <h2>Use Your Camera</h2>
+                                    <h2 class="icon glyphicon glyphicon-camera"></h2>
+                                </div>
+                            </router-link>
+                        </div>
+                        <div class="col-xs-6">
+                            <router-link :to="'add'">
+                                <div class="panel bot">
+                                    <h2>Upload Your Design</h2>
+                                    <h2 class="icon glyphicon glyphicon-picture"></h2>
+                                </div>
+                            </router-link>
+                        </div>
                     </div>
-                    <div class="col-xs-6">
-                        <router-link :to="'add'">
-                            <div class="panel bot">
-                                <h2>Upload Your Design</h2>
-                                <h2 class="icon glyphicon glyphicon-picture"></h2>
-                            </div>
-                        </router-link>
+                    <div v-else>
+                        <div class="col-xs-12">
+                            <router-link :to="'add'">
+                                <div class="panel bot">
+                                    <h2>Upload Your Design</h2>
+                                    <h2 class="icon glyphicon glyphicon-picture"></h2>
+                                </div>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
                 <div v-else>
-                    <div class="col-xs-12">
-                        <router-link :to="'camera'">
-                            <div class="panel bot">
-                                <h2>Use Your Camera</h2>
-                                <h2 class="icon glyphicon glyphicon-camera"></h2>
-                            </div>
-                        </router-link>
+                    <div v-if="queue.length > 0">
+                        <div class="col-xs-12">
+                            <router-link :to="'camera'">
+                                <div class="panel bot">
+                                    <h2>Use Your Camera</h2>
+                                    <h2 class="icon glyphicon glyphicon-camera"></h2>
+                                </div>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
             </div>
