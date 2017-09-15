@@ -125,12 +125,12 @@
 			},
 			changeCamera() {
 				if (this.camera == 'front') {
-					navigator.getUserMedia({ video: { facingMode: { exact: "environment" } } }, this.handleVideo, this.videoError)
+					navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(this.handleVideo).catch(this.videoError)
 					this.camera = 'rear'
 				}
 				else {
 					this.camera = 'front'
-					navigator.getUserMedia({ video: {facingMode: 'user'} }, this.handleVideo, this.videoError)
+					navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(this.handleVideo).catch(this.videoError)
 				}
 			},
 			handleVideo(stream) {
@@ -154,12 +154,12 @@
 			this.pinch = new Hammer.Pinch()
 			this.hammertime.get('pinch').set({ enable: true });
 			this.video = document.querySelector("#videoElement");
+			
+			// navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
-			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-
-			if (navigator.getUserMedia) {
-				navigator.getUserMedia({ video: {facingMode: 'user'} }, this.handleVideo, this.videoError);
-			}
+			// if (navigator.getUserMedia) {
+				navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }}).then(this.handleVideo).catch(this.videoError);
+			// }
 
 			this.imgtag = document.getElementById('imgtag')
 
