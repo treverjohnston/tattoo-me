@@ -86,7 +86,7 @@
             }
         },
         mounted() {
-            this.$store.dispatch('getTattoos')
+            // this.$store.dispatch('getTattoos')
         },
         components: {
             Card,
