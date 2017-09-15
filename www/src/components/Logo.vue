@@ -5,12 +5,12 @@
                 <md-button class="md-icon-button" @click="toggleLeftSidenav">
                     <md-icon class="glyphicon glyphicon-th-list"></md-icon>
                 </md-button>
-                <h2 class="md-title"><img class="picture" src="../assets/Tattoo-me.png"></h2>
+                <h2 class="md-title"><img class="picture" src="../assets/Tattoo-me-logo-new.png"></h2>
             </md-toolbar>
             <md-sidenav class="md-left" ref="leftSidenav" @open="open('Left')" @close="close('Left')">
                 <md-toolbar class="md-large">
                     <div class="md-toolbar-container">
-                        <h3 class="md-title"><img class="sidePic" src="../assets/Tattoo-me.png"></h3>
+                        <h3 class="md-title"><img class="sidePic" src="../assets/Tattoo-me-logo-new.png"></h3>
                     </div>
                 </md-toolbar>
                 <h3>
