@@ -20,7 +20,7 @@
 				<div id="card-element" class="field is-empty"></div>
 				<span><span>Credit or debit card</span></span>
 			</label>
-			<button type="submit">Pay $25</button>
+			<button type="submit">Pay ${{tattoo.price}}</button>
 			<div class="outcome">
 				<div class="error" role="alert"></div>
 				<div class="success">
