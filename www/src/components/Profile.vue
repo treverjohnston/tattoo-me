@@ -35,7 +35,7 @@
 					</div>
 					<div v-else>
 						<div class="col-xs-4">
-						<button class="btn btn-default">
+							<button class="btn btn-default">
 							<h3>Upload an Artist Image</h3>
 						</button>
 						</div>
@@ -65,8 +65,10 @@
 					</div>
 				</div>
 				<hr>
-				<div v-for="card in gallery">
-					<artistgallery :cardProp="card"></artistgallery>
+				<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+					<div v-masonry-tile class="item" v-for="item in blocks">
+						<artistgallery :cardProp="item"></artistgallery>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -90,7 +92,7 @@
 			info() {
 				return this.$store.state.userInfo
 			},
-			gallery() {
+			blocks() {
 				return this.$store.state.tattoos
 			}
 		},
@@ -107,17 +109,29 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	h2{
+	h2 {
 		color: white;
 	}
-	h1{
+
+	h1 {
 		color: white;
 	}
+
 	button {
 		margin-top: 2rem;
 	}
 
 	.profile {
 		padding-bottom: 15rem;
+	}
+
+	.tattoo {
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	.item {
+		margin: 0 1rem 0 1rem;
+		width: 45%;
 	}
 </style>

@@ -8,13 +8,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="res">
-                    <div v-for="card in favorites">
-                        <card :cardProp="card"></card>
+                <div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+                    <div v-masonry-tile class="item" v-for="item in blocks">
+                        <card :cardProp="item"></card>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
@@ -30,11 +31,11 @@
 
         },
         computed: {
-            favorites() {
+            blocks() {
                 return this.$store.state.favorites
             }
         },
-        mounted(){
+        mounted() {
             return this.$store.dispatch('getFavs')
         },
         components: {
@@ -50,7 +51,13 @@
         padding-bottom: 15rem;
     }
 
-    .res{
-        padding-top: 2rem;
+    .tattoo {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .item {
+        margin: 0 1rem 0 1rem;
+        width: 45%;
     }
 </style>
