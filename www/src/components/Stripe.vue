@@ -13,7 +13,7 @@
 				<span><span>Name</span></span>
 			</label>
 			<label>
-				<input class="field is-empty" type="tel" placeholder="(123) 456-7890" />
+				<input class="field is-empty" maxlength="10" autocomplete="tel" pattern="tel" type="tel" placeholder="(123) 456-7890" />
 				<span><span>Phone number</span></span>
 			</label>
 			<label>
@@ -62,7 +62,7 @@
 				iconStyle: 'solid',
 				style: {
 					base: {
-						iconColor: '#8898AA',
+						iconColor: 'white',
 						color: 'white',
 						lineHeight: '36px',
 						fontWeight: 300,
@@ -70,7 +70,7 @@
 						fontSize: '19px',
 
 						'::placeholder': {
-							color: '#8898AA',
+							color: 'white',
 						},
 					},
 					invalid: {
@@ -191,7 +191,7 @@
 	label {
 		height: 35px;
 		position: relative;
-		color: #1D1F21;
+		color: white;
 		display: block;
 		margin-top: 30px;
 		margin-bottom: 20px;
@@ -205,7 +205,7 @@
 		height: 100%;
 		font-weight: 300;
 		line-height: 32px;
-		color: #8798AB;
+		color: white;
 		border-bottom: 1px solid #586A82;
 		transition: border-bottom-color 200ms ease-in-out;
 		cursor: text;
@@ -246,16 +246,16 @@
 	}
 
 	.field::-webkit-input-placeholder {
-		color: #1D1F21;
+		color: #3D3535;
 	}
 
 	.field::-moz-placeholder {
-		color: #1D1F21;
+		color: #3D3535;
 	}
 	/* IE doesn't show placeholders when empty+focused */
 
 	.field:-ms-input-placeholder {
-		color: #1D1F21;
+		color: #3D3535;
 	}
 
 	.field.is-empty:not(.is-focused) {
