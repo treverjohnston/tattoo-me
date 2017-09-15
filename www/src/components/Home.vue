@@ -17,7 +17,7 @@
 					<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
 						<div v-masonry-tile class="item" v-for="item in blocks">
 							<card :cardProp="item"></card>
-						</div>
+						</div> 
 					</div>
 				</div>
 			</div>
