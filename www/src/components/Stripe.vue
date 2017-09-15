@@ -174,6 +174,8 @@
 	.img-responsive{
 		margin: 0 auto;
 		padding-top: 5rem;
+		max-width: 70vw;
+		min-width: 50vw
 	}
 	/* .stripe-card {
 		width: 300px;
