@@ -13,9 +13,10 @@
 				</div>
 			</div>
 			<div class="row">
-				<!-- <div v-if="sortType"> -->
-				<div v-for="card in tattoos">
-					<card :sortType="sortType" :cardProp="card"></card>
+				<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+					<div v-masonry-tile class="item" v-for="item in blocks">
+						<card :cardProp="item"></card>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -51,7 +52,7 @@
 			}
 		},
 		computed: {
-			tattoos() {
+			blocks() {
 				return this.$store.state.tattoos
 			},
 			sortType() {
@@ -78,9 +79,20 @@
 		padding-bottom: 10rem;
 	}
 
+	.tattoo {
+		width: 95%;
+		margin: 0 auto;
+	}
+
+	.item {
+		margin: 0 1rem 0 1rem;
+		width: 30%;
+	}
+
 	.btn {
 		/* background-color: transparent; */
 		font-size: 2rem;
 		color: black;
+		margin-bottom: 5rem;
 	}
 </style>

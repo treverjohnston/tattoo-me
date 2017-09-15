@@ -52,17 +52,6 @@
                             <img :src="cardProp.url" alt="image">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="artist">
-                                <router-link :to="`/viewartist/${cardProp.creatorId}`">
-                                    <button class="btn btn-default">
-                                        <h3>Design by: {{cardProp.artistName}}</h3>
-                                    </button>
-                                </router-link>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

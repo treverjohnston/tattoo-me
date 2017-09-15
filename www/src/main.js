@@ -5,8 +5,11 @@ import App from './App'
 import router from './router'
 import store from './store'
 var VueMaterial = require('vue-material')
-Vue.use(VueMaterial)
 import 'vue-material/dist/vue-material.css'
+import {VueMasonryPlugin} from 'vue-masonry'
+
+Vue.use(VueMasonryPlugin)
+Vue.use(VueMaterial)
 
 Vue.config.productionTip = true
 
