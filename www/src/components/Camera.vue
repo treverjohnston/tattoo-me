@@ -165,12 +165,6 @@
 
 			this.canvas = document.getElementById('canvas')
 			this.context = this.canvas.getContext("2d")
-			// this.canvasWidth = document.body.clientWidth * .90
-			// this.canvasHeight = this.canvasWidth * .75
-			// this.canvasWidth = window.innerWidth;
-			// this.canvasHeight = window.innerHeight - 320;
-			// this.canvas.setAttribute('width', this.canvasWidth)
-			// this.canvas.setAttribute('height', this.canvasHeight)
 			this.setCanvasDimensions();
 			this.x = this.canvasWidth * .45
 			this.y = this.canvasHeight * .45
@@ -208,6 +202,7 @@
 		},
 		destroyed() {
 			this.localStream.getVideoTracks()[0].stop();
+			this.run = false;
 		},
 		components: {
 			VueFrame,
@@ -217,7 +212,6 @@
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	.camera {
 		overflow: hidden;
