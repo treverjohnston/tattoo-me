@@ -124,6 +124,10 @@
 				}
 			},
 			changeCamera() {
+				this.localStream.getVideoTracks()[0].stop();
+				this.localStream = null;
+				this.video.src = '';
+				
 				if (this.camera == 'front') {
 					navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(this.handleVideo).catch(this.videoError)
 					this.camera = 'rear'
