@@ -35,7 +35,8 @@ var store = new vuex.Store({
 		uploadedTattoo: {},
 		topArtists: [],
 		artistProfile: {},
-		currentArtist: {}
+		currentArtist: {},
+		userLocation: {}
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -116,6 +117,9 @@ var store = new vuex.Store({
 		},
 		setCurrentArtist(state, artist){
 			state.currentArtist = artist
+		},
+		setUserLocation(state, location){
+			state.userLocation = location
 		}
 	},
 	actions: {

@@ -36,6 +36,7 @@
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
                             };
+                            this.$store.commit('setUserLocation', pos)
     
                             this.infoWindow.setPosition(pos);
                             this.infoWindow.setContent('You are here');
