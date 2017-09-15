@@ -80,6 +80,8 @@
                 return this.$store.state.mobileView
             },
             hasFavorited() {
+				if (!this.$store.state.userInfo.favorites)
+					return false;
                 return this.$store.state.userInfo.favorites.includes(this.card._id)
             }
         },
