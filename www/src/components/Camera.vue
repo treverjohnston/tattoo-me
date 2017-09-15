@@ -47,7 +47,7 @@
 				imgtag: '',
 				aspectRatio: null,
 				paused: false,
-				camera: 'front'
+				camera: 'front',
 				videoHeight: null,
 				videoWidth: null,
 			}
