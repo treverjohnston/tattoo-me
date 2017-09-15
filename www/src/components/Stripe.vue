@@ -2,32 +2,48 @@
 <!-- WHEN A PERSON PRESSES THE $ BUTTON IT SETS THE TATTOO OBJECT IN THE STATE AT THIS.$STORE.STATE.CONFIRM -->
 <!--  -->
 <template>
-	<div id='app'>
+	<div class="stripe">
 		<!-- <h1>Please give us your payment details:</h1>
 		<card class='stripe-card' :class='{ complete }' stripe='pk_test_cr5DjQkjunl2TGMOTUIRhzk7' :options='stripeOptions' @change='complete = $event.complete'
 		/>
 		<button class='pay-with-stripe' @click='pay' :disabled='!complete'>Pay with credit card</button> -->
-		<form>
-			<label>
-				<input name="cardholder-name" class="field is-empty" placeholder="Jane Doe" />
-				<span><span>Name</span></span>
-			</label>
-			<label>
-				<input class="field is-empty" type="tel" placeholder="(123) 456-7890" />
-				<span><span>Phone number</span></span>
-			</label>
-			<label>
-				<div id="card-element" class="field is-empty"></div>
-				<span><span>Credit or debit card</span></span>
-			</label>
-			<button type="submit">Pay ${{tattoo.price}}</button>
-			<div class="outcome">
-				<div class="error" role="alert"></div>
-				<div class="success">
-					Success! Your Stripe token is <span class="token"></span>
+		<div class="container-fluid">
+			<!-- <div class="row">
+				<div class="col-xs-12">
+					<h2 class="header">Complete purchase of HD design below</h2>
+				</div>
+			</div> -->
+			<div class="row">
+				<div class="col-xs-12">
+					<form>
+						<label>
+							<input name="cardholder-name" class="field is-empty" placeholder="Jane Doe" />
+							<span><span>Name</span></span>
+						</label>
+						<label>
+							<input class="field is-empty" maxlength="10" autocomplete="tel" pattern="tel" type="tel" placeholder="(123) 456-7890" />
+							<span><span>Phone number</span></span>
+						</label>
+						<label>
+							<div id="card-element" class="field is-empty"></div>
+							<span><span>Credit or debit card</span></span>
+						</label>
+						<button type="submit">Pay ${{tattoo.price}}</button>
+						<div class="outcome">
+							<div class="error" role="alert"></div>
+							<div class="success">
+								Success! Your Stripe token is <span class="token"></span>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
-		</form>
+			<div class="row">
+				<div class="col-xs-12">
+					<img class="img-responsive" :src="tattoo.url" alt="your image">
+				</div>
+			</div>
+		</div>
 	</div>
 
 </template>
@@ -38,6 +54,7 @@
 	import router from "../router"
 
 	export default {
+		name: 'stripe',
 		data() {
 			return {
 				complete: false,
@@ -62,7 +79,7 @@
 				iconStyle: 'solid',
 				style: {
 					base: {
-						iconColor: '#8898AA',
+						iconColor: 'white',
 						color: 'white',
 						lineHeight: '36px',
 						fontWeight: 300,
@@ -70,7 +87,7 @@
 						fontSize: '19px',
 
 						'::placeholder': {
-							color: '#8898AA',
+							color: 'white',
 						},
 					},
 					invalid: {
@@ -113,11 +130,11 @@
 					_this.$store.dispatch('purchaseTattoo', { token: result.token, tattooId: _this.tattoo._id })
 					// successElement.querySelector('.token').textContent = result.token.id;
 					// successElement.classList.add('visible');
-					router.push({name: "Success"})
+					router.push({ name: "Success" })
 				} else if (result.error) {
 					errorElement.textContent = result.error.message;
 					errorElement.classList.add('visible');
-					router.push({name: "Fail"})
+					router.push({ name: "Fail" })
 				}
 			}
 
@@ -154,6 +171,12 @@
 </script>
 
 <style scoped>
+	.img-responsive{
+		margin: 0 auto;
+		padding-top: 5rem;
+		max-width: 70vw;
+		min-width: 50vw
+	}
 	/* .stripe-card {
 		width: 300px;
 		border: 1px solid grey;
@@ -191,7 +214,7 @@
 	label {
 		height: 35px;
 		position: relative;
-		color: #1D1F21;
+		color: white;
 		display: block;
 		margin-top: 30px;
 		margin-bottom: 20px;
@@ -205,7 +228,7 @@
 		height: 100%;
 		font-weight: 300;
 		line-height: 32px;
-		color: #8798AB;
+		color: white;
 		border-bottom: 1px solid #586A82;
 		transition: border-bottom-color 200ms ease-in-out;
 		cursor: text;
@@ -246,16 +269,16 @@
 	}
 
 	.field::-webkit-input-placeholder {
-		color: #1D1F21;
+		color: #3D3535;
 	}
 
 	.field::-moz-placeholder {
-		color: #1D1F21;
+		color: #3D3535;
 	}
 	/* IE doesn't show placeholders when empty+focused */
 
 	.field:-ms-input-placeholder {
-		color: #1D1F21;
+		color: #3D3535;
 	}
 
 	.field.is-empty:not(.is-focused) {
