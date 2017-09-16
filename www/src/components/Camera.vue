@@ -211,16 +211,16 @@
 
 			this.hammertime.on('pinchout', (ev) => {
 				_this.sizeX += 8
-				_this.sizeY += 8
+				_this.sizeY += 8 / this.imageAspect;
 				_this.x -= 4
-				_this.y -= 2
+				_this.y -= 2 / this.imageAspect;
 			})
 
 			this.hammertime.on('pinchin', (ev) => {
 				_this.sizeX -= 8
-				_this.sizeY -= 4
+				_this.sizeY -= 8 / this.imageAspect;
 				_this.x += 4
-				_this.y += 2
+				_this.y += 2 / this.imageAspect;
 			})
 
 			this.hammertime.on('swipeleft', (ev) => {
