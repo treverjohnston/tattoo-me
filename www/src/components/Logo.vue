@@ -23,10 +23,10 @@
                     on you, then add to your queue and open up the phones camera to see what it looks like.
                 </h4>
                 <router-link :to="'/topartists'">
-                    <button class="top-artists btn btn-default">Check out the top artists of the week!</button>
+                    <button class="top-artists btn btn-default" @click="toggleLeftSidenav">Check out the top artists of the week!</button>
                 </router-link>
                 <router-link :to="'/maps'">
-                    <button class="maps btn btn-default">Tattoo shops near me</button>
+                    <button class="maps btn btn-default" @click="toggleLeftSidenav">Tattoo shops near me</button>
                 </router-link>
             </md-sidenav>
         </div>
