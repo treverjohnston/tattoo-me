@@ -129,6 +129,9 @@ var store = new vuex.Store({
 		},
 		setCamera(state) {
 			state.settingCamera = true
+		},
+		setCameraFalse(state) {
+			state.settingCamera = false
 		}
 	},
 	actions: {
