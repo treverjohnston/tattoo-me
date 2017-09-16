@@ -105,11 +105,13 @@
 				button.innerHTML = "Save Image to Device"
 				button.id = 'save-button'
 				button.addEventListener('click', function () {
-					_this.canvas.toBlob((blob) => {
-						FileSaverjs.saveAs(blob, "test capture.png")
-					})
-					document.getElementById('save-button').remove()
-					_this.showLive()
+					if (this.signedIn()) {
+						_this.canvas.toBlob((blob) => {
+							FileSaverjs.saveAs(blob, "test capture.png")
+						})
+						document.getElementById('save-button').remove()
+						_this.showLive()
+					}
 				})
 				var addTo = document.getElementById('controls')
 				addTo.appendChild(button)
@@ -127,7 +129,7 @@
 				this.localStream.getVideoTracks()[0].stop();
 				this.localStream = null;
 				this.video.src = '';
-				
+
 				if (this.camera == 'front') {
 					navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(this.handleVideo).catch(this.videoError)
 					this.camera = 'rear'
@@ -158,11 +160,11 @@
 			this.pinch = new Hammer.Pinch()
 			this.hammertime.get('pinch').set({ enable: true });
 			this.video = document.querySelector("#videoElement");
-			
+
 			// navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
 			// if (navigator.getUserMedia) {
-				navigator.mediaDevices.getUserMedia({ video: { facingMode: {exact: 'environment'} }}).then(this.handleVideo).catch(this.videoError);
+			navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } } }).then(this.handleVideo).catch(this.videoError);
 			// }
 
 			this.imgtag = document.getElementById('imgtag')
