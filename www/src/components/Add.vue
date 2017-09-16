@@ -8,14 +8,29 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-xs-offset-2 col-xs-8">
+            <form @submit.prevent="openCloud">
+                <md-input-container md-theme="green">
+                  <label>How much for your HD design?</label>
+                  <md-input type="decimal" v-model="price"></md-input>
+                </md-input-container>
+                <md-input-container md-theme="red">
+                  <label>Add any tags you would like to your design separated by a single space</label>
+                  <md-textarea type="text" v-model="tags"></md-textarea>
+                </md-input-container>
+                <button class="btn btn-default" id="upload_widget_opener">Upload Image</button>
+              </form>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-xs-offset-4 col-xs-4">
-          <form @submit.prevent="openCloud">
+          <!-- <form @submit.prevent="openCloud">
             <div class="form-group">
               <input class="form-control" type="text" v-model="tags" placeholder="Tags - For multiple tags, separate by a space">
               <input class="form-control" type="decimal" v-model="price" placeholder="$">
               <button class="btn btn-default" id="upload_widget_opener">Upload Image</button>
             </div>
-          </form>
+          </form> -->
         </div>
       </div>
       <div class="row">
@@ -23,9 +38,6 @@
           <div v-if="uploaded.hasOwnProperty('_id')">
             <h2 class="text">This is the low-res version that people will see before purchase</h2>
             <img :src="uploaded.url" alt="image uploaded">
-          </div>
-          <div v-else>
-            <!-- <h3>Uploaded Picture Will Appear Below</h3> -->
           </div>
         </div>
       </div>
@@ -73,6 +85,13 @@
       }
     },
     mounted() {
+      // swal("Step One: How much do you want to charge for your design?", {
+      //   content: "input",
+      // })
+      //   .then((value) => {
+      //     var price = value
+      //     swal(`Step Two:  ${value}`);
+      //   });
     },
     components: {
     }
