@@ -185,7 +185,8 @@
 			var _this = this
 			this.hammertime = new Hammer((document.getElementById('canvas')));
 			this.pinch = new Hammer.Pinch()
-			this.hammertime.get('pinch').set({ enable: true });
+			this.hammertime.get('pinch').set({ enable: true })
+			this.hammertime.get('rotate').set({ enable: true })
 			this.video = document.querySelector("#videoElement");
 			this.tattoos = this.$store.state.queue
 			this.activeTattoo = this.$store.state.queue[0]
@@ -250,6 +251,14 @@
 						document.getElementById('save-button').remove()
 					}
 				}
+			})
+
+			this.hammertime.on('rotate', (ev) => {
+				var overlay = document.getElementById('overlay')
+				var liveScale = 1
+				var currentRotation = 0
+				var rotation = currentRotation + Math.round(liveScale * e.originalEvent.gesture.rotation)
+				overlay.style('transformation', `rotate(${rotation} + deg)`)
 			})
 
 			this.canvas.addEventListener('mousedown', (e) => {
