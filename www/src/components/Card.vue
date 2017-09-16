@@ -188,7 +188,7 @@
 
 	.btn {
 		background-color: transparent;
-		font-size: 4rem;
+		font-size: 5rem;
 		color: black;
 	}
 
