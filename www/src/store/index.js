@@ -37,7 +37,8 @@ var store = new vuex.Store({
 		currentArtist: {},
 		userLocation: {},
 		settingCamera: false,
-		cardOpenOptions: null
+		cardOpenOptions: null,
+		purchased: {}
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -58,6 +59,7 @@ var store = new vuex.Store({
 			state.settingCamera = false
 			state.userLocation = {}
 			state.cardOpenOptions = null;
+			state.purchased = {}
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -91,6 +93,7 @@ var store = new vuex.Store({
 			state.tattoos.splice(state.tattoos.indexOf(tattoo), 1)
 		},
 		setInfo(state, obj) {
+			console.log('info', obj)
 			state.userInfo = obj
 		},
 
@@ -132,6 +135,12 @@ var store = new vuex.Store({
 		},
 		setCameraFalse(state) {
 			state.settingCamera = false
+		},
+		setPurchased(state, res){
+			console.log('pre', res)
+			state.purchased = res
+			console.log('post',res)
+
 		}
 	},
 	actions: {
@@ -184,6 +193,16 @@ var store = new vuex.Store({
 				.catch(err => {
 					commit('handleError', err)
 				})
+		},
+		getPurchased({commit, dispatch}){
+			api('purchased')
+			.then(res=>{
+				console.log(res)
+				commit('setPurchased', res.data.data)
+			})
+			.catch(err => {
+				commit('handleError', err)
+			})
 		},
 
 		// *** Tattoo Favorites Actions *** //

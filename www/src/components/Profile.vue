@@ -14,14 +14,21 @@
 							{{info.email}}
 						</h2>
 					</div>
-					<div v-show="!info.purchased == undefined">
-						<div class="col-xs-12">
-							{{info.purchased}}
-						</div>
-					</div>
 					<div class="col-xs-12">
 						<button @click="logout()" class="btn btn-default">Logout</button>
 					</div>
+					<!-- <div v-show="!purchased"> -->
+				</div>
+				<div class="row">
+					<hr>
+					<h2>Your Purchased Tattoos</h2>
+					<hr>
+					<div v-for="tattoo in purchased">
+						<div class="col-xs-4">
+							<img :src="tattoo.url" alt="tattoo image">
+						</div>
+					</div>
+					<!-- </div> -->
 				</div>
 			</div>
 		</div>
@@ -58,9 +65,20 @@
 						<button @click="logout()" class="btn btn-default">Logout</button>
 					</div>
 				</div>
-				<hr>
+				<div class="row">
+					<hr>
+					<h2>Your Purchased Tattoos</h2>
+					<hr>
+					<div v-for="tattoo in purchased">
+						<div class="col-xs-4">
+							<img :src="tattoo.url" alt="tattoo image">
+						</div>
+					</div>
+					<!-- </div> -->
+				</div>
 				<div class="row">
 					<div class="col-xs-12">
+						<hr>
 						<h1>My Gallery</h1>
 					</div>
 				</div>
@@ -94,6 +112,9 @@
 			},
 			blocks() {
 				return this.$store.state.tattoos
+			},
+			purchased() {
+				return this.$store.state.purchased
 			}
 		},
 		components: {
@@ -102,6 +123,7 @@
 		mounted() {
 			this.$store.commit('resetTattoos')
 			this.$store.dispatch('getArtistGallery')
+			this.$store.dispatch('getPurchased')
 		}
 	}
 
