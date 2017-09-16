@@ -17,6 +17,8 @@
 
 		<img crossorigin="*" id="overlay" style="display: none" :src="activeTattoo" alt="">
 		<img id="imgtag" style="display: none" src="" alt="capture" />
+		<img id="temp" style="display: none" src="" alt="">
+		<canvas id="tempCanvas" style="display: none"></canvas>
 	</div>
 </template>
 <script>
@@ -51,6 +53,7 @@
 				camera: 'rear',
 				videoHeight: null,
 				videoWidth: null,
+				dragging: false
 			}
 		},
 		watch: {
@@ -87,6 +90,9 @@
 				this.canvasHeight = window.innerHeight - 320;
 				this.canvas.setAttribute('width', this.canvasWidth)
 				this.canvas.setAttribute('height', this.canvasHeight)
+				var tempCanvas = document.getElementById('tempCanvas')
+				tempCanvas.setAttribute('width', this.canvasWidth)
+				tempCanvas.setAttribute('height', this.canvasHeight)
 			},
 			setVideoDimensions() {
 				let canvasRatio = this.canvasWidth / this.canvasHeight;
@@ -157,6 +163,14 @@
 			},
 			videoError(e) {
 				console.log('no rear camera dumby')
+			},
+			setTemp() {
+				var canvas = document.getElementById('tempCanvas')
+				var context = canvas.getContext("2d")
+				var tempImg = document.getElementById('temp')
+				context.drawImage(this.video, (this.canvasWidth - this.videoWidth) / 2, (this.canvasHeight - this.videoHeight) / 2, this.videoWidth || this.canvasWidth, this.videoHeight || this.canvasHeight)
+				var uri = canvas.toDataURL('image/png')
+				tempImg.src = uri
 			}
 		},
 		computed: {
@@ -225,6 +239,7 @@
 			this.hammertime.on('tap', (ev) => {
 				this.paused = !this.paused
 				if (this.paused) {
+					this.setTemp()
 					this.captureImage()
 				}
 				else {
@@ -235,6 +250,29 @@
 						document.getElementById('save-button').remove()
 					}
 				}
+			})
+
+			this.canvas.addEventListener('mousedown', (e) => {
+				if (this.paused) {
+					this.dragging = true
+				}
+			})
+
+			this.canvas.addEventListener('mousemove', (e) => {
+				if (this.dragging) {
+					this.x = e.offsetX - Math.floor(this.sizeX / 2)
+					this.y = e.offsetY - Math.floor(this.sizeY / 2)
+					var overlay = document.getElementById('overlay')
+					var background = document.getElementById('temp')
+					this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
+					this.context.drawImage(background, 0, (this.canvasHeight - this.videoHeight) / 2, this.canvasWidth, this.videoHeight || this.canvasHeight)
+					this.context.drawImage(overlay, this.x, this.y, this.sizeX, this.sizeY)
+				}
+			})
+
+			this.canvas.addEventListener('mouseup', (e) => {
+				this.dragging = false
+				// this.video.play()
 			})
 
 			// this.canvas.addEventListener('click', () => {
