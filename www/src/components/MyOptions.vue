@@ -5,14 +5,13 @@
             <hr>
             <div class="row">
                 <div class="col-xs-12">
-                    <h1 class="header">Choose From These Options To Add To Your Active Queue</h1>
                 </div>
                 <div class="col-xs-6">
-                    <router-link @click="setCamera" :to="'home'">
+                    <router-link :to="'home'">
                         <button @click="setCamera" class="panel">                                    
                         <div class="panel top">
                             <h2>Select Image From Gallery</h2>
-                            <h2 class="icon glyphicon glyphicon-th"></h2>
+                            <h2 class="icon home glyphicon glyphicon-th"></h2>
                         </div>
                         </button>
                     </router-link>
@@ -22,7 +21,7 @@
                         <button @click="setCamera" class="panel">
                             <div class="panel top">
                             <h2>Choose From Favorites</h2>
-                            <h2 class="icon glyphicon glyphicon-heart"></h2>
+                            <h2 class="icon glyphicon fav glyphicon-heart"></h2>
                         </div>
                         </button>
                     </router-link>
@@ -103,6 +102,10 @@
             }
         },
         mounted() {
+            swal({
+                title: 'Choose From These Options To Add To Your Active Queue',
+                timer: 3000
+            })
         },
         components: {
             Card,
@@ -114,6 +117,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .home{
+        color: blue;
+    }
+    .fav{
+        color: red;
+    }
     .header {
         padding-bottom: 2rem;
         color: white;
@@ -127,11 +136,14 @@
     }
 
     .top {
-        padding: 10rem 10rem 10rem 10rem;
+        height: 30%;
+        width: 45vw;
     }
 
     .bot {
-        padding: 10rem 0 15rem 0;
+        /* padding: 10rem 0 15rem 0; */
+        height: 30%;
+        /* width: 45vw; */
     }
 
     .panel {
@@ -139,7 +151,7 @@
     }
 
     .icon {
-        font-size: 5rem;
+        font-size: 15rem;
     }
 
     a {
