@@ -64,7 +64,7 @@
 		},
 		computed: {
 			liked() {
-				if (!this.$store.state.userInfo.likes)
+				if (!this.$store.state.userInfo._id)
 					return false;
 				return this.cardProp.likes.includes(this.$store.state.userInfo._id)
 			}
