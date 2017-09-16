@@ -17,8 +17,8 @@
 						</router-link>
 					</div>
 					<div class="col-xs-4">
-						<button v-if="liked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</button>
-						<button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
+						<md-button v-if="liked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</md-button>
+						<md-button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</md-button>
 					</div>
 					<div class="col-xs-2">
 						<button @click="check(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
