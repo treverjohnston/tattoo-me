@@ -8,24 +8,27 @@
                     <h1 class="header">Choose From These Options To Add To Your Active Queue</h1>
                 </div>
                 <div class="col-xs-6">
-                    <router-link :to="'home'">
+                    <router-link @click="setCamera" :to="'home'">
+                        <button @click="setCamera" class="panel">                                    
                         <div class="panel top">
                             <h2>Select Image From Gallery</h2>
                             <h2 class="icon glyphicon glyphicon-th"></h2>
                         </div>
+                        </button>
                     </router-link>
                 </div>
                 <div class="col-xs-6">
                     <router-link :to="'favorites'">
-                        <div class="panel top">
-                            <h2>Choose From Your Favorites</h2>
+                        <button @click="setCamera" class="panel">
+                            <div class="panel top">
+                            <h2>Choose From Favorites</h2>
                             <h2 class="icon glyphicon glyphicon-heart"></h2>
                         </div>
+                        </button>
                     </router-link>
                 </div>
                 <div v-if="info.accountType == 'artist'">
                     <div v-if="queue.length > 0">
-
                         <!-- Links to phone camera/photos for upload -->
                         <div class="col-xs-6">
                             <router-link :to="'camera'">
@@ -69,17 +72,12 @@
                 </div>
             </div>
         </div>
-        <!-- </div> -->
-        <!-- <div v-else>
-            <camera></camera>
-        </div> -->
     </div>
 </template>
 
 <script>
     import Card from './Card'
     import Camera from './Camera'
-    // import Navbar from './Navbar'
     export default {
         name: 'options',
         data() {
@@ -88,6 +86,10 @@
             }
         },
         methods: {
+            setCamera() {
+                console.log('about to commit')
+                this.$store.commit('setCamera')
+            }
         },
         computed: {
             info() {
@@ -101,7 +103,6 @@
             }
         },
         mounted() {
-            // this.$store.dispatch('getTattoos')
         },
         components: {
             Card,
@@ -119,15 +120,14 @@
     }
 
     .options {
-        /* background-color: gray; */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        padding-bottom: 10vh;
+        margin-bottom: 10%;
     }
 
     .top {
-        padding: 10rem 0 10rem 0;
+        padding: 10rem 10rem 10rem 10rem;
     }
 
     .bot {

@@ -34,7 +34,9 @@ var store = new vuex.Store({
 		uploadedTattoo: {},
 		topArtists: [],
 		artistProfile: {},
-		currentArtist: {}
+		currentArtist: {},
+		userLocation: {},
+		settingCamera: false
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -48,10 +50,12 @@ var store = new vuex.Store({
 			state.sortType = true
 			state.tattoosPage = 0
 			state.searchTags = ''
-			state.uploadedTattoo = {},
-				state.topArtists = [],
-				state.artistProfile = {},
-				state.currentArtist = {}
+			state.uploadedTattoo = {}
+			state.topArtists = []
+			state.artistProfile = {}
+			state.currentArtist = {}
+			state.settingCamera = false
+			state.userLocation = {}
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -117,6 +121,12 @@ var store = new vuex.Store({
 		},
 		setCurrentArtist(state, artist) {
 			state.currentArtist = artist
+		},
+		setUserLocation(state, location) {
+			state.userLocation = location
+		},
+		setCamera(state) {
+			state.settingCamera = true
 		}
 	},
 	actions: {
@@ -136,6 +146,7 @@ var store = new vuex.Store({
 				})
 		},
 		removeTattoo({ commit, dispatch }, id) {
+			console.log('at removes')
 			router.push('Profile')
 			api.delete('tattoos/' + id)
 				.then(res => {

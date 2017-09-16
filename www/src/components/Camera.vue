@@ -15,7 +15,7 @@
 			<canvas id="canvas"></canvas>
 		</div>
 
-		<img crossorigin="*" id="overlay" style="display: none" :src="currentTattoo" alt="">
+		<img crossorigin="*" id="overlay" style="display: none" :src="activeTattoo" alt="">
 		<img id="imgtag" style="display: none" src="" alt="capture" />
 	</div>
 </template>
@@ -27,7 +27,8 @@
 		name: 'camera',
 		data() {
 			return {
-				tattoo: '',
+				tattoos: [],
+				activeTattoo: '',
 				hammertime: '',
 				localStream: '',
 				run: true,
@@ -50,6 +51,15 @@
 				camera: 'rear',
 				videoHeight: null,
 				videoWidth: null,
+			}
+		},
+		watch: {
+			getTattoos: () => {
+				debugger
+				if (this.tattoos[0] != '') {
+					console.log(this.tattoos)
+					this.activeTattoo = this.tattoos[0]
+				}
 			}
 		},
 		methods: {
@@ -105,7 +115,7 @@
 				button.innerHTML = "Save Image to Device"
 				button.id = 'save-button'
 				button.addEventListener('click', function () {
-					if (this.signedIn()) {
+					if (_this.signedIn()) {
 						_this.canvas.toBlob((blob) => {
 							FileSaverjs.saveAs(blob, "test capture.png")
 						})
@@ -152,6 +162,9 @@
 		computed: {
 			getTattoos() {
 				return this.$store.state.queue[0]
+			},
+			getTattoos() {
+				return this.$store.state.queue
 			}
 		},
 		mounted() {
@@ -160,6 +173,8 @@
 			this.pinch = new Hammer.Pinch()
 			this.hammertime.get('pinch').set({ enable: true });
 			this.video = document.querySelector("#videoElement");
+			this.tattoos = this.$store.state.queue
+			this.activeTattoo = this.$store.state.queue[0]
 
 			// navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
@@ -191,20 +206,51 @@
 				_this.y += 2
 			})
 
-			this.canvas.addEventListener('click', () => {
+			this.hammertime.on('swiperight', (ev) => {
+				var index = _this.tattoos.indexOf(_this.activeTattoo)
+				var nextIndex = index + 1
+				if (_this.tattoos[nextIndex] != null) {
+					_this.activeTattoo = _this.tattoos[nextIndex]
+				}
+			})
+
+			this.hammertime.on('swipeleft', (ev) => {
+				var index = _this.tattoos.indexOf(_this.activeTattoo)
+				var previousIndex = index - 1
+				if (_this.tattoos[previousIndex] != null) {
+					_this.activeTattoo = _this.tattoos[previousIndex]
+				}
+			})
+
+			this.hammertime.on('tap', (ev) => {
 				this.paused = !this.paused
 				if (this.paused) {
 					this.captureImage()
 				}
 				else {
 					this.run = true
-					navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError)
+					navigator.getUserMedia({ video: true }, _this.handleVideo, _this.videoError)
 					var button = document.getElementById('save-button')
 					if (button) {
 						document.getElementById('save-button').remove()
 					}
 				}
 			})
+
+			// this.canvas.addEventListener('click', () => {
+			// 	this.paused = !this.paused
+			// 	if (this.paused) {
+			// 		this.captureImage()
+			// 	}
+			// 	else {
+			// 		this.run = true
+			// 		navigator.getUserMedia({ video: true }, this.handleVideo, this.videoError)
+			// 		var button = document.getElementById('save-button')
+			// 		if (button) {
+			// 			document.getElementById('save-button').remove()
+			// 		}
+			// 	}
+			// })
 		},
 		destroyed() {
 			this.localStream.getVideoTracks()[0].stop();
