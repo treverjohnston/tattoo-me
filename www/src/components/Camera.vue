@@ -254,11 +254,13 @@
 			})
 
 			this.hammertime.on('rotate', (ev) => {
-				var overlay = document.getElementById('overlay')
-				var liveScale = 1
-				var currentRotation = 0
-				var rotation = currentRotation + Math.round(liveScale * e.originalEvent.gesture.rotation)
-				overlay.style('transformation', `rotate(${rotation} + deg)`)
+				if (this.paused) {
+					var overlay = document.getElementById('overlay')
+					var liveScale = 1
+					var currentRotation = 0
+					var rotation = currentRotation + Math.round(liveScale * e.originalEvent.gesture.rotation)
+					overlay.style('transformation', `rotate(${rotation} + deg)`)
+				}
 			})
 
 			this.canvas.addEventListener('mousedown', (e) => {
