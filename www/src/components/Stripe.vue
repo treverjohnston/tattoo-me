@@ -21,7 +21,7 @@
 							<span><span>Name</span></span>
 						</label>
 						<label>
-							<input class="field is-empty" maxlength="10" autocomplete="tel" pattern="tel" type="tel" placeholder="(123) 456-7890" />
+							<input class="field is-empty" autocomplete="tel" type="tel" placeholder="(123) 456-7890" />
 							<span><span>Phone number</span></span>
 						</label>
 						<label>
@@ -130,11 +130,24 @@
 					_this.$store.dispatch('purchaseTattoo', { token: result.token, tattooId: _this.tattoo._id })
 					// successElement.querySelector('.token').textContent = result.token.id;
 					// successElement.classList.add('visible');
-					router.push({ name: "Success" })
+					swal({
+						title: "Purchased!",
+						text: "Great!  Your payment has been received.  You will receive two emails.  One email will contain your receipt and the other email will contain a link to view/download a high resolution image of the tattoo you have purchased.",
+						icon: "success",
+						button: true
+					});
+					router.push({ name: "Home" })
 				} else if (result.error) {
 					errorElement.textContent = result.error.message;
 					errorElement.classList.add('visible');
-					router.push({ name: "Fail" })
+
+					swal({
+						title: "Woops",
+						text: "Pay your bills before getting a Tattoo.  Your payment has been declined.",
+						icon: "warning",
+						button: true
+					});
+					// router.push({ name: "Fail" })
 				}
 			}
 
@@ -171,7 +184,7 @@
 </script>
 
 <style scoped>
-	.img-responsive{
+	.img-responsive {
 		margin: 0 auto;
 		padding-top: 5rem;
 		max-width: 70vw;

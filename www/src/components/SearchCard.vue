@@ -104,22 +104,38 @@
                 this.$store.commit('confirm', card)
             },
             favorite() {
-                this.$store.dispatch('favorite', this.cardProp)
+                if (this.signedIn()) {
+                    this.$store.dispatch('favorite', this.cardProp)
+                }
             },
             like(id) {
-                var obj = {
-                    id: id
+                if (this.signedIn()) {
+                    var obj = {
+                        id: id
+                    }
+                    this.$store.dispatch('like', obj)
                 }
-                this.$store.dispatch('like', obj)
             },
             show() {
                 this.showButtons = !this.showButtons
             },
             addToQueue(tat) {
-                this.$store.commit('addToQueue', tat)
-            },
-            confirm(card) {
-                this.$store.commit('confirm', card)
+                if (this.signedIn()) {
+                    this.$store.commit('addToQueue', tat)
+                    swal({
+                        title: 'Design added to your queue!',
+                        text: 'Check out the camera to see it on you!',
+                        timer: 1000
+                    }).then(
+                        function () { },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
+                        }
+                        )
+                }
             }
         }
     }
@@ -137,14 +153,14 @@
     }
 
     img {
-		min-width: 20vw;
+        min-width: 20vw;
         /* width: 15vw; */
         /* margin: 0 auto; */
     }
 
     .btn {
         background-color: transparent;
-        font-size: 4rem;
+        font-size: 5rem;
         color: black;
     }
 

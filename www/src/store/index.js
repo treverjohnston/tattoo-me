@@ -25,7 +25,6 @@ var store = new vuex.Store({
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 		tattoos: [],
 		mobileView: [],
-		favorites: [],
 		userInfo: {},
 		queue: [],
 		confirm: [],
@@ -36,7 +35,9 @@ var store = new vuex.Store({
 		topArtists: [],
 		artistProfile: {},
 		currentArtist: {},
-		userLocation: {}
+		userLocation: {},
+		settingCamera: false,
+		cardOpenOptions: null
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -44,17 +45,19 @@ var store = new vuex.Store({
 		setDefaultState(state) {
 			state.tattoos = []
 			state.mobileView = []
-			state.favorites = []
 			state.userInfo = {}
 			state.queue = []
 			state.confirm = []
 			state.sortType = true
 			state.tattoosPage = 0
 			state.searchTags = ''
-			state.uploadedTattoo = {},
-			state.topArtists = [],
-			state.artistProfile = {},
+			state.uploadedTattoo = {}
+			state.topArtists = []
+			state.artistProfile = {}
 			state.currentArtist = {}
+			state.settingCamera = false
+			state.userLocation = {}
+			state.cardOpenOptions = null;
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -79,10 +82,13 @@ var store = new vuex.Store({
 				favorite.favorite = true
 			}
 
-			state.favorites = favorites
+			state.tattoos = favorites
 		},
 		updateFavorites(state, tattoos) {
 			vue.set(state.userInfo, 'favorites', tattoos)
+		},
+		removeFavorite(state, tattoo) {
+			state.tattoos.splice(state.tattoos.indexOf(tattoo), 1)
 		},
 		setInfo(state, obj) {
 			state.userInfo = obj
@@ -112,14 +118,17 @@ var store = new vuex.Store({
 		setTopArtists(state, tattoos) {
 			state.topArtists = tattoos
 		},
-		setArtistProfile(state, profile){
+		setArtistProfile(state, profile) {
 			state.artistProfile = profile
 		},
-		setCurrentArtist(state, artist){
+		setCurrentArtist(state, artist) {
 			state.currentArtist = artist
 		},
-		setUserLocation(state, location){
+		setUserLocation(state, location) {
 			state.userLocation = location
+		},
+		setCamera(state) {
+			state.settingCamera = true
 		}
 	},
 	actions: {
@@ -139,6 +148,7 @@ var store = new vuex.Store({
 				})
 		},
 		removeTattoo({ commit, dispatch }, id) {
+			console.log('at removes')
 			router.push('Profile')
 			api.delete('tattoos/' + id)
 				.then(res => {
@@ -184,6 +194,8 @@ var store = new vuex.Store({
 			api.put('favorites/' + tattoo._id, tattoo)
 				.then(res => {
 					commit('updateFavorites', res.data.data)
+					if (router.currentRoute.name == "Favorites")
+						commit('removeFavorite', tattoo)
 				})
 				.catch(err => {
 					commit('handleError', err)
@@ -200,24 +212,24 @@ var store = new vuex.Store({
 		},
 
 		// *** Misc Actions *** //
-		
-		getArtistProfile({commit, dispatch}, id){
+
+		getArtistProfile({ commit, dispatch }, id) {
 			api(`artist/${id}`)
-			.then(res=>{
-				commit('setArtistProfile', res.data.data)
-			})
-			.catch(err => {
-				commit('handleError', err)
-			})
+				.then(res => {
+					commit('setArtistProfile', res.data.data)
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
 		},
 		getTopArtist({ commit, dispatch }) {
 			api('artists/top-weekly')
-			.then(res=>{
-				commit('setTopArtists', res.data.data)
-			})
-			.catch(err => {
-				commit('handleError', err)
-			})
+				.then(res => {
+					commit('setTopArtists', res.data.data)
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
 		},
 		getArtistGallery({ commit, dispatch }) {
 			api('my-designs')

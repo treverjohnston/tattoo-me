@@ -89,25 +89,27 @@
                 this.$store.commit('confirm', card)
             },
             favorite() {
-                this.$store.dispatch('favorite', this.cardProp)
+                if (this.signedIn()) {
+                    this.$store.dispatch('favorite', this.cardProp)
+                }
             },
             like(id) {
-                var obj = {
-                    id: id
+                if (this.signedIn()) {
+                    var obj = {
+                        id: id
+                    }
+                    this.$store.dispatch('like', obj)
                 }
-                this.$store.dispatch('like', obj)
             },
             show() {
                 this.showButtons = !this.showButtons
             },
             addToQueue(tat) {
                 this.$store.commit('addToQueue', tat)
-            },
-            confirm(card) {
-                this.$store.commit('confirm', card)
             }
         }
     }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -14,8 +14,17 @@
 					<div class="col-xs-2">
 						<button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
 					</div>
-					<div class="col-xs-2">
-						<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+					<div v-if="settingCamera">
+						<div class="col-xs-2">
+							<router-link :to="`camera`">
+								<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+							</router-link>
+						</div>
+					</div>
+					<div v-else>
+						<div class="col-xs-2">
+							<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+						</div>
 					</div>
 					<div class="col-xs-2">
 						<div v-if="!hasFavorited">
@@ -64,17 +73,13 @@
 					</div>
 				</div>
 			</div>
-			<md-snackbar :md-position="vertical + ' ' + horizontal" ref="snackbar" :md-duration="duration">
-				<span>Image Added To Camera Queue</span>
-				<router-link :to="`/camera`">
-					<md-button class="md-primary" @click="$refs.snackbar.close()">Camera</md-button>
-				</router-link>
-			</md-snackbar>
 		</div>
 	</div>
 </template>
 
 <script>
+	import router from '../router'
+
 	export default {
 		name: 'card',
 		props: ["cardProp"],
@@ -104,6 +109,9 @@
 				if (!this.$store.state.userInfo.favorites)
 					return false;
 				return this.$store.state.userInfo.favorites.includes(this.cardProp._id)
+			},
+			settingCamera() {
+				return this.$store.state.settingCamera
 			}
 		},
 
@@ -112,20 +120,49 @@
 				this.$store.commit('zoomIn', card)
 			},
 			favorite() {
-				this.$store.dispatch('favorite', this.cardProp)
+				if (this.signedIn()) {
+					if (router.currentRoute.name == "Favorites")
+						this.show()
+					this.$store.dispatch('favorite', this.cardProp)
+				}
 			},
 			like(id) {
-				var obj = {
-					id: id
+				if (this.signedIn()) {
+					var obj = {
+						id: id
+					}
+					this.$store.dispatch('like', obj)
 				}
-				this.$store.dispatch('like', obj)
 			},
 			show() {
 				this.showButtons = !this.showButtons
+				if (this.showButtons) {
+					if (this.$store.state.cardOpenOptions)
+						this.$store.state.cardOpenOptions.showButtons = false;
+					this.$store.state.cardOpenOptions = this;
+				} else if (this.$store.state.cardOpenOptions == this)
+					this.$store.state.cardOpenOptions = null;
 			},
 			addToQueue(tat) {
-				this.$store.commit('addToQueue', tat)
-				this.$refs.snackbar.open()
+				if (this.settingCamera) {
+					this.$store.commit('addToQueue', tat)
+				} else {
+					this.$store.commit('addToQueue', tat)
+					swal({
+						title: 'Design added to your queue!',
+						text: 'Check out the camera to see it on you!',
+						timer: 1000
+					}).then(
+						function () { },
+						// handling the promise rejection
+						function (dismiss) {
+							if (dismiss === 'timer') {
+								console.log('I was closed by the timer')
+							}
+						}
+						)
+				}
+
 			},
 			confirm(card) {
 				this.$store.commit('confirm', card)
@@ -151,7 +188,7 @@
 
 	.btn {
 		background-color: transparent;
-		font-size: 4rem;
+		font-size: 5rem;
 		color: black;
 	}
 
