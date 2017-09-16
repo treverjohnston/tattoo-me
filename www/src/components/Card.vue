@@ -136,6 +136,12 @@
 			},
 			show() {
 				this.showButtons = !this.showButtons
+				if (this.showButtons) {
+					if (this.$store.state.cardOpenOptions)
+						this.$store.state.cardOpenOptions.showButtons = false;
+					this.$store.state.cardOpenOptions = this;
+				} else if (this.$store.state.cardOpenOptions == this)
+					this.$store.state.cardOpenOptions = null;
 			},
 			addToQueue(tat) {
 				if (this.settingCamera) {
@@ -154,8 +160,8 @@
 								console.log('I was closed by the timer')
 							}
 						}
-						)				
-}
+						)
+				}
 
 			},
 			confirm(card) {

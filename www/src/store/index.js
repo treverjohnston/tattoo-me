@@ -36,7 +36,8 @@ var store = new vuex.Store({
 		artistProfile: {},
 		currentArtist: {},
 		userLocation: {},
-		settingCamera: false
+		settingCamera: false,
+		cardOpenOptions: null
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -56,6 +57,7 @@ var store = new vuex.Store({
 			state.currentArtist = {}
 			state.settingCamera = false
 			state.userLocation = {}
+			state.cardOpenOptions = null;
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
