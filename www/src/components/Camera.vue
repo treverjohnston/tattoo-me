@@ -121,6 +121,7 @@
 				var button = document.createElement("button")
 				button.innerHTML = "Save Image to Device"
 				button.id = 'save-button'
+				// button.className('btn btn-primary')
 				button.addEventListener('click', function () {
 					if (_this.signedIn()) {
 						_this.canvas.toBlob((blob) => {
@@ -165,6 +166,7 @@
 			},
 			videoError(e) {
 				console.log('no rear camera dumby, Im pulling up the other camera')
+				this.camera = 'front'
 				navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } }).then(this.handleVideo).catch(this.videoError)
 			},
 			setTemp() {
@@ -326,7 +328,7 @@
 
 </script>
 
-<style scoped>
+<style>
 	.camera {
 		overflow: hidden;
 		margin: 0px;
@@ -343,5 +345,11 @@
 
 	#controls {
 		position: absolute
+	}
+
+	#save-button {
+		width: 50vw;
+		height: 10vh;
+		font-size: 3rem;
 	}
 </style>
