@@ -221,7 +221,7 @@
 				_this.y += 2
 			})
 
-			this.hammertime.on('swiperight', (ev) => {
+			this.hammertime.on('swipeleft', (ev) => {
 				var index = _this.tattoos.indexOf(_this.activeTattoo)
 				var nextIndex = index + 1
 				if (_this.tattoos[nextIndex] != null) {
@@ -229,7 +229,7 @@
 				}
 			})
 
-			this.hammertime.on('swipeleft', (ev) => {
+			this.hammertime.on('swiperight', (ev) => {
 				var index = _this.tattoos.indexOf(_this.activeTattoo)
 				var previousIndex = index - 1
 				if (_this.tattoos[previousIndex] != null) {
@@ -259,7 +259,7 @@
 					var liveScale = 1
 					var currentRotation = 0
 					var rotation = currentRotation + Math.round(liveScale * e.originalEvent.gesture.rotation)
-					overlay.style('transformation', `rotate(${rotation} + deg)`)
+					overlay.style('transform', `rotate(${rotation} + deg)`)
 				}
 			})
 
