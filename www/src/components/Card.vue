@@ -142,7 +142,7 @@
 					swal({
 						title: 'Design added to your queue!',
 						text: 'Check out the camera to see it on you!',
-						timer: 3000
+						timer: 1000
 					}).then(
 						function () { },
 						// handling the promise rejection
