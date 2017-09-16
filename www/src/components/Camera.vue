@@ -17,6 +17,8 @@
 
 		<img crossorigin="*" id="overlay" style="display: none" :src="activeTattoo" alt="">
 		<img id="imgtag" style="display: none" src="" alt="capture" />
+		<img id="temp" style="display: none" src="" alt="">
+		<canvas id="tempCanvas" style="display: none"></canvas>
 	</div>
 </template>
 <script>
@@ -51,6 +53,8 @@
 				camera: 'rear',
 				videoHeight: null,
 				videoWidth: null,
+				imageAspect: 1,
+				dragging: false
 			}
 		},
 		watch: {
@@ -87,6 +91,9 @@
 				this.canvasHeight = window.innerHeight - 320;
 				this.canvas.setAttribute('width', this.canvasWidth)
 				this.canvas.setAttribute('height', this.canvasHeight)
+				var tempCanvas = document.getElementById('tempCanvas')
+				tempCanvas.setAttribute('width', this.canvasWidth)
+				tempCanvas.setAttribute('height', this.canvasHeight)
 			},
 			setVideoDimensions() {
 				let canvasRatio = this.canvasWidth / this.canvasHeight;
@@ -136,7 +143,8 @@
 				}
 			},
 			changeCamera() {
-				this.localStream.getVideoTracks()[0].stop();
+				if (this.localStream)
+					this.localStream.getVideoTracks()[0].stop();
 				this.localStream = null;
 				this.video.src = '';
 
@@ -156,7 +164,16 @@
 				this.insertImage()
 			},
 			videoError(e) {
-				console.log('no rear camera dumby')
+				console.log('no rear camera dumby, Im pulling up the other camera')
+				navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } }).then(this.handleVideo).catch(this.videoError)
+			},
+			setTemp() {
+				var canvas = document.getElementById('tempCanvas')
+				var context = canvas.getContext("2d")
+				var tempImg = document.getElementById('temp')
+				context.drawImage(this.video, (this.canvasWidth - this.videoWidth) / 2, (this.canvasHeight - this.videoHeight) / 2, this.videoWidth || this.canvasWidth, this.videoHeight || this.canvasHeight)
+				var uri = canvas.toDataURL('image/png')
+				tempImg.src = uri
 			}
 		},
 		computed: {
@@ -171,7 +188,8 @@
 			var _this = this
 			this.hammertime = new Hammer((document.getElementById('canvas')));
 			this.pinch = new Hammer.Pinch()
-			this.hammertime.get('pinch').set({ enable: true });
+			this.hammertime.get('pinch').set({ enable: true })
+			this.hammertime.get('rotate').set({ enable: true })
 			this.video = document.querySelector("#videoElement");
 			this.tattoos = this.$store.state.queue
 			this.activeTattoo = this.$store.state.queue[0]
@@ -179,6 +197,7 @@
 			// navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
 			// if (navigator.getUserMedia) {
+			console.log(navigator.mediaDevices.enumerateDevices())
 			navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } } }).then(this.handleVideo).catch(this.videoError);
 			// }
 
@@ -191,22 +210,23 @@
 			this.y = this.canvasHeight * .45
 			this.sizeX = this.canvasWidth * .1
 			this.sizeY = this.canvasHeight * .1
+			this.imageAspect = this.sizeX / this.sizeY;
 
 			this.hammertime.on('pinchout', (ev) => {
 				_this.sizeX += 8
-				_this.sizeY += 4
+				_this.sizeY += 8 / this.imageAspect;
 				_this.x -= 4
-				_this.y -= 2
+				_this.y -= 2 / this.imageAspect;
 			})
 
 			this.hammertime.on('pinchin', (ev) => {
 				_this.sizeX -= 8
-				_this.sizeY -= 4
+				_this.sizeY -= 8 / this.imageAspect;
 				_this.x += 4
-				_this.y += 2
+				_this.y += 2 / this.imageAspect;
 			})
 
-			this.hammertime.on('swiperight', (ev) => {
+			this.hammertime.on('swipeleft', (ev) => {
 				var index = _this.tattoos.indexOf(_this.activeTattoo)
 				var nextIndex = index + 1
 				if (_this.tattoos[nextIndex] != null) {
@@ -214,7 +234,7 @@
 				}
 			})
 
-			this.hammertime.on('swipeleft', (ev) => {
+			this.hammertime.on('swiperight', (ev) => {
 				var index = _this.tattoos.indexOf(_this.activeTattoo)
 				var previousIndex = index - 1
 				if (_this.tattoos[previousIndex] != null) {
@@ -225,16 +245,58 @@
 			this.hammertime.on('tap', (ev) => {
 				this.paused = !this.paused
 				if (this.paused) {
+					this.setTemp()
 					this.captureImage()
 				}
-				else {
+				else if (!this.paused && this.camera == 'front') {
 					this.run = true
-					navigator.getUserMedia({ video: true }, _this.handleVideo, _this.videoError)
+					navigator.getUserMedia({ video: { facingMode: 'user' } }, _this.handleVideo, _this.videoError)
 					var button = document.getElementById('save-button')
 					if (button) {
 						document.getElementById('save-button').remove()
 					}
 				}
+				else if (!this.paused && this.camera == 'rear') {
+					this.run = true
+					navigator.getUserMedia({ video: { facingMode: { exact: 'environment' } } }, _this.handleVideo, _this.videoError)
+					var button = document.getElementById('save-button')
+					if (button) {
+						document.getElementById('save-button').remove()
+					}
+				}
+			})
+
+			this.hammertime.on('rotate', (ev) => {
+				if (this.paused) {
+					var overlay = document.getElementById('overlay')
+					var liveScale = 1
+					var currentRotation = 0
+					var rotation = currentRotation + Math.round(liveScale * e.originalEvent.gesture.rotation)
+					overlay.style('transform', `rotate(${rotation} + deg)`)
+				}
+			})
+
+			this.canvas.addEventListener('mousedown', (e) => {
+				if (this.paused) {
+					this.dragging = true
+				}
+			})
+
+			this.canvas.addEventListener('mousemove', (e) => {
+				if (this.dragging) {
+					this.x = e.offsetX - Math.floor(this.sizeX / 2)
+					this.y = e.offsetY - Math.floor(this.sizeY / 2)
+					var overlay = document.getElementById('overlay')
+					var background = document.getElementById('temp')
+					this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
+					this.context.drawImage(background, 0, (this.canvasHeight - this.videoHeight) / 2, this.canvasWidth, this.videoHeight || this.canvasHeight)
+					this.context.drawImage(overlay, this.x, this.y, this.sizeX, this.sizeY)
+				}
+			})
+
+			this.canvas.addEventListener('mouseup', (e) => {
+				this.dragging = false
+				// this.video.play()
 			})
 
 			// this.canvas.addEventListener('click', () => {
