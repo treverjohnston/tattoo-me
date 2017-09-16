@@ -53,6 +53,7 @@
 				camera: 'rear',
 				videoHeight: null,
 				videoWidth: null,
+				imageAspect: 1,
 				dragging: false
 			}
 		},
@@ -206,19 +207,20 @@
 			this.y = this.canvasHeight * .45
 			this.sizeX = this.canvasWidth * .1
 			this.sizeY = this.canvasHeight * .1
+			this.imageAspect = this.sizeX / this.sizeY;
 
 			this.hammertime.on('pinchout', (ev) => {
 				_this.sizeX += 8
-				_this.sizeY += 4
+				_this.sizeY += 8 / this.imageAspect;
 				_this.x -= 4
-				_this.y -= 2
+				_this.y -= 2 / this.imageAspect;
 			})
 
 			this.hammertime.on('pinchin', (ev) => {
 				_this.sizeX -= 8
-				_this.sizeY -= 4
+				_this.sizeY -= 8 / this.imageAspect;
 				_this.x += 4
-				_this.y += 2
+				_this.y += 2 / this.imageAspect;
 			})
 
 			this.hammertime.on('swipeleft', (ev) => {
