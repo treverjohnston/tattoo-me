@@ -150,7 +150,7 @@
 			}
 		},
 		computed: {
-			currentTattoo() {
+			getTattoos() {
 				return this.$store.state.queue[0]
 			}
 		},

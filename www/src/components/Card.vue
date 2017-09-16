@@ -75,6 +75,8 @@
 </template>
 
 <script>
+	import router from '../router'
+
 	export default {
 		name: 'card',
 		props: ["cardProp"],
@@ -113,7 +115,8 @@
 			},
 			favorite() {
 				if (this.signedIn()) {
-					console.log('asdf')
+					if (router.currentRoute.name == "Favorites")
+						this.show()
 					this.$store.dispatch('favorite', this.cardProp)
 				}
 			},
