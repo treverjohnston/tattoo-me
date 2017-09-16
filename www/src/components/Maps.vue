@@ -9,6 +9,7 @@
     </template>
     
     <script>
+        import $ from "jquery"
         export default {
             data() {
                 return {
@@ -47,12 +48,13 @@
 
 
                             this.service = new google.maps.places.PlacesService(this.map)
-                            this.service.nearbySearch({
-                                location: pos,
-                                radius: 500,
+                            var request = {
+                                location:pos,
+                                radius: 50000,
                                 type:['establishment'],
-                                // keyword: 'tattoo'
-                            }, this.callback)
+                                keyword: "tattoo"
+                            }
+                            this.service.nearbySearch(request, this.callback)
                         }, () => {
                             handleLocationError(true, this.infoWindow, this.map.getCenter());
                         });
