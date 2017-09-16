@@ -116,6 +116,9 @@
 		},
 
 		methods: {
+			setCamera() {
+                this.$store.commit('setCameraFalse')
+            },
 			zoomIn(card) {
 				this.$store.commit('zoomIn', card)
 			},
@@ -146,7 +149,9 @@
 			addToQueue(tat) {
 				if (this.settingCamera) {
 					this.$store.commit('addToQueue', tat)
+					this.$store.commit('setCameraFalse')
 				} else {
+					this.$store.commit('setCameraFalse')
 					this.$store.commit('addToQueue', tat)
 					swal({
 						title: 'Design added to your queue!',
