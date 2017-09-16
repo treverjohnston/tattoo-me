@@ -50,12 +50,12 @@
 				swal("Are you sure you want to delete this?", {
 					buttons: {
 						cancel: "Nope!",
-						defeat: true,
+						delete: true,
 					},
 				})
 					.then((value) => {
 						switch (value) {
-							case "defeat":
+							case "delete":
 								_this.$store.dispatch('removeTattoo', id);
 								swal("Welp that's gone forever");
 								break;
