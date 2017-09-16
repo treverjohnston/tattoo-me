@@ -45,6 +45,7 @@
     },
     methods: {
       openCloud() {
+        this.signedIn()
         if (this.tags !== '') {
           cloudinary.openUploadWidget({ cloud_name: 'tattoo-me', upload_preset: 'tattoopng' },
             (error, result) => {
@@ -61,7 +62,9 @@
         }
       },
       addFile() {
-        return this.$store.dispatch('addFile', this.file)
+        if (this.signedIn()) {
+          return this.$store.dispatch('addFile', this.file)
+        }
       }
     },
     computed: {

@@ -15,6 +15,19 @@ Vue.use(VueMaterial)
 
 Vue.config.productionTip = true
 
+Vue.mixin({
+  methods: {
+    signedIn() {
+      if (Object.keys(this.$store.state.userInfo).length == 0) {
+        router.push('/')
+        return false
+      } else {
+        return true
+      }
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

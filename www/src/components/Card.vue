@@ -118,13 +118,18 @@
 				this.$store.commit('zoomIn', card)
 			},
 			favorite() {
-				this.$store.dispatch('favorite', this.cardProp)
+				if (this.signedIn()) {
+					console.log('asdf')
+					this.$store.dispatch('favorite', this.cardProp)
+				}
 			},
 			like(id) {
-				var obj = {
-					id: id
+				if (this.signedIn()) {
+					var obj = {
+						id: id
+					}
+					this.$store.dispatch('like', obj)
 				}
-				this.$store.dispatch('like', obj)
 			},
 			show() {
 				this.showButtons = !this.showButtons

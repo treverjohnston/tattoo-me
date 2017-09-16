@@ -104,35 +104,38 @@
                 this.$store.commit('confirm', card)
             },
             favorite() {
-                this.$store.dispatch('favorite', this.cardProp)
+                if (this.signedIn()) {
+                    this.$store.dispatch('favorite', this.cardProp)
+                }
             },
             like(id) {
-                var obj = {
-                    id: id
+                if (this.signedIn()) {
+                    var obj = {
+                        id: id
+                    }
+                    this.$store.dispatch('like', obj)
                 }
-                this.$store.dispatch('like', obj)
             },
             show() {
                 this.showButtons = !this.showButtons
             },
             addToQueue(tat) {
-                this.$store.commit('addToQueue', tat)
-                swal({
-                    title: 'Design added to your queue!',
-                    text: 'Check out the camera to see it on you!',
-                    timer: 3000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer')
+                if (this.signedIn()) {
+                    this.$store.commit('addToQueue', tat)
+                    swal({
+                        title: 'Design added to your queue!',
+                        text: 'Check out the camera to see it on you!',
+                        timer: 3000
+                    }).then(
+                        function () { },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
                         }
-                    }
-                    )
-            },
-            confirm(card) {
-                this.$store.commit('confirm', card)
+                        )
+                }
             }
         }
     }

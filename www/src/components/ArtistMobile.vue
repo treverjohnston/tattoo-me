@@ -41,10 +41,14 @@
         },
         methods: {
             addFav(card) {
-                this.$store.dispatch('addFav', card)
+                if (this.signedIn()) {
+                    this.$store.dispatch('addFav', card)
+                }
             },
             deleteFav(card) {
-                this.$store.dispatch('deleteFav', card)
+                if (this.signedIn()) {
+                    this.$store.dispatch('deleteFav', card)
+                }
             }
         }
     }
