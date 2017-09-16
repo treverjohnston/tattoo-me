@@ -143,7 +143,8 @@
 				}
 			},
 			changeCamera() {
-				this.localStream.getVideoTracks()[0].stop();
+				if (this.localStream)
+					this.localStream.getVideoTracks()[0].stop();
 				this.localStream = null;
 				this.video.src = '';
 
