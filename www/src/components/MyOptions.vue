@@ -99,13 +99,18 @@
             },
             queue() {
                 return this.$store.state.queue
+            },
+            settingCamera() {
+                return this.$store.state.settingCamera
             }
         },
         mounted() {
-            swal({
-                title: 'Choose From These Options To Add To Your Active Queue',
-                timer: 3000
-            })
+            if (this.settingCamera == false) {
+                swal({
+                    title: 'Choose From These Options To Add To Your Active Queue',
+                    timer: 3000
+                })
+            }
         },
         components: {
             Card,
@@ -117,12 +122,14 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .home{
+    .home {
         color: blue;
     }
-    .fav{
+
+    .fav {
         color: red;
     }
+
     .header {
         padding-bottom: 2rem;
         color: white;
