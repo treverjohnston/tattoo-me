@@ -3,6 +3,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
+                    <h2 class="heading">Top Artists Of The Week</h2>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12">
                     <div v-for="artist in topArtists">
                         <artistcard :artist="artist"></artistcard>
                     </div>
@@ -41,6 +47,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .heading{
+        color: white;
+    }
     button {
         margin-top: 2rem;
     }

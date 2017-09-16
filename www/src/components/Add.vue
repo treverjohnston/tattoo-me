@@ -52,7 +52,7 @@
       return {
         file: '',
         tags: '',
-        price: 0
+        price: ''
       }
     },
     methods: {

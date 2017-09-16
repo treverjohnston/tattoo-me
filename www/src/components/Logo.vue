@@ -2,8 +2,8 @@
     <div class="logo">
         <div class="phone-viewport">
             <md-toolbar>
-                <md-button class="md-icon-button" @click="toggleLeftSidenav">
-                    <md-icon class="glyphicon glyphicon-th-list"></md-icon>
+                <md-button class="md-icon-button md-raised" @click="toggleLeftSidenav">
+                    <md-icon>info_outline</md-icon>
                 </md-button>
                 <h2 class="md-title"><img class="picture" src="../assets/Tattoo-me-logo-new.png"></h2>
             </md-toolbar>
