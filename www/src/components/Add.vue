@@ -25,7 +25,7 @@
             <img :src="uploaded.url" alt="image uploaded">
           </div>
           <div v-else>
-            <h3>Uploaded Picture Will Appear Below</h3>
+            <!-- <h3>Uploaded Picture Will Appear Below</h3> -->
           </div>
         </div>
       </div>
@@ -53,7 +53,11 @@
               this.$store.dispatch('sendDesign', result)
             });
         } else {
-          alert('need to make a stylish alert saying to fill in the right fields')
+          swal(
+            'Oops...',
+            'You need to add a tag!',
+            'error'
+          )
         }
       },
       addFile() {

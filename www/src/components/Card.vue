@@ -64,12 +64,12 @@
 					</div>
 				</div>
 			</div>
-			<md-snackbar :md-position="vertical + ' ' + horizontal" ref="snackbar" :md-duration="duration">
+			<!-- <md-snackbar :md-position="vertical + ' ' + horizontal" ref="snackbar" :md-duration="duration">
 				<span>Image Added To Camera Queue</span>
 				<router-link :to="`/camera`">
 					<md-button class="md-primary" @click="$refs.snackbar.close()">Camera</md-button>
 				</router-link>
-			</md-snackbar>
+			</md-snackbar> -->
 		</div>
 	</div>
 </template>
@@ -125,7 +125,20 @@
 			},
 			addToQueue(tat) {
 				this.$store.commit('addToQueue', tat)
-				this.$refs.snackbar.open()
+				swal({
+					title: 'Design added to your queue!',
+					text: 'Check out the camera to see it on you!',
+					timer: 3000
+				}).then(
+					function () { },
+					// handling the promise rejection
+					function (dismiss) {
+						if (dismiss === 'timer') {
+							console.log('I was closed by the timer')
+						}
+					}
+					)
+
 			},
 			confirm(card) {
 				this.$store.commit('confirm', card)
