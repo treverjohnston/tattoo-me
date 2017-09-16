@@ -21,9 +21,7 @@
 						<button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</button>
 					</div>
 					<div class="col-xs-2">
-						<router-link :to="`/confirmDelete`">
-							<button @click="confirm(cardProp)" class="btn glyphicon glyphicon-remove"></button>
-						</router-link>
+						<button @click="check(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
 					</div>
 				</div>
 			</div>
@@ -46,6 +44,30 @@
 			}
 		},
 		methods: {
+			check(id) {
+				var id = id
+				var _this = this
+				swal("Are you sure you want to delete this?", {
+					buttons: {
+						cancel: "Nope!",
+						defeat: true,
+					},
+				})
+					.then((value) => {
+						switch (value) {
+							case "defeat":
+								_this.$store.dispatch('removeTattoo', id);
+								swal("Welp that's gone forever");
+								break;
+
+							case "cancel":
+								return;
+
+							default:
+								return;
+						}
+					})
+			},
 			zoomIn(card) {
 				this.$store.commit('zoomIn', card)
 			},

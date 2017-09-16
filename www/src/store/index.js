@@ -52,10 +52,10 @@ var store = new vuex.Store({
 			state.tattoosPage = 0
 			state.searchTags = ''
 			state.uploadedTattoo = {},
-			state.topArtists = [],
-			state.artistProfile = {},
-			state.currentArtist = {},
-			state.settingCamera = false
+				state.topArtists = [],
+				state.artistProfile = {},
+				state.currentArtist = {},
+				state.settingCamera = false
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -113,17 +113,14 @@ var store = new vuex.Store({
 		setTopArtists(state, tattoos) {
 			state.topArtists = tattoos
 		},
-		setArtistProfile(state, profile){
+		setArtistProfile(state, profile) {
 			state.artistProfile = profile
 		},
-		setCurrentArtist(state, artist){
+		setCurrentArtist(state, artist) {
 			state.currentArtist = artist
 		},
-		setCamera(state){
-			console.log('setting cam', state.settingCamera)
+		setCamera(state) {
 			state.settingCamera = true
-			console.log('set cam', state.settingCamera)
-			
 		}
 	},
 	actions: {
@@ -143,6 +140,7 @@ var store = new vuex.Store({
 				})
 		},
 		removeTattoo({ commit, dispatch }, id) {
+			console.log('at removes')
 			router.push('Profile')
 			api.delete('tattoos/' + id)
 				.then(res => {
@@ -204,24 +202,24 @@ var store = new vuex.Store({
 		},
 
 		// *** Misc Actions *** //
-		
-		getArtistProfile({commit, dispatch}, id){
+
+		getArtistProfile({ commit, dispatch }, id) {
 			api(`artist/${id}`)
-			.then(res=>{
-				commit('setArtistProfile', res.data.data)
-			})
-			.catch(err => {
-				commit('handleError', err)
-			})
+				.then(res => {
+					commit('setArtistProfile', res.data.data)
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
 		},
 		getTopArtist({ commit, dispatch }) {
 			api('artists/top-weekly')
-			.then(res=>{
-				commit('setTopArtists', res.data.data)
-			})
-			.catch(err => {
-				commit('handleError', err)
-			})
+				.then(res => {
+					commit('setTopArtists', res.data.data)
+				})
+				.catch(err => {
+					commit('handleError', err)
+				})
 		},
 		getArtistGallery({ commit, dispatch }) {
 			api('my-designs')
