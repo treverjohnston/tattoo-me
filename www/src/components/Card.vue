@@ -64,11 +64,12 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="artist">
+						<md-ink-ripple />
 						<router-link :to="`/viewartist/${cardProp.creatorId}`">
-							<button class="btn btn-default">
-									<h3>Design by:</h3>
-									<h3>{{cardProp.artistName}}</h3>
-								</button>
+							<md-button class="btn btn-default">
+								<h3>Design by:</h3>
+								<h3>{{cardProp.artistName}}</h3>
+							</md-button>
 						</router-link>
 					</div>
 				</div>
@@ -117,8 +118,8 @@
 
 		methods: {
 			setCamera() {
-                this.$store.commit('setCameraFalse')
-            },
+				this.$store.commit('setCameraFalse')
+			},
 			zoomIn(card) {
 				this.$store.commit('zoomIn', card)
 			},
