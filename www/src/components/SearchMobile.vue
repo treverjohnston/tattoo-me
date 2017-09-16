@@ -22,15 +22,15 @@
 						<div v-if="!hasFavorited">
 							<button @click="favorite(card)" class="btn glyphicon glyphicon-heart"></button>
 							<router-link :to="'/stripe'">
-                                <button @click="confirm(card)" class="btn glyphicon money glyphicon-usd"></button>
-                            </router-link>
+								<button @click="confirm(card)" class="btn glyphicon money glyphicon-usd"></button>
+							</router-link>
 							<a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
 						</div>
 						<div v-else>
 							<button @click="favorite(card)" class="btn glyphicon glyphicon-heart favorited"></button>
 							<router-link :to="'/stripe'">
-                                <button @click="confirm(card)" class="btn glyphicon money glyphicon-usd"></button>
-                            </router-link>
+								<button @click="confirm(card)" class="btn glyphicon money glyphicon-usd"></button>
+							</router-link>
 							<a href="//instagram.com" target="_blank"><button class="btn glyphicon glyphicon-share"></button></a>
 						</div>
 					</div>
@@ -88,19 +88,28 @@
 		},
 		methods: {
 			favorite(card) {
-				this.$store.dispatch('favorite', card)
+				if (this.signedIn()) {
+					this.$store.dispatch('favorite', card)
+				}
 			},
 			addFav(card) {
-				this.$store.dispatch('addFav', card)
+				if (this.signedIn()) {
+					this.$store.dispatch('addFav', card)
+				}
 			},
 			deleteFav(card) {
-				this.$store.dispatch('deleteFav', card)
+				if (this.signedIn()) {
+					this.$store.dispatch('deleteFav', card)
+				}
 			},
 			confirm(card) {
-				this.$store.commit('confirm', card)
+				if (this.signedIn()) {
+					this.$store.commit('confirm', card)
+				}
 			},
 		}
 	}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

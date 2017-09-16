@@ -50,10 +50,12 @@
 				this.$store.commit('zoomIn', card)
 			},
 			like(id) {
-				var obj = {
-					id: id
+				if (this.signedIn()) {
+					var obj = {
+						id: id
+					}
+					this.$store.dispatch('like', obj)
 				}
-				this.$store.dispatch('like', obj)
 			},
 			show() {
 				this.showButtons = !this.showButtons
