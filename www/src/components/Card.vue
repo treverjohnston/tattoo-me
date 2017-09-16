@@ -125,6 +125,20 @@
 			},
 			addToQueue(tat) {
 				this.$store.commit('addToQueue', tat)
+				swal({
+					title: 'Design added to your queue!',
+					text: 'Check out the camera to see it on you!',
+					timer: 3000
+				}).then(
+					function () { },
+					// handling the promise rejection
+					function (dismiss) {
+						if (dismiss === 'timer') {
+							console.log('I was closed by the timer')
+						}
+					}
+					)
+
 			},
 			confirm(card) {
 				this.$store.commit('confirm', card)
