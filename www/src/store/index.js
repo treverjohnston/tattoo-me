@@ -35,7 +35,8 @@ var store = new vuex.Store({
 		uploadedTattoo: {},
 		topArtists: [],
 		artistProfile: {},
-		currentArtist: {}
+		currentArtist: {},
+		settingCamera: false
 		// NOTE: Any changed/added/removed properties must also be added to setDefaultState mutation
 	},
 
@@ -53,7 +54,8 @@ var store = new vuex.Store({
 			state.uploadedTattoo = {},
 			state.topArtists = [],
 			state.artistProfile = {},
-			state.currentArtist = {}
+			state.currentArtist = {},
+			state.settingCamera = false
 		},
 		zoomIn(state, card) {
 			state.mobileView = card
@@ -116,6 +118,12 @@ var store = new vuex.Store({
 		},
 		setCurrentArtist(state, artist){
 			state.currentArtist = artist
+		},
+		setCamera(state){
+			console.log('setting cam', state.settingCamera)
+			state.settingCamera = true
+			console.log('set cam', state.settingCamera)
+			
 		}
 	},
 	actions: {

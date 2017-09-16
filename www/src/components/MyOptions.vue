@@ -8,19 +8,23 @@
                     <h1 class="header">Choose From These Options To Add To Your Active Queue</h1>
                 </div>
                 <div class="col-xs-6">
-                    <router-link :to="'home'">
+                    <router-link @click="setCamera" :to="'home'">
+                        <button @click="setCamera" class="panel">                                    
                         <div class="panel top">
                             <h2>Select Image From Gallery</h2>
                             <h2 class="icon glyphicon glyphicon-th"></h2>
                         </div>
+                        </button>
                     </router-link>
                 </div>
                 <div class="col-xs-6">
                     <router-link :to="'favorites'">
-                        <div class="panel top">
+                        <button @click="setCamera" class="panel">
+                            <div class="panel top">
                             <h2>Choose From Your Favorites</h2>
                             <h2 class="icon glyphicon glyphicon-heart"></h2>
                         </div>
+                        </button>
                     </router-link>
                 </div>
                 <div v-if="info.accountType == 'artist'">
@@ -88,6 +92,10 @@
             }
         },
         methods: {
+            setCamera() {
+                console.log('about to commit')
+                this.$store.commit('setCamera')
+            }
         },
         computed: {
             info() {

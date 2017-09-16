@@ -14,8 +14,17 @@
 					<div class="col-xs-2">
 						<button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
 					</div>
-					<div class="col-xs-2">
-						<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+					<div v-if="settingCamera">
+						<div class="col-xs-2">
+							<router-link :to="`camera`">
+								<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+							</router-link>
+						</div>
+					</div>
+					<div v-else>
+						<div class="col-xs-2">
+							<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+						</div>
 					</div>
 					<div class="col-xs-2">
 						<div v-if="!hasFavorited">
@@ -64,12 +73,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- <md-snackbar :md-position="vertical + ' ' + horizontal" ref="snackbar" :md-duration="duration">
-				<span>Image Added To Camera Queue</span>
-				<router-link :to="`/camera`">
-					<md-button class="md-primary" @click="$refs.snackbar.close()">Camera</md-button>
-				</router-link>
-			</md-snackbar> -->
 		</div>
 	</div>
 </template>
@@ -104,6 +107,9 @@
 				if (!this.$store.state.userInfo.favorites)
 					return false;
 				return this.$store.state.userInfo.favorites.includes(this.cardProp._id)
+			},
+			settingCamera() {
+				return this.$store.state.settingCamera
 			}
 		},
 
@@ -129,20 +135,24 @@
 				this.showButtons = !this.showButtons
 			},
 			addToQueue(tat) {
-				this.$store.commit('addToQueue', tat)
-				swal({
-					title: 'Design added to your queue!',
-					text: 'Check out the camera to see it on you!',
-					timer: 3000
-				}).then(
-					function () { },
-					// handling the promise rejection
-					function (dismiss) {
-						if (dismiss === 'timer') {
-							console.log('I was closed by the timer')
+				if (this.settingCamera) {
+					this.$store.commit('addToQueue', tat)
+				} else {
+					this.$store.commit('addToQueue', tat)
+					swal({
+						title: 'Design added to your queue!',
+						text: 'Check out the camera to see it on you!',
+						timer: 3000
+					}).then(
+						function () { },
+						// handling the promise rejection
+						function (dismiss) {
+							if (dismiss === 'timer') {
+								console.log('I was closed by the timer')
+							}
 						}
-					}
-					)
+						)				
+}
 
 			},
 			confirm(card) {
