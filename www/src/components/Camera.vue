@@ -164,7 +164,8 @@
 				this.insertImage()
 			},
 			videoError(e) {
-				console.log('no rear camera dumby')
+				console.log('no rear camera dumby, Im pulling up the other camera')
+				navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } }).then(this.handleVideo).catch(this.videoError)
 			},
 			setTemp() {
 				var canvas = document.getElementById('tempCanvas')
@@ -196,6 +197,7 @@
 			// navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
 			// if (navigator.getUserMedia) {
+			console.log(navigator.mediaDevices.enumerateDevices())
 			navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } } }).then(this.handleVideo).catch(this.videoError);
 			// }
 
@@ -246,9 +248,17 @@
 					this.setTemp()
 					this.captureImage()
 				}
-				else {
+				else if (!this.paused && this.camera == 'front') {
 					this.run = true
-					navigator.getUserMedia({ video: true }, _this.handleVideo, _this.videoError)
+					navigator.getUserMedia({ video: { facingMode: 'user' } }, _this.handleVideo, _this.videoError)
+					var button = document.getElementById('save-button')
+					if (button) {
+						document.getElementById('save-button').remove()
+					}
+				}
+				else if (!this.paused && this.camera == 'rear') {
+					this.run = true
+					navigator.getUserMedia({ video: { facingMode: { exact: 'environment' } } }, _this.handleVideo, _this.videoError)
 					var button = document.getElementById('save-button')
 					if (button) {
 						document.getElementById('save-button').remove()
