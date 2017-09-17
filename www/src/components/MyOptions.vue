@@ -103,7 +103,7 @@
             }
         },
         mounted() {
-            if (this.settingCamera == false) {
+            if (this.queue.length < 0) {
                 swal({
                     title: 'Choose From These Options To Add To Your Active Queue',
                     timer: 3000

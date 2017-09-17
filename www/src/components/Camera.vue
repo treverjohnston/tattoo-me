@@ -9,6 +9,11 @@
 			<md-button @click="changeCamera" class="md-fab md-clean">
 				<md-icon>autorenew</md-icon>
 			</md-button>
+			<router-link :to="'/home'">
+				<md-button class="md-raised">
+					Back
+				</md-button>
+			</router-link>
 		</div>
 
 		<div id="stage">
@@ -335,8 +340,8 @@
 	}
 
 	iframe {
-		height: 80vh;
-		width: 100vw;
+		height: 100%;
+		width: 100%;
 	}
 
 	.vFrame {
