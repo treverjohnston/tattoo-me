@@ -137,9 +137,7 @@ var store = new vuex.Store({
 			state.settingCamera = false
 		},
 		setPurchased(state, res){
-			console.log('pre', res)
 			state.purchased = res
-			console.log('post',res)
 
 		}
 	},

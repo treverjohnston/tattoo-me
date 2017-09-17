@@ -1,57 +1,57 @@
 <template>
 	<div class="card">
-		<router-link :to="'/mobile'">
-			<div @click="zoomIn(cardProp)" class="well picture">
-				<div class="row">
-					<div v-if="!showButtons">
+		<div @click="zoomIn(cardProp)" class="well picture">
+			<div class="row">
+				<div v-if="!showButtons">
+					<div class="col-xs-2">
+						<button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
+					</div>
+				</div>
+				<div v-if="showButtons">
+					<div class="col-xs-2">
+						<button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
+					</div>
+					<div v-if="settingCamera">
 						<div class="col-xs-2">
-							<button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
+							<router-link :to="`camera`">
+								<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
+							</router-link>
 						</div>
 					</div>
-					<div v-if="showButtons">
+					<div v-else>
 						<div class="col-xs-2">
-							<button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
+							<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
 						</div>
-						<div v-if="settingCamera">
-							<div class="col-xs-2">
-								<router-link :to="`camera`">
-									<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
-								</router-link>
-							</div>
+					</div>
+					<div class="col-xs-2">
+						<div v-if="!hasFavorited">
+							<button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart"></button>
 						</div>
 						<div v-else>
-							<div class="col-xs-2">
-								<button @click="addToQueue(cardProp)" class="btn glyphicon glyphicon-plus"></button>
-							</div>
-						</div>
-						<div class="col-xs-2">
-							<div v-if="!hasFavorited">
-								<button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart"></button>
-							</div>
-							<div v-else>
-								<button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart favorited"></button>
-							</div>
-						</div>
-						<div class="col-xs-2">
-							<router-link :to="'/mobile'">
-								<button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
-							</router-link>
-						</div>
-						<div class="col-xs-2">
-							<router-link :to="'/stripe'">
-								<button @click="confirm(cardProp)" class="btn glyphicon money glyphicon-usd"></button>
-							</router-link>
+							<button @click="favorite(cardProp)" class="btn glyphicon glyphicon-heart favorited"></button>
 						</div>
 					</div>
-				</div>
-				<div class="row">
 					<div class="col-xs-2">
-						<div>
-							<md-button v-if="hasLiked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</md-button>
-							<md-button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</md-button>
-						</div>
+						<router-link :to="'/mobile'">
+							<button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
+						</router-link>
+					</div>
+					<div class="col-xs-2">
+						<router-link :to="'/stripe'">
+							<button @click="confirm(cardProp)" class="btn glyphicon money glyphicon-usd"></button>
+						</router-link>
 					</div>
 				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<div>
+						<md-button v-if="hasLiked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</md-button>
+						<md-button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</md-button>
+					</div>
+				</div>
+			</div>
+			<router-link :to="'/mobile'">
 				<div class="row">
 					<div class="col-xs-12">
 						<img :src="cardProp.url" alt="image">
@@ -70,8 +70,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</router-link>
+			</router-link>
+		</div>
 	</div>
 </template>
 
