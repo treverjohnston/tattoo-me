@@ -1,8 +1,16 @@
 <template>
 	<div id="app">
-		<logo></logo>
+		<div v-if="this.$route.path == '/camera' || this.$route.path == '/'">
+		</div>
+		<div v-else>
+			<logo></logo>
+		</div>
 		<router-view></router-view>
-		<navbar></navbar>
+		<div v-if="this.$route.path == '/camera'">
+		</div>
+		<div v-else>
+			<navbar></navbar>
+		</div>
 	</div>
 </template>
 
@@ -23,6 +31,7 @@
 		},
 		mounted() {
 			this.$store.dispatch('getAuth')
+			console.log('path', this.$route.path)
 		}
 	}
 

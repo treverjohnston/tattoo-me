@@ -1,6 +1,6 @@
 <template>
 	<div class="artistgallery">
-		<div class="well picture">
+		<div @click="zoomIn(cardProp)" class="well picture">
 			<div class="row">
 				<div v-if="!showButtons">
 					<div class="col-xs-2">
@@ -25,11 +25,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<img :src="cardProp.url" alt="image">
+			<router-link :to="'/artistmobile'">
+				<div class="row">
+					<div class="col-xs-12">
+						<img :src="cardProp.url" alt="image">
+					</div>
 				</div>
-			</div>
+			</router-link>
 		</div>
 	</div>
 </template>

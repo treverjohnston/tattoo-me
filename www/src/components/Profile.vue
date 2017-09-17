@@ -69,12 +69,11 @@
 					<hr>
 					<h2>Your Purchased Tattoos</h2>
 					<hr>
-					<div v-for="tattoo in purchased">
-						<div class="col-xs-4">
-							<img :src="tattoo.url" alt="tattoo image">
+					<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+						<div v-masonry-tile class="item" v-for="item in purchased">
+							<purchased :cardProp="item"></purchased>
 						</div>
 					</div>
-					<!-- </div> -->
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
@@ -95,6 +94,7 @@
 
 <script>
 	import Artistgallery from './ArtistGallery'
+	import Purchased from './Purchased'
 	export default {
 		name: 'profile',
 		data() {
@@ -118,7 +118,8 @@
 			}
 		},
 		components: {
-			Artistgallery
+			Artistgallery,
+			Purchased
 		},
 		mounted() {
 			this.$store.commit('resetTattoos')

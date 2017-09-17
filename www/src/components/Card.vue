@@ -1,9 +1,6 @@
 <template>
 	<div class="card">
-		<!-- <div class="col-xs-6"> -->
-		<div class="well picture">
-			<!-- <div class="row"> -->
-			<!-- <div class="col-xs-12"> -->
+		<div @click="zoomIn(cardProp)" class="well picture">
 			<div class="row">
 				<div v-if="!showButtons">
 					<div class="col-xs-2">
@@ -53,27 +50,27 @@
 						<md-button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</md-button>
 					</div>
 				</div>
-				<!-- </div> -->
-				<!-- </div> -->
 			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<img :src="cardProp.url" alt="image">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="artist">
-						<md-ink-ripple />
-						<router-link :to="`/viewartist/${cardProp.creatorId}`">
-							<md-button class="btn btn-default">
-								<h3>Design by:</h3>
-								<h3>{{cardProp.artistName}}</h3>
-							</md-button>
-						</router-link>
+			<router-link :to="'/mobile'">
+				<div class="row">
+					<div class="col-xs-12">
+						<img :src="cardProp.url" alt="image">
 					</div>
 				</div>
-			</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="artist">
+							<md-ink-ripple />
+							<router-link :to="`/viewartist/${cardProp.creatorId}`">
+								<md-button class="btn btn-default">
+									<h3>Design by:</h3>
+									<h3>{{cardProp.artistName}}</h3>
+								</md-button>
+							</router-link>
+						</div>
+					</div>
+				</div>
+			</router-link>
 		</div>
 	</div>
 </template>
