@@ -6,7 +6,7 @@
 			<logo></logo>
 		</div>
 		<router-view></router-view>
-		<div v-if="this.$route.path == '/camera' || this.$route.path == '/'">
+		<div v-if="this.$route.path == '/camera'">
 		</div>
 		<div v-else>
 			<navbar></navbar>
