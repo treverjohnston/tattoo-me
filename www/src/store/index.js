@@ -236,7 +236,8 @@ var store = new vuex.Store({
 		getArtistProfile({ commit, dispatch }, id) {
 			api(`artist/${id}`)
 				.then(res => {
-					commit('setArtistProfile', res.data.data)
+					commit('setArtistProfile', res.data.data.artist)
+					commit('setTattoos', res.data.data)
 				})
 				.catch(err => {
 					commit('handleError', err)

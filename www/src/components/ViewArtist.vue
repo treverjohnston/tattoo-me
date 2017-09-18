@@ -50,10 +50,10 @@
                 return this.$store.state.userInfo
             },
             blocks() {
-                return this.$store.state.artistProfile.tattoos
+                return this.$store.state.tattoos
             },
             current() {
-                return this.$store.state.artistProfile.artist
+                return this.$store.state.artistProfile
             }
         },
         components: {
