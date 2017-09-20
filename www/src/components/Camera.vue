@@ -333,7 +333,11 @@
 
 </script>
 
-<style>
+<style scoped>
+	.md-icon{
+        font-size: 4rem;
+        margin: 1rem 0 0rem 1rem;
+    }
 	.camera {
 		overflow: hidden;
 		margin: 0px;

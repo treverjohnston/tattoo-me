@@ -5,10 +5,10 @@
 			<div class="row">
 				<div class="col-xs-offset-4 col-xs-4">
 					<div v-if="sortType">
-						<button @click="sort" class="btn btn-default">Viewing Newest Designs</button>
+						<md-button class="md-raised" @click="sort" >Viewing Newest Designs</md-button>
 					</div>
 					<div v-else>
-						<button @click="sort" class="btn btn-default">Viewing Most Popular Designs</button>
+						<md-button class="md-raised" @click="sort" >Viewing Most Popular Designs</md-button>
 					</div>
 				</div>
 			</div>
@@ -96,5 +96,9 @@
 		font-size: 2rem;
 		color: black;
 		margin-bottom: 5rem;
+	}
+	.md-raised{
+		margin-bottom: 5rem;
+		text-transform: none;
 	}
 </style>

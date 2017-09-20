@@ -1,5 +1,6 @@
 <template>
     <div class="artistcard">
+        <md-whiteframe md-elevation="24">
         <div class="container-fluid">
             <div class="row">
                 <router-link :artist="artist" :to="`/viewartist/${artist._id}`">
@@ -19,6 +20,7 @@
                 </div>
             </div>
         </div>
+        </md-whiteframe>
     </div>
 </template>
 

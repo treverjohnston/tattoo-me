@@ -1,93 +1,96 @@
 <template>
 	<div class="profile">
 		<div v-if="info.accountType == 'regular'">
-			<hr>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-xs-12">
-						<h2>
-							{{info.name}}
-						</h2>
-					</div>
-					<div class="col-xs-12">
-						<h2>
-							{{info.email}}
-						</h2>
-					</div>
-					<div class="col-xs-12">
-						<button @click="logout()" class="btn btn-default">Logout</button>
-					</div>
-					<!-- <div v-show="!purchased"> -->
-				</div>
-				<div class="row">
-					<hr>
-					<h2>Your Purchased Tattoos</h2>
-					<hr>
-					<div v-for="tattoo in purchased">
-						<div class="col-xs-4">
-							<img :src="tattoo.url" alt="tattoo image">
+			<md-tabs md-fixed>
+				<md-tab id="purchased" md-label="Purchased">
+					<div class="row">
+						<hr>
+						<h2>Your Purchased Tattoos</h2>
+						<hr>
+						<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+							<div v-masonry-tile class="item" v-for="item in purchased">
+								<purchased :cardProp="item"></purchased>
+							</div>
 						</div>
 					</div>
-					<!-- </div> -->
-				</div>
-			</div>
+				</md-tab>
+				<md-tab id="info" md-label="Info">
+					<div class="row">
+						<div class="col-xs-12">
+							<h2>
+								{{info.name}}
+							</h2>
+						</div>
+						<div class="col-xs-12">
+							<h2>
+								{{info.email}}
+							</h2>
+						</div>
+						<div class="col-xs-12">
+							<button @click="logout()" class="btn btn-default">Logout</button>
+						</div>
+					</div>
+				</md-tab>
+			</md-tabs>
 		</div>
 		<div v-else>
-			<div class="container-fluid">
-				<div class="row">
-					<div v-if="info.url">
-						<div class="col-xs-4">
-							<img :src="info.url" alt="profile picture">
-						</div>
-					</div>
-					<div v-else>
-						<div class="col-xs-4">
-							<button class="btn btn-default">
-							<h3>Upload an Artist Image</h3>
-						</button>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="row">
-							<div class="col-xs-4">
-								<h2>
-									{{info.name}}
-								</h2>
-							</div>
-							<div class="col-xs-4">
-								<h2>
-									{{info.email}}
-								</h2>
+			<md-tabs md-fixed>
+				<md-tab id="purchased" md-label="Purchased">
+					<div class="row">
+						<hr>
+						<h2>Your Purchased Tattoos</h2>
+						<hr>
+						<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
+							<div v-masonry-tile class="item" v-for="item in purchased">
+								<purchased :cardProp="item"></purchased>
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-2">
-						<button @click="logout()" class="btn btn-default">Logout</button>
+				</md-tab>
+				<md-tab id="uploaded" md-label="Uploaded">
+					<div class="row">
+						<div class="col-xs-12">
+							<hr>
+							<h1>My Gallery</h1>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<hr>
-					<h2>Your Purchased Tattoos</h2>
 					<hr>
 					<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
-						<div v-masonry-tile class="item" v-for="item in purchased">
-							<purchased :cardProp="item"></purchased>
+						<div v-masonry-tile class="item" v-for="item in blocks">
+							<artistgallery :cardProp="item"></artistgallery>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<hr>
-						<h1>My Gallery</h1>
+				</md-tab>
+				<md-tab id="info" md-label="Info">
+					<div class="row">
+						<div v-if="info.url">
+							<div class="col-xs-12">
+								<img :src="info.url" alt="profile picture">
+							</div>
+						</div>
+						<div v-else>
+							<div class="col-xs-12">
+								<button class="btn btn-default">
+										<h3>Upload an Artist Image</h3>
+									</button>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<h2>
+								{{info.name}}
+							</h2>
+						</div>
+						<div class="col-xs-12">
+							<h2>
+								{{info.email}}
+							</h2>
+						</div>
+						<div class="col-xs-12">
+							<button @click="logout()" class="btn btn-default">Logout</button>
+						</div>
 					</div>
-				</div>
-				<hr>
-				<div v-masonry transition-duration="0.3s" item-selector=".item" class="tattoo">
-					<div v-masonry-tile class="item" v-for="item in blocks">
-						<artistgallery :cardProp="item"></artistgallery>
-					</div>
-				</div>
-			</div>
+				</md-tab>
+			</md-tabs>
 		</div>
 	</div>
 </template>
@@ -132,6 +135,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	.md-tab-header-container {
+		font-size: 8rem;
+	}
+
 	h2 {
 		color: white;
 	}

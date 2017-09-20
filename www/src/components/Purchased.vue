@@ -1,38 +1,40 @@
 <template>
     <div class="purchased">
-        <div @click="zoomIn(cardProp)" class="well picture">
-            <div class="row">
-                <div v-if="!showButtons">
-                    <div class="col-xs-2">
-                        <button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
-                    </div>
-                </div>
-                <div v-if="showButtons">
-                    <div class="col-xs-2">
-                        <button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
-                    </div>
-                    <div class="col-xs-2">
-                        <router-link :to="'/artistmobile'">
-                            <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
-                        </router-link>
-                    </div>
-                    <div class="col-xs-4">
-                        <md-button v-if="liked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</md-button>
-                        <md-button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</md-button>
-                    </div>
-                    <div class="col-xs-2">
-                        <button @click="check(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
-                    </div>
-                </div>
-            </div>
-            <router-link :to="'/artistmobile'">
+        <md-whiteframe md-elevation="24">
+            <div @click="zoomIn(cardProp)" class="well picture">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <img :src="cardProp.url" alt="image">
+                    <div v-if="!showButtons">
+                        <div class="col-xs-2">
+                            <button @click="show" class="btn show glyphicon glyphicon-chevron-right"></button>
+                        </div>
+                    </div>
+                    <div v-if="showButtons">
+                        <div class="col-xs-2">
+                            <button @click="show" class="btn show glyphicon glyphicon-chevron-left"></button>
+                        </div>
+                        <div class="col-xs-2">
+                            <router-link :to="'/artistmobile'">
+                                <button @click="zoomIn(cardProp)" class="btn glyphicon glyphicon-resize-full"></button>
+                            </router-link>
+                        </div>
+                        <div class="col-xs-4">
+                            <md-button v-if="liked" @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up liked"></span> {{cardProp.numLikes}}</md-button>
+                            <md-button v-else @click="like(cardProp._id)" class="vote btn"><span class="glyphicon glyphicon-thumbs-up"></span> {{cardProp.numLikes}}</md-button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button @click="check(cardProp._id)" class="btn glyphicon glyphicon-remove"></button>
+                        </div>
                     </div>
                 </div>
-            </router-link>
-        </div>
+                <router-link :to="'/artistmobile'">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <img :src="cardProp.url" alt="image">
+                        </div>
+                    </div>
+                </router-link>
+            </div>
+        </md-whiteframe>
     </div>
 </template>
 
@@ -96,6 +98,7 @@
             }
         }
     }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

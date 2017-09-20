@@ -9,7 +9,6 @@ import 'vue-material/dist/vue-material.css'
 import VueMasonryPlugin from 'vue-masonry'
 import swal from 'sweetalert'
 
-
 Vue.use(VueMasonryPlugin)
 Vue.use(VueMaterial)
 
