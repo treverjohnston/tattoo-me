@@ -68,10 +68,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .md-icon{
+    /* .md-icon{
         font-size: 2.5rem;
         margin-left: .75rem;
-    }
+    } */
     .top-artists {
         margin-top: 3rem;
     }

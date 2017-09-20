@@ -334,10 +334,11 @@
 </script>
 
 <style scoped>
-	.md-icon{
-        font-size: 4rem;
-        margin: 1rem 0 0rem 1rem;
-    }
+	/* .md-icon {
+		font-size: 4rem;
+		margin: 1rem 0 0rem 1rem;
+	} */
+
 	.camera {
 		overflow: hidden;
 		margin: 0px;
@@ -360,5 +361,10 @@
 		width: 50vw;
 		height: 10vh;
 		font-size: 3rem;
+	}
+
+	#canvas {
+		height: 100vh;
+		width: 100vw;
 	}
 </style>
