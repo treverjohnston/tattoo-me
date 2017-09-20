@@ -132,9 +132,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .btn{
+    .btn {
         background-color: transparent;
     }
+
     .home {
         color: blue;
     }
@@ -159,7 +160,6 @@
         height: 30%;
         width: 45vw;
         padding: 3rem 0 3rem 0;
-
     }
 
     .bot {
