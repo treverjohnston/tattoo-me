@@ -38,6 +38,10 @@
 </script>
 
 <style>
+	.md-icon{
+        font-size: 10rem;
+		margin-left: 3rem;
+    }
 	#app {
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;

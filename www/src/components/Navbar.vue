@@ -3,8 +3,14 @@
         <!-- <div class="container-fluid">
             <div class="row"> -->
         <nav class="navbar navbar-inverse navbar-fixed-bottom">
-            <ul>
-                <div class="col-xs-offset-1 col-xs-1">
+            <md-bottom-bar class="md-headline">
+                <md-bottom-bar-item href="#/home" md-icon="home" class="md-large" md-active></md-bottom-bar-item>
+                <md-bottom-bar-item href="#/search" md-icon="search" class="md-size-5x"></md-bottom-bar-item>
+                <md-bottom-bar-item class="md-size-5x" href="#/options" md-icon="camera"></md-bottom-bar-item>
+                <md-bottom-bar-item href="#/favorites" md-icon="favorite"></md-bottom-bar-item>
+                <md-bottom-bar-item href="#/profile" md-icon="perm_identity"></md-bottom-bar-item>
+            </md-bottom-bar>
+            <!-- <div class="col-xs-offset-1 col-xs-1">
                     <router-link :to="'/home'">
                         <li><a href="#" class="glyphicon glyphicon-home"></a></li>
                     </router-link>
@@ -15,9 +21,9 @@
                     </router-link>
                 </div>
                 <div class="col-xs-offset-1 col-xs-1">
-                        <router-link :to="'/options'">                            
-                    <li><a href="#" class="glyphicon glyphicon-plus-sign"></a></li>
-                        </router-link>
+                    <router-link :to="'/options'">
+                        <li><a href="#" class="glyphicon glyphicon-plus-sign"></a></li>
+                    </router-link>
                 </div>
                 <div class="col-xs-offset-1 col-xs-1">
                     <router-link :to="'/favorites'">
@@ -25,11 +31,10 @@
                     </router-link>
                 </div>
                 <div class="col-xs-offset-1 col-xs-1">
-                        <router-link :to="'/profile'">                            
-                    <li><a href="#" class="glyphicon glyphicon-user"></a></li>
-                        </router-link>
-                </div>
-            </ul>
+                    <router-link :to="'/profile'">
+                        <li><a href="#" class="glyphicon glyphicon-user"></a></li>
+                    </router-link>
+                </div> -->
         </nav>
     </div>
 </template>
@@ -41,6 +46,10 @@
             return {
 
             }
+        },
+        mounted(){
+            this.$material.inkRipple = false
+
         }
     }
 
@@ -52,12 +61,10 @@
      background-color: black;
  } */
 
-    li {
-        list-style: none;
-        font-size: 8rem;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+    .md-bottom-bar {
+        padding: 4rem 0 8rem 0;
     }
+
 
     .bar {
         position: absolute;
@@ -65,7 +72,8 @@
         bottom: 0px;
         /* height: 10vh; */
     }
-    a{
+
+    a {
         color: rgb(128, 140, 163);
     }
 </style>
