@@ -1,6 +1,5 @@
 <template>
     <div class="options">
-        <!-- <div v-if="!queue.length > 0"> -->
         <div class="container-fluid">
             <hr>
             <div class="row">
@@ -28,9 +27,10 @@
                         </md-whiteframe>
                     </router-link>
                 </div>
+            </div>
+            <div class="row">
                 <div v-if="info.accountType == 'artist'">
                     <div v-if="queue.length > 0">
-                        <!-- Links to phone camera/photos for upload -->
                         <div class="col-xs-6">
                             <router-link :to="'camera'">
                                 <md-whiteframe md-elevation="24">
@@ -57,8 +57,8 @@
                             <router-link :to="'add'">
                                 <md-whiteframe md-elevation="24">
                                     <div class="bot">
-                                        <h2>Upload Your Design</h2>
-                                        <h2 class="icon glyphicon glyphicon-picture"></h2>
+                                        <h2 class="temp">Upload Your Design</h2>
+                                        <h2 class="temp icon glyphicon glyphicon-picture"></h2>
                                     </div>
                                 </md-whiteframe>
                             </router-link>
@@ -71,8 +71,8 @@
                             <router-link :to="'camera'">
                                 <md-whiteframe md-elevation="24">
                                     <div class="bot">
-                                        <h2>Use Your Camera</h2>
-                                        <h2 class="icon glyphicon glyphicon-camera"></h2>
+                                        <h2 class="temp">Use Your Camera</h2>
+                                        <h2 class="temp icon glyphicon glyphicon-camera"></h2>
                                     </div>
                                 </md-whiteframe>
                             </router-link>
@@ -115,7 +115,7 @@
             }
         },
         mounted() {
-            if (this.queue.length < 0) {
+            if (this.queue.length <= 0) {
                 swal({
                     title: 'Choose From These Options To Add To Your Active Queue',
                     timer: 3000
@@ -179,5 +179,9 @@
 
     a {
         color: black;
+    }
+    .temp{
+        height: 100%;
+        width: 100vw;
     }
 </style>

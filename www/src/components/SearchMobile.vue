@@ -1,5 +1,5 @@
 <template>
-	<div class="mobile">
+	<div class="searchmobile">
 		<div class="container-fluid">
 			<hr>
 			<div class="row">
@@ -53,22 +53,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="tags">
-						<div v-for="tag in card.tags">
-							<h4>{{tag.name}}</h4>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'mobile',
+		name: 'searchmobile',
 		data() {
 			return {
 
@@ -114,6 +105,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	.searchmobile {
+		padding-bottom: 20vh;
+	}
+
 	.picture {
 		margin-top: 10vh;
 	}
