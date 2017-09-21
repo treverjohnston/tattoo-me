@@ -47,9 +47,14 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .heading{
+    .topartists {
+        padding-bottom: 20vh;
+    }
+
+    .heading {
         color: white;
     }
+
     button {
         margin-top: 2rem;
     }

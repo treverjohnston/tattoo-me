@@ -22,6 +22,7 @@ import Stripe from '@/components/Stripe'
 import Success from '@/components/Success'
 import Fail from '@/components/Fail'
 import Maps from '@/components/Maps'
+import Info from '@/components/Info'
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/info',
+      name: 'Info',
+      component: Info
     },
     {
       path: '/publicartistmobile',
