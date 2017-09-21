@@ -1,34 +1,30 @@
 <template>
     <div class="logo">
         <div class="phone-viewport">
-            <md-toolbar>
-                <md-button class="md-icon-button md-raised" @click="toggleLeftSidenav">
-                    <md-icon>info_outline</md-icon>
-                </md-button>
+            
                 <h2 class="md-title"><img class="picture" src="../assets/Tattoo-me-logo-new.png"></h2>
-            </md-toolbar>
-            <md-sidenav class="md-left" ref="leftSidenav" @open="open('Left')" @close="close('Left')">
-                <md-toolbar class="md-large">
-                    <div class="md-toolbar-container">
-                        <h3 class="md-title"><img class="sidePic" src="../assets/Tattoo-me-logo-new.png"></h3>
-                    </div>
-                </md-toolbar>
-                <h3>
-                    Welcome to Tattoo-Me
-                </h3>
-                <h4 class=" text text-justify">
-                    This app is made for people who want to see what real tattoo designs would look like without any hassle. You can search through
-                    designs on the home page, save your favorites, and add them to a queue to try them on yourself. If you
-                    know what you're looking for, try searching by tags. If you just want to see what some tattoos look like
-                    on you, then add to your queue and open up the phones camera to see what it looks like.
-                </h4>
-                <router-link :to="'/topartists'">
-                    <button class="top-artists btn btn-default" @click="toggleLeftSidenav">Check out the top artists of the week!</button>
-                </router-link>
-                <router-link :to="'/maps'">
-                    <button class="maps btn btn-default" @click="toggleLeftSidenav">Tattoo shops near me</button>
-                </router-link>
-            </md-sidenav>
+           
+            <md-speed-dial md-open="hover" md-direction="bottom" class="md-fab-top-right" md-theme="light-blue">
+                <md-button class="md-fab" md-fab-trigger>
+                    <router-link :to="'/topartists'">
+                        <md-icon md-icon-morph>whatshot</md-icon>
+                        <md-icon>add</md-icon>
+                    </router-link>
+                </md-button>
+
+                <md-button class="md-fab md-primary md-mini md-clean">
+                    <router-link :to="'/maps'">
+                        <md-icon>map</md-icon>
+                    </router-link>
+                </md-button>
+
+                <md-button class="md-fab md-primary md-mini md-clean">
+                    <router-link :to="'/info'">
+                        <md-icon>info_outline</md-icon>
+                    </router-link>
+                </md-button>
+
+            </md-speed-dial>
         </div>
     </div>
 </template>
@@ -72,6 +68,7 @@
         font-size: 2.5rem;
         margin-left: .75rem;
     } */
+
     .top-artists {
         margin-top: 3rem;
     }

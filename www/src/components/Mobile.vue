@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div v-if="!card.favorite">
-                    <div class="col-xs-offset-5 col-xs-4">
+                    <div class="col-xs-offset-4 col-xs-6">
                         <div v-if="!hasFavorited">
                             <button @click="favorite(card)" class="btn glyphicon glyphicon-heart"></button>
                             <router-link :to="'/stripe'">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div v-else>
-                    <div class="col-xs-offset-5 col-xs-4">
+                    <div class="col-xs-offset-4 col-xs-6">
                         <button @click="deleteFav(card)" class="btn glyphicon glyphicon-remove"></button>
                         <router-link :to="'/stripe'">
                             <button @click="confirm(card)" class="btn glyphicon money glyphicon-usd"></button>
@@ -54,12 +54,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel tags">
-                        <!-- <h2 class="text-left">Tags:</h2> -->
-                        <div v-for="tag in card.tags">
-                            <h4 class="tag-text">{{tag.name}}</h4>
-                        </div>
+                <div v-for="tag in card.tags">
+                    <div class="col-xs-4">
+                        <md-chip class="tag-text" disabled>{{tag.name}}</md-chip>
                     </div>
                 </div>
             </div>
@@ -113,13 +110,18 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .panel {
+    .mobile{
+        padding-bottom: 20vh;
+    }
+    .tag {
         margin: 3rem 0 0 0;
         padding: 2rem 0 2rem 0;
     }
 
     .tag-text {
-        font-size: 3rem;
+        font-size: 4rem;
+        padding: 2rem 2rem 4rem 2rem;
+        margin-bottom: 1rem;
     }
 
     .picture {
