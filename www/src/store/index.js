@@ -93,7 +93,7 @@ var store = new vuex.Store({
 			state.tattoos.splice(state.tattoos.indexOf(tattoo), 1)
 		},
 		setInfo(state, obj) {
-			console.log('info', obj)
+			// console.log('info', obj)
 			state.userInfo = obj
 		},
 
@@ -158,11 +158,11 @@ var store = new vuex.Store({
 				})
 		},
 		removeTattoo({ commit, dispatch }, id) {
-			console.log('at removes')
+			// console.log('at removes')
 			router.push('Profile')
 			api.delete('tattoos/' + id)
 				.then(res => {
-					console.log(res)
+					// console.log(res)
 					dispatch('getArtistGallery')
 					dispatch('getTattoos')
 				})
@@ -186,7 +186,7 @@ var store = new vuex.Store({
 		purchaseTattoo({ commit, dispatch }, { token, tattooId }) {
 			api.put('tattoos/' + tattooId + '/purchase', { stripeToken: token })
 				.then(res => {
-					console.log(res);
+					// console.log(res);
 				})
 				.catch(err => {
 					commit('handleError', err)
@@ -195,7 +195,7 @@ var store = new vuex.Store({
 		getPurchased({commit, dispatch}){
 			api('purchased')
 			.then(res=>{
-				console.log(res)
+				// console.log(res)
 				commit('setPurchased', res.data.data)
 			})
 			.catch(err => {
@@ -272,7 +272,7 @@ var store = new vuex.Store({
 							.then(res => {
 								api.put('tattoos/' + tattooId + '/update', { tag: res.data.data._id })
 									.then(res => {
-										console.log('Tagged tattoo:', res.data.data)
+										// console.log('Tagged tattoo:', res.data.data)
 										commit('uploadedTat', res.data.data)
 									})
 									.catch(err => {
@@ -293,10 +293,11 @@ var store = new vuex.Store({
 		register({ commit, dispatch }, obj) {
 			auth.post("register", obj)
 				.then((res) => {
+					// console.log(res.data)
 					if (res.data.message) {
 						commit('setInfo', res.data.data)
 						router.push('home')
-					} else if (res.error) {
+					} else if (res.data.error) {
 						alert("Invalid Email or password");
 					}
 				})
@@ -305,7 +306,7 @@ var store = new vuex.Store({
 		login({ commit, dispatch }, obj) {
 			auth.post("login", obj)
 				.then((res) => {
-					if (res.data.message == "Invalid Email or Password") {
+					if (res.data.error) {
 						alert("Invalid Email or password");
 					} else {
 						commit('setInfo', res.data.data)

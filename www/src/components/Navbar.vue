@@ -14,12 +14,16 @@
                             <md-bottom-bar-item href="#/options">
                                 <md-icon class="md-size-5x">camera</md-icon>
                             </md-bottom-bar-item>
-                            <md-bottom-bar-item href="#/favorites">
-                                <md-icon class="md-size-5x">favorite</md-icon>
-                            </md-bottom-bar-item>
-                            <md-bottom-bar-item href="#/profile">
-                                <md-icon class="md-size-5x">perm_identity</md-icon>
-                            </md-bottom-bar-item>
+                            <div v-if="user._id != null">
+                                <md-bottom-bar-item href="#/favorites">
+                                    <md-icon class="md-size-5x">favorite</md-icon>
+                                </md-bottom-bar-item>
+                            </div>
+                            <div v-if="user._id != null">
+                                <md-bottom-bar-item href="#/profile">
+                                    <md-icon class="md-size-5x">perm_identity</md-icon>
+                                </md-bottom-bar-item>
+                            </div>
                         </md-bottom-bar>
                     </nav>
                 </div>
@@ -39,6 +43,11 @@
         mounted() {
             this.$material.inkRipple = false
 
+        },
+        computed: {
+            user() {
+                return this.$store.state.userInfo
+            }
         }
     }
 

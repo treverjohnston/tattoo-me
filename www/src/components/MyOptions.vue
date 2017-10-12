@@ -15,17 +15,19 @@
                         </md-whiteframe>
                     </router-link>
                 </div>
-                <div class="col-xs-6">
-                    <router-link :to="'favorites'">
-                        <md-whiteframe md-elevation="24">
-                            <button class="btn" @click="setCamera">
-                            <div class="top">
-                            <h2>Choose From Favorites</h2>
-                            <h2 class="icon glyphicon fav glyphicon-heart"></h2>
-                        </div>
-                        </button>
-                        </md-whiteframe>
-                    </router-link>
+                <div v-if="info._id != null">
+                    <div class="col-xs-6">
+                        <router-link :to="'favorites'">
+                            <md-whiteframe md-elevation="24">
+                                <button class="btn" @click="setCamera">
+                                    <div class="top">
+                                        <h2>Choose From Favorites</h2>
+                                        <h2 class="icon glyphicon fav glyphicon-heart"></h2>
+                                    </div>
+                                </button>
+                            </md-whiteframe>
+                        </router-link>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -180,7 +182,8 @@
     a {
         color: black;
     }
-    .temp{
+
+    .temp {
         height: 100%;
         width: 100vw;
     }
